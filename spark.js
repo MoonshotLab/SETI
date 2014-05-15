@@ -1,16 +1,14 @@
 var needle = require('needle');
-var path = require('path');
 
 exports.notify = function(opts){
-  var url = path.join(
-    'https://api.spark.io/v1/devices/',
+  var url = [
+    'https://api.spark.io/v1/devices',
     process.env.SPARK_CORE_ID,
     opts.eventType
-  );
+  ].join('/');
 
   var params = {
-    access_token: process.env.SPARK_ACCESS_TOKEN,
-    message: opts.message
+    access_token: process.env.SPARK_ACCESS_TOKEN
   };
 
   needle.post(url, params, function(err, res, body){
