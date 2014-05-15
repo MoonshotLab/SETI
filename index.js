@@ -9,8 +9,9 @@ var twittter = new twit({
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
 
+var usersToTrack = process.env.TRACK_USERS.split(',');
 var socialStream = twittter.stream('user', {
-  track: ['joelongstreet']
+  track: usersToTrack
 });
 
 
@@ -28,4 +29,5 @@ socialStream.on('follow', function(data){
 
 socialStream.on('connected', function(){
   console.log('twitter stream connected, waiting for events...');
+  console.log('tracking users:', usersToTrack.join(', '));
 });
