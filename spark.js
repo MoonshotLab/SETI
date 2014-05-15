@@ -9,7 +9,7 @@ exports.notify = function(opts){
   );
 
   var params = {
-    access_token: process.env.SPARK_CORE_ACCESS_TOKEN,
+    access_token: process.env.SPARK_ACCESS_TOKEN,
     message: opts.message
   };
 
