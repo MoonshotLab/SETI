@@ -14,6 +14,8 @@ exports.notify = function(opts){
   };
 
   needle.post(url, params, function(err, res, body){
-    console.log('succesfully notified spark');
+    if(err) console.log(err);
+    else
+      console.log('succesfully notified spark \n', body);
   });
 };
