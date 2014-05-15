@@ -19,6 +19,9 @@ socialStream.on('follow', function(data){
   if(data.source){
     var source = data.source;
     if(source.followers_count > 0){
+      console.log('new follower!');
+      console.log(data);
+
       spark.notify({
         eventType: 'follow',
         message: data.source
