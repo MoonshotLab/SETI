@@ -31,3 +31,12 @@ socialStream.on('connected', function(){
   console.log('twitter stream connected, waiting for events...');
   console.log('tracking users:', usersToTrack.join(', '));
 });
+
+
+// Just creating a useless web server so heroku doesn't complain
+// about the port not being bound
+var port = process.env.PORT || 3000;
+require('http').createServer(function(req, res){
+  res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.end("hello there...", 'utf-8');
+}).listen(port);
