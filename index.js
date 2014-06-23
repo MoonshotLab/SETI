@@ -22,11 +22,15 @@ http.listen(process.env.PORT || 3000);
 
 var broadcastFollow = function(data){
   var sparkEventType = 'follow';
-  if(data.followers_count > minFollowerAlertCount){
+  if(data.source.followers_count > minFollowerAlertCount){
     sparkEventType = 'influencer-alert';
   }
 
-  spark.notify({ eventType: sparkEventType });
+  spark.notify({
+    eventType: sparkEventType,
+    userId: data.target.screen_name
+  });
+
   io.emit('new-follower', data);
 };
 
