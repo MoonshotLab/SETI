@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang='en-US'>
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Influencer Alert</title>
+
+    <script src='/socket.io/socket.io.js'></script>
+    <script>
+      var socket = io();
+      io.on('connection', function(socket){
+        socket.on('new-follower', function(data){
+          console.log(data);
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    
+  </body>
+</html>

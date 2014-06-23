@@ -1,14 +1,21 @@
-var app = require('express')();
+var express = require('express');
+var ejs = require('ejs');
 var spark = require('./lib/spark');
-var twitter = require('./lib/twitter');
+var twitter = require('./lib/twitter').subscribe();
+
+var app = express();
 var http = require('http').Server(app);
 var routes = require('./lib/routes');
 var io = require('socket.io')(http);
-var PORT = process.env.PORT || 3000;
+
+app.use(express.static(__dirname + '/public'));
+app.engine('.html', require('ejs').__express);
+app.set('views', __dirname + '/views');
 
 app.get('/', routes.home);
-app.get('/:client', routes.showClient);
+app.get('/:twitterId', routes.show);
 
+http.listen(process.env.PORT || 3000);
 
 
 var broadcastFollow = function(data){
@@ -20,11 +27,5 @@ var broadcastFollow = function(data){
   spark.notify({ eventType: sparkEventType });
   io.emit('new-follower', data);
 };
-
-
-http.listen(PORT, function(){
-  console.log('server running on port', PORT);
-});
-
 
 twitter.on('new-follower', broadcastFollow);
