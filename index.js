@@ -1,6 +1,6 @@
 var twit = require('twit');
 var spark = require('./spark');
-
+var minFollowers = process.env.MIN_FOLLOWERS || 0;
 
 var twittter = new twit({
   consumer_key: process.env.TWITTER_CONSUMER_KEY,
@@ -18,7 +18,7 @@ var socialStream = twittter.stream('user', {
 socialStream.on('follow', function(data){
   if(data.source){
     var source = data.source;
-    if(source.followers_count > 0){
+    if(source.followers_count > minFollowers){
       console.log('new follower!');
       console.log(data);
 
