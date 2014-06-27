@@ -1,7 +1,7 @@
 var express = require('express');
 var ejs = require('ejs');
 var spark = require('./lib/spark');
-var twitter = require('./lib/twitter').subscribe();
+var twitter = require('./lib/twitter');
 
 var app = express();
 var http = require('http').Server(app);
@@ -34,4 +34,6 @@ var broadcastFollow = function(data){
   io.emit('new-follower', data);
 };
 
-twitter.on('new-follower', broadcastFollow);
+twitter.startStream();
+var tweets = twitter.subscribe();
+tweets.on('new-follower', broadcastFollow);
