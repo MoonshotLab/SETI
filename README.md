@@ -15,7 +15,7 @@ The following environment variables are required
 * `TRACK_USERS` - Space separated list of users you'd like to track (eg. "joelongstreet phard joenormal")
 * `SPARK_ACCESS_TOKEN`
 * `SPARK_CORE_ID`
-* `MIN_FOLLOWERS` - The minimum number of followers to trigger an influencer alert to the Spark.
+* `INFLUENCER_KEY` - The minimum number of followers to trigger an influencer alert to the Spark.
 
 
 ## REST Routes

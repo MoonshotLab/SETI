@@ -2,6 +2,7 @@ var express = require('express');
 var ejs = require('ejs');
 var spark = require('./lib/spark');
 var twitter = require('./lib/twitter');
+var utils = require('./lib/utils');
 
 var app = express();
 var http = require('http').Server(app);
@@ -16,13 +17,16 @@ app.set('views', __dirname + '/views');
 app.get('/', routes.home);
 app.get('/:username', routes.getUser);
 app.get('/:username/followers', routes.getFollowers);
+app.get('/:username/influencers', routes.getInfluencers);
 
 http.listen(process.env.PORT || 3000);
 
 
 var broadcastFollow = function(data){
   var sparkEventType = 'follow';
-  if(data.source.followers_count > minFollowerAlertCount){
+  var user = data.source;
+
+  if(utils.userIsInfluencer(user)){
     sparkEventType = 'influencer-alert';
   }
 
