@@ -1,4 +1,4 @@
-# Influencer Alert
+# SETI
 An application which notifies a [spark core](http://spark.io) when a twitter user follows one of a specified list of users. If twitter users are of a specified influencer level, an extra notifier occurs.
 
 
