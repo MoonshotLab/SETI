@@ -8,7 +8,10 @@ var username = process.argv[2];
 
 twitter.getFollowers(username)
   .then(function(followers){
-    var abbreviated = cache.saveFollowers(followers);
+    var abbreviated = cache.saveFollowers({
+      username: username,
+      followers: followers
+    });
     console.log('sucessfully fetched', followers.length,
       'followers for', username
     );
