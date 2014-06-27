@@ -13,7 +13,7 @@ The following environment variables are required
 * `TWITTER_ACCESS_TOKEN`
 * `TWITTER_ACCESS_TOKEN_SECRET`
 * `TRACK_USERS` - Space separated list of users you'd like to track (eg. "joelongstreet phard joenormal")
-* `SPARK_CORE_ACCESS_TOKEN`
+* `SPARK_ACCESS_TOKEN`
 * `SPARK_CORE_ID`
 * `MIN_FOLLOWERS` - The minimum number of followers to trigger an influencer alert to the Spark.
 
