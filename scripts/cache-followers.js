@@ -15,7 +15,9 @@ twitter.getFollowers(username)
     console.log('sucessfully fetched', followers.length,
       'followers for', username
     );
+    process.exit();
   })
   .fail(function(err){
     console.log(err);
+    process.exit();
   });
