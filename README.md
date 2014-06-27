@@ -23,3 +23,7 @@ A few rest routes are available for the client side application to consume:
 
 * `/:twitterUsername` - Return data about the user
 * `/:twitterUsername/followers/` - Return data about the user's most recent 20 followers.
+
+
+## Scripts
+* `node scripts/cache-followers.js joelongstreeet` - Cache all followers in an abbreviated set for user joelongstreet
