@@ -6,7 +6,7 @@ var twitter = require('../lib/twitter');
 var cache = require('../lib/cache');
 var username = process.argv[2];
 
-twitter.getFollowers(username)
+twitter.getAllFollowers(username)
   .then(function(followers){
     var abbreviated = cache.saveFollowers({
       username: username,
