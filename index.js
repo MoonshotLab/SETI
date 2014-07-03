@@ -39,6 +39,18 @@ var broadcastFollow = function(data){
   io.emit('new-follower', data);
 };
 
+
+var broadcastMention = function(data){
+  spark.notify({
+    eventType: 'mention',
+    username: data.mentionee
+  });
+
+  io.emit('mention', data);
+};
+
+
 twitter.startStream();
 var tweets = twitter.subscribe();
 tweets.on('new-follower', broadcastFollow);
+tweets.on('mention', broadcastMention);
