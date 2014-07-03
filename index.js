@@ -36,6 +36,7 @@ var broadcastFollow = function(data){
     userId: data.target.screen_name
   });
 
+  console.log('EVENT:', sparkEventType);
   io.emit('new-follower', data);
 };
 
@@ -46,6 +47,7 @@ var broadcastMention = function(data){
     username: data.mentionee
   });
 
+  console.log('EVENT:', 'mention');
   io.emit('mention', data);
 };
 
