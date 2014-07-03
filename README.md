@@ -21,8 +21,22 @@ The following environment variables are required
 ## REST Routes
 A few rest routes are available for the client side application to consume:
 
-* `/:twitterUsername` - Return data about the user
-* `/:twitterUsername/followers/` - Return data about the user's most recent 20 followers.
+* `/:twitterUsername` - Return data about a given user
+* `/:twitterUsername/followers/` - Return data regarding the given user's most recent 200 followers
+* `/:twitterUsername/influencers/` - Return the full cached list of all followers for the given user which are considered an "influencer"
+* `/:twitterUsername/mentions/` - Return up to 100 of the most recent mentions for a given user
+
+
+## Socket and Broadcasted Events
+The following events are broadcasted to a spark core and are available via a websocket subscription. A *tracked* user is defined as any user listed within the *TRACK_USERS* environmnent variable.
+
+* `influencer-alert` - A *tracked user* has a new follower which matches the influencer criteria
+* `follow` - A *tracked user* has a new follower
+* `mention` - A *tracked user* is mentioned
+
+
+## What's an Influencer?
+An influencer is defined as a follower of a given user which has at least 50,000 followers of their own and follows no more than half of the number of which follow them.
 
 
 ## Scripts
