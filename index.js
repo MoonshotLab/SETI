@@ -24,31 +24,33 @@ http.listen(process.env.PORT || 3000);
 
 
 var broadcastFollow = function(data){
-  var sparkEventType = 'follow';
+  var eventType = 'follow';
   var user = data.source;
 
   if(utils.userIsInfluencer(user)){
-    sparkEventType = 'influencer-alert';
+    eventType = 'influencer-alert';
   }
 
   spark.notify({
-    eventType: sparkEventType,
+    eventType: eventType,
     userId: data.target.screen_name
   });
 
-  console.log('EVENT:', sparkEventType);
-  io.emit('new-follower', data);
+  console.log('EVENT:', eventType);
+  io.emit(eventType, data);
 };
 
 
 var broadcastMention = function(data){
+  var eventType = 'mention';
+
   spark.notify({
-    eventType: 'mention',
+    eventType: eventType,
     username: data.mentionee
   });
 
-  console.log('EVENT:', 'mention');
-  io.emit('mention', data);
+  console.log('EVENT:', eventType);
+  io.emit(eventType, data);
 };
 
 
