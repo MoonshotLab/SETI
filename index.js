@@ -18,6 +18,7 @@ app.get('/', routes.home);
 app.get('/:username', routes.getUser);
 app.get('/:username/followers', routes.getFollowers);
 app.get('/:username/influencers', routes.getInfluencers);
+app.get('/:username/mentions', routes.getMentions);
 
 http.listen(process.env.PORT || 3000);
 
