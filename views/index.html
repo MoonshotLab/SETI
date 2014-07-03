@@ -8,10 +8,17 @@
     <script src='/socket.io/socket.io.js'></script>
     <script>
       var socket = io();
-      io.on('connection', function(socket){
-        socket.on('new-follower', function(data){
-          console.log(data);
-        });
+
+      socket.on('follow', function(data){
+        console.log(data);
+      });
+
+      socket.on('influencer-alert', function(data){
+        console.log(data);
+      });
+
+      socket.on('mention', function(data){
+        console.log(data);
       });
     </script>
     <link rel="stylesheet" href="/css/normalize.css">
@@ -24,14 +31,14 @@
       <div id="alert" title="Alerts"></div>
     </header>
     <section id="main-content">
-      <menu id="client-menu"> 
-        
+      <menu id="client-menu">
+
       </menu>
       <section id="influencer-list">
-        
+
       </section>
 
     </section>
-   
+
   </body>
 </html>
