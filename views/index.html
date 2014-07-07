@@ -3,9 +3,10 @@
   <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <title>Influencer Alert</title>
+    <title>Project SETI</title>
 
-    
+     
+
     <script src='/socket.io/socket.io.js'></script>
     <script>
       var socket = io();
@@ -15,24 +16,71 @@
         });
       });
     </script>
+
+    <!-- JS -->
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="js/init.js"></script>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/style.css">
+
+   
   </head>
 
   <body>
-    <header id="top-header">
-      <div id="logo" title="Logo"></div>
-      <div id="seti-info"> Want to know more about project SETI?</div>
-    </header>
-    <section id="main-content">
-      <menu id="client-menu"> 
-        
-      </menu>
-      <section id="influencer-list">
-        
-      </section>
+    <div id="top-header">
+      <div id="full-width-bar"></div>
+      <div id="logo" title="Logo">
+        <a href="">
+        <img id="rocket" src="img/logo.png" alt="Project SETI Logo">
+        <img id="text-logo" src="img/text-logo.png" alt="Project SETI Text logo">
 
-    </section>
+        </a>
+      </div>
+      <a href="" id="seti-info"></a>
+    </div>
+    <div id="main-content">
+      <div id="client-menu"> 
+        <div id="title" class="default-margin">
+          <img src="img/list-icon.png" alt="List Icon">
+          <h2>Client list</h2>
+
+        </div>
+        <div class="hor-sep-line"></div>
+        <ul id="client-list" class="default-margin">
+          <li>
+            <img src="img/list-dot-icon.png" alt="List Dot Icon">
+            <h2>All Clients</h2>
+            <div class="arrow"><img src="img/arrow.png" alt=""></div>
+          </li>
+          <div class="hor-sep-line"></div>
+           <li>
+            <img src="img/list-dot-icon.png" alt="List Dot Icon">
+            <h2>Wingstop</h2>
+            <div class="arrow"><img src="img/arrow.png" alt=""></div>
+          </li>
+          <div class="hor-sep-line"></div>
+           <li>
+            <img src="img/list-dot-icon.png" alt="List Dot Icon">
+            <h2>Dairy Queen</h2>
+            <div class="arrow"><img src="img/arrow.png" alt=""></div>
+          </li>
+          <div class="hor-sep-line"></div>
+           <li>
+            <img src="img/list-dot-icon.png" alt="List Dot Icon">
+            <h2>Blue Bunny</h2>
+            <div class="arrow"><img src="img/arrow.png" alt=""></div>
+          </li>
+          <div class="hor-sep-line"></div>
+        </ul>
+        
+      </div>
+      <div id="influencer-list">
+        
+      </div>
+
+    </div>
    
   </body>
 </html>
