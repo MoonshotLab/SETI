@@ -18,17 +18,32 @@ shadow: box-shadow: 0px 0px 5px #888888;
 .hor-sep-line{
 	background: url("../img/sep-line-vis.png") repeat-x;
 	width: 100%;
-	height: 11px;
+	height: 3px;
+	overflow: visible;
 	position: relative;
 	top:-5px;
+	z-index: 1;
+	box-shadow: -2px 0px 10px #141414;
+	overflow: hidden;
 }
-
+.vert-sep-line{
+	position: relative;
+	float: left;
+	height: 13px;
+	width: 1px;
+	background: #4d4d4d;
+	margin-top: 5px;
+	margin-left: 15px;
+	margin-right: 15px;
+}
 /* Body */
 body {
 	background: url("../img/bg.jpg");
 }
 
-/*	Header */
+/****************************************************/
+/* Header */
+/****************************************************/
 #top-header{
 	position: fixed;
 	float: left;
@@ -71,26 +86,20 @@ body {
 	background: #2e2f2f;
 }
 
-/* Content */
-#main-content{
-	position: relative;
-	display: block;
-	float: left;
-	height: 100%;
-	width: 100%;
-	margin-top: 0;
-	margin-bottom: 0;
-}
-/* Client list */
+/****************************************************/
+/* Client List */
+/****************************************************/
+
 #client-menu{
 	position: fixed;
 	float: left;
 	margin: 0;
-	width: 35%;
+	width: 270px;
 	height: 100%;
 	background: url("../img/dash-pat.jpg") repeat;
 	padding: 0;
 	margin-top: 120px;
+	z-index: 2;
 }
 #client-menu #title{
 	height: 50px;
@@ -118,11 +127,15 @@ body {
 #client-menu #client-list li{
 	display: block;
 	cursor: pointer;
-	margin: 0;
-	margin-left: 20px;
-	margin-top: 8px;
-	height: 40px;
 	opacity: 0.8;
+	position: relative;
+	top: -8px;
+	z-index:2;
+}
+#client-menu #client-list li .button-holder{
+	margin-left: 20px;
+	padding-top: 20px;
+	padding-bottom: 37px;
 }
 #client-menu #client-list li:hover{
 	opacity: 1;
@@ -133,8 +146,10 @@ body {
 	margin-right: 20px;
 }
 #client-menu #client-list li .arrow{
+	position: relative;
+	float: left;
+	left: 5px;
 	opacity: 0;
-	
 }
 #client-menu #client-list li h2{
 	float: left;
@@ -147,11 +162,97 @@ body {
 	padding-left: 20px;
 	
 }
-#influencer-list{
+#client-menu #client-list .all-clients{
+	margin-left: -4px;
+	display: none; /* Temporary Disabled */
+}
+#client-menu #client-list .all-clients #all-client-icon{
+	margin-top: 2px;
+}
+#client-menu #client-list .highlight{
+	position: absolute;
+	top:-3px;
+}
+
+/* Active client */
+#client-menu #client-list li.active{
+	opacity: 1;
+}
+/*#client-menu #client-list li #active-content{
+	display: none;
+}*/
+/*#client-menu #client-list li.active #active-content{
+	display: block;
+}*/
+#client-menu #client-list #active-content{
+	margin-top: 30px;
+	
+	height: 200px;
+}
+#client-menu #client-list #active-content img{
+	margin-left: 31px;
+}
+#client-menu #client-list #active-content .overlay{
+	position: absolute;
+	z-index: 2;
+}
+#client-menu #client-list #active-content .client-logo{
+	height: 164px; /* Image size */
+	width: 162px; /* Image size */
+	overflow: hidden;
+	position: absolute;
+	z-index: 1;
+}
+#client-menu #client-list #active-content #stats{
 	position: relative;
 	float: left;
+	display: block;
+	margin-top: 180px;
+	height: 20px;
+	width: 100%;
+}
+#client-menu #client-list #active-content #stats img{
+	margin-left: 0;
+	margin-right: 0;
+}
+#client-menu #client-list #active-content #stats h3{
+	position: relative;
+	float: left;
+	display: block;
+	color: white;
 	margin: 0;
-	width: 65%;
-	margin-left: 35%;
+	font-size: 14px;
+
+	margin-top: 2px;
+}
+#client-menu #client-list #active-content #mentions{
+	float: right;
+	margin-right: 20px;
+}
+/****************************************************/
+/* Main Content */
+/****************************************************/
+#main-content{
+	position: relative;
+	display: block;
+	float: left;
+	height: 100%;
+	width: 100%;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+#influencer-list-content-holder{
+	clear: both;
+	position: relative;
+	display: block;
+	height: 100%;
+	width: 100%;
+	margin-bottom: 0;
+	margin-top: 120px;
+}
+#influencer-list{
+	margin-left: 270px;
+	margin-right: 0;
+/*	background: #ff0000;*/
 	height: 100%;
 }

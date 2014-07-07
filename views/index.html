@@ -1,11 +1,9 @@
 <!DOCTYPE html>
-<html lang='en-US'>
+<html lang='en-US' ng-app="SETI">
   <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>Project SETI</title>
-
-     
 
     <script src='/socket.io/socket.io.js'></script>
     <script>
@@ -25,6 +23,7 @@
     </script>
 
     <!-- JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="js/init.js"></script>
 
@@ -35,8 +34,8 @@
    
   </head>
 
-  <body>
-<<<<<<< HEAD
+  <body ng-controller="DataController as data">
+  <!-- Header -->
     <div id="top-header">
       <div id="full-width-bar"></div>
       <div id="logo" title="Logo">
@@ -48,63 +47,131 @@
       </div>
       <a href="" id="seti-info"></a>
     </div>
+    <!-- Main Content -->
     <div id="main-content">
-      <div id="client-menu"> 
+    <!-- Client Menu -->
+      <div id="client-menu" ng-controller="MenuController as menuData"> 
         <div id="title" class="default-margin">
           <img src="img/list-icon.png" alt="List Icon">
-          <h2>Client list</h2>
+          <h2>Client list {{menuData.menuItem}}</h2>
 
         </div>
         <div class="hor-sep-line"></div>
         <ul id="client-list" class="default-margin">
-          <li>
-            <img src="img/list-dot-icon.png" alt="List Dot Icon">
-            <h2>All Clients</h2>
-            <div class="arrow"><img src="img/arrow.png" alt=""></div>
+          <li class="all-clients" ng-click="menuData.activeMenu(1)" ng-class="{ active: menuData.getActiveMenu(1)}">
+          <img class="highlight" src="img/client-list-highlight.png" alt="Highlight for menu">
+          <div class="button-holder">
+              <img id="all-client-icon" src="img/all-client-icon.png" alt="List Dot Icon">
+              <h2>All Clients</h2>
+              <div class="arrow"><img src="img/arrow.png" alt=""></div>
+              <div id="active-content" ng-show="menuData.menuItem === 1">
+                <img class="overlay" src="img/client-active-overlay.png" alt="Client Logo Overlay">
+                <img class="client-logo" src="img/clients/dq-logo.png" alt="Dairy Queen"> <!-- Add Dynamic Content -->
+                <div id="stats">
+                  <div id="influencers">
+                    <img src="img/influencer-icon.png" alt="People icon">
+                    <div class="vert-sep-line"></div>
+                    <h3>75</h3>  <!-- Add Dynamic Content -->
+                  </div>
+                  <div id="mentions">
+                    <h3>120</h3>  <!-- Add Dynamic Content -->
+                    <div class="vert-sep-line"></div>
+                    <img src="img/mention-icon.png" alt="@ sign icon">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <!-- <div class="hor-sep-line"></div> -->
+
+           <li ng-click="menuData.activeMenu(2)" ng-class="{ active: menuData.getActiveMenu(2)}">
+            <img class="highlight" src="img/client-list-highlight.png" alt="Highlight for menu">
+           <div class="button-holder">
+              <img src="img/list-dot-icon.png" alt="List Dot Icon">
+              <h2>Wingstop</h2>
+              <div class="arrow"><img src="img/arrow.png" alt=""></div>
+              <div id="active-content" ng-show="menuData.menuItem === 2">
+                <img class="overlay" src="img/client-active-overlay.png" alt="Client Logo Overlay">
+                <img class="client-logo" src="img/clients/wingstop-logo.png" alt="Dairy Queen"> <!-- Add Dynamic Content -->
+                <div id="stats">
+                  <div id="influencers">
+                    <img src="img/influencer-icon.png" alt="People icon">
+                    <div class="vert-sep-line"></div>
+                    <h3>{{data.getInfluencerCount("ws")}}</h3>  <!-- Add Dynamic Content -->
+                  </div>
+                  <div id="mentions">
+                    <h3>{{data.getMentionCount("ws")}}</h3>  <!-- Add Dynamic Content -->
+                    <div class="vert-sep-line"></div>
+                    <img src="img/mention-icon.png" alt="@ sign icon">
+                  </div>
+                </div>
+              </div>
+            </div>
           </li>
           <div class="hor-sep-line"></div>
-           <li>
-            <img src="img/list-dot-icon.png" alt="List Dot Icon">
-            <h2>Wingstop</h2>
-            <div class="arrow"><img src="img/arrow.png" alt=""></div>
+
+           <li ng-click="menuData.activeMenu(3)" ng-class="{ active: menuData.getActiveMenu(3)}">
+           <img class="highlight" src="img/client-list-highlight.png" alt="Highlight for menu">
+             <div class="button-holder">
+              <img src="img/list-dot-icon.png" alt="List Dot Icon">
+              <h2>Dairy Queen</h2>
+              <div class="arrow"><img src="img/arrow.png" alt=""></div>
+              <div id="active-content" ng-show="menuData.menuItem === 3">
+                <img class="overlay" src="img/client-active-overlay.png" alt="Client Logo Overlay">
+                <img class="client-logo" src="img/clients/dq-logo.png" alt="Dairy Queen"> <!-- Add Dynamic Content -->
+                <div id="stats">
+                  <div id="influencers">
+                    <img src="img/influencer-icon.png" alt="People icon">
+                    <div class="vert-sep-line"></div>
+                    <h3>{{data.getInfluencerCount("dq")}}</h3>  <!-- Add Dynamic Content -->
+                  </div>
+                  <div id="mentions">
+                    <h3>{{data.getMentionCount("dq")}}</h3>  <!-- Add Dynamic Content -->
+                    <div class="vert-sep-line"></div>
+                    <img src="img/mention-icon.png" alt="@ sign icon">
+                  </div>
+                </div>
+              </div>
+            </div>
           </li>
+
           <div class="hor-sep-line"></div>
-           <li>
-            <img src="img/list-dot-icon.png" alt="List Dot Icon">
-            <h2>Dairy Queen</h2>
-            <div class="arrow"><img src="img/arrow.png" alt=""></div>
-          </li>
-          <div class="hor-sep-line"></div>
-           <li>
-            <img src="img/list-dot-icon.png" alt="List Dot Icon">
-            <h2>Blue Bunny</h2>
-            <div class="arrow"><img src="img/arrow.png" alt=""></div>
+           <li ng-click="menuData.activeMenu(4)" ng-class="{ active: menuData.getActiveMenu(4)}">
+           <img class="highlight" src="img/client-list-highlight.png" alt="Highlight for menu">
+             <div class="button-holder">
+              <img src="img/list-dot-icon.png" alt="List Dot Icon">
+              <h2>Blue Bunny</h2>
+              <div class="arrow"><img src="img/arrow.png" alt=""></div>
+              <div id="active-content" ng-show="menuData.menuItem === 4">
+                <img class="overlay" src="img/client-active-overlay.png" alt="Client Logo Overlay">
+                <img class="client-logo" src="img/clients/bb-logo.png" alt="Dairy Queen"> <!-- Add Dynamic Content -->
+                <div id="stats">
+                  <div id="influencers">
+                    <img src="img/influencer-icon.png" alt="People icon">
+                    <div class="vert-sep-line"></div>
+                    <h3>{{data.getInfluencerCount("bb")}}</h3>  <!-- Add Dynamic Content -->
+                  </div>
+                  <div id="mentions">
+                    <h3>{{data.getMentionCount("bb")}}</h3>  <!-- Add Dynamic Content -->
+                    <div class="vert-sep-line"></div>
+                    <img src="img/mention-icon.png" alt="@ sign icon">
+                  </div>
+                </div>
+              </div>
+            </div>
           </li>
           <div class="hor-sep-line"></div>
         </ul>
         
       </div>
-      <div id="influencer-list">
-        
+      <!-- Influencer List (right content) -->
+      <div id="influencer-list-content-holder">
+        <div id="influencer-list">
+          
+        </div>
       </div>
 
     </div>
-   
-=======
-    <header id="top-header">
-      <div id="logo" title="Logo"></div>
-      <div id="seti-info"> Want to know more about project SETI?</div>
-    </header>
-    <section id="main-content">
-      <menu id="client-menu">
-
-      </menu>
-      <section id="influencer-list">
-
-      </section>
-
-    </section>
-
->>>>>>> FETCH_HEAD
+  
   </body>
 </html>
