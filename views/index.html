@@ -10,10 +10,17 @@
     <script src='/socket.io/socket.io.js'></script>
     <script>
       var socket = io();
-      io.on('connection', function(socket){
-        socket.on('new-follower', function(data){
-          console.log(data);
-        });
+
+      socket.on('follow', function(data){
+        console.log(data);
+      });
+
+      socket.on('influencer-alert', function(data){
+        console.log(data);
+      });
+
+      socket.on('mention', function(data){
+        console.log(data);
       });
     </script>
 
@@ -29,6 +36,7 @@
   </head>
 
   <body>
+<<<<<<< HEAD
     <div id="top-header">
       <div id="full-width-bar"></div>
       <div id="logo" title="Logo">
@@ -82,5 +90,21 @@
 
     </div>
    
+=======
+    <header id="top-header">
+      <div id="logo" title="Logo"></div>
+      <div id="seti-info"> Want to know more about project SETI?</div>
+    </header>
+    <section id="main-content">
+      <menu id="client-menu">
+
+      </menu>
+      <section id="influencer-list">
+
+      </section>
+
+    </section>
+
+>>>>>>> FETCH_HEAD
   </body>
 </html>
