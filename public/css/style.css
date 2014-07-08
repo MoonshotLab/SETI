@@ -23,7 +23,7 @@ shadow: box-shadow: 0px 0px 5px #888888;
 	position: relative;
 	top:-5px;
 	z-index: 1;
-	box-shadow: -2px 0px 10px #141414;
+	box-shadow: -2px 0px 10px #000000;
 	overflow: hidden;
 }
 .vert-sep-line{
@@ -188,7 +188,10 @@ body {
 	margin-top: 30px;
 	
 	height: 200px;
+	
+
 }
+ 
 #client-menu #client-list #active-content img{
 	margin-left: 31px;
 }
@@ -253,6 +256,19 @@ body {
 #influencer-list{
 	margin-left: 270px;
 	margin-right: 0;
-/*	background: #ff0000;*/
 	height: 100%;
+}
+#influencer-list #influencer-header h2{
+	font-size: 15px;
+	color: #393838;
+	float: left;
+	text-transform:uppercase;
+	letter-spacing:2px;
+	margin: 0;
+	margin-left: 20px;
+	margin-top: 30px;
+}
+
+#influencer-list #influencer-header #filter{
+	
 }

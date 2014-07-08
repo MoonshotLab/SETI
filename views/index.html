@@ -5,24 +5,25 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>Project SETI</title>
 
-    <script src='/socket.io/socket.io.js'></script>
+    <!-- <script src='/socket.io/socket.io.js'></script> -->
     <script>
-      var socket = io();
+      // var socket = io();
 
-      socket.on('follow', function(data){
-        console.log(data);
-      });
+      // socket.on('follow', function(data){
+      //   console.log(data);
+      // });
 
-      socket.on('influencer-alert', function(data){
-        console.log(data);
-      });
+      // socket.on('influencer-alert', function(data){
+      //   console.log(data);
+      // });
 
-      socket.on('mention', function(data){
-        console.log(data);
-      });
+      // socket.on('mention', function(data){
+      //   console.log(data);
+      // });
     </script>
 
     <!-- JS -->
+    
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="js/init.js"></script>
@@ -53,7 +54,7 @@
       <div id="client-menu" ng-controller="MenuController as menuData"> 
         <div id="title" class="default-margin">
           <img src="img/list-icon.png" alt="List Icon">
-          <h2>Client list {{menuData.menuItem}}</h2>
+          <h2>Client list</h2>
 
         </div>
         <div class="hor-sep-line"></div>
@@ -167,7 +168,11 @@
       <!-- Influencer List (right content) -->
       <div id="influencer-list-content-holder">
         <div id="influencer-list">
-          
+          <div id="influencer-header">
+            <h2>Influencer Feed</h2>
+            <div id="filter"></div>
+            <div id="full-width-sep-line"></div>
+          </div>
         </div>
       </div>
 
