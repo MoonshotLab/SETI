@@ -21,60 +21,75 @@ $(function() {
 
 (function() {
 
+var activeContent = 0;
+
 	// Angular setup
-	var app = angular.module("SETI",[]);
+	var app = angular.module("SETI",['infinite-scroll']);
 	// Vars
 	var clientData;
 	
 	app.controller("DataController",function($scope,$http){
+		
+	
 		// Data
-		// this.wingstopData = null;
-		this.wingstopInfluencers = null;
+
+		var contentData;
+		var contentList;
+		// Wingstop
+		var wingstopInfluencers = null;
 		var wingstopInfluencerCount = 0;
 		this.wingstopMentions = null;
 		var wingstopMentionCount = 0;
-		// this.dqData = null;
-		this.dqInfluencers = null;
+		var wingstopList = Array();
+		// Dairy Queen
+		var dqInfluencers = null;
 		var dqInfluencerCount = 0;
 		this.dqMentions = null;
 		var dqMentionCount = 0;
-		// this.bbData = null;
-		this.bbInfluencers = null;
+		var dqList = Array();
+
+		// Blue Bunny
+		var bbInfluencers = null;
 		var bbInfluencerCount = 0;
 		this.bbMentions = null;
 		var bbMentionCount = 0;
+		var bbList = Array();
 
 		// Wingstop
 		$http.get('http://localhost:3000/wingstop/influencers').success(function(data) {
 		    wingstopInfluencers = data;
 		    wingstopInfluencerCount = data.length;
+		    for (var i = 0; i <= 9; i++) {
+		    	wingstopList[i] = wingstopInfluencers[i];
+		    };
 		});
 		$http.get('http://localhost:3000/wingstop/mentions').success(function(data) {
 		    wingstopMentions = data;
 		    wingstopMentionCount = data.length;
-		    console.log("Wingstop Mention Data Loaded");
 		});
 		// Dairy Queen
 		$http.get('http://localhost:3000/dairyqueen/influencers').success(function(data) {
 		    dqInfluencers = data;
 		    dqInfluencerCount = data.length;
-		    console.log("Dairy Queen Influencers Loaded");
+		    for (var i = 0; i <= 9; i++) {
+		    	dqList[i] = dqInfluencers[i];
+		    };
 		});
 		$http.get('http://localhost:3000/dairyqueen/mentions').success(function(data) {
 		    dqMentions = data;
 		    dqMentionCount = data.length;
-		    console.log("Dairy Queen Mentions Loaded");
 		});
 		// Blue Bunny
 		$http.get('http://localhost:3000/bluebunny/influencers').success(function(data) {
-		    bbData = data;
+		    bbInfluencers = data;
 		    bbInfluencerCount = data.length;
-		    console.log("Blue Bunny influencers Loaded");
+		    for (var i = 0; i <= 9; i++) {
+		    	bbList[i] = bbInfluencers[i];
+		    };
 		});
 		$http.get('http://localhost:3000/bluebunny/mentions').success(function(data) {
 		    bbData = data;
 		    bbMentionCount = data.length;
-		    console.log("Blue Bunny Mentions Loaded");
 		});
 
 		this.getInfluencerCount = function(client){
@@ -105,6 +120,74 @@ $(function() {
 				break;
 			};
 		};
+
+		this.getInfluencerData = function(client)
+		{
+			switch (client)
+			{
+				case "ws":
+					if(wingstopInfluencers)
+					{
+						return wingstopList;
+					}
+				return;
+				case "dq":
+					if(dqInfluencers)
+					{
+						return dqList;
+					}
+				return;
+				case "bb":
+					if(bbInfluencers)
+					{
+						return bbList;
+					}
+				return;
+			}
+		};
+
+		$scope.pagerFunctionC1 = function(){
+			if(wingstopInfluencers)
+			{
+				// Switch active content
+				contentData = wingstopInfluencers;
+				contentList = wingstopList;
+
+				var lastCount = contentList.length-1;
+				for(var i = 1; i <= 19; i++) {
+			      contentList.push(contentData[lastCount + i]);
+			    };
+			}
+			
+		};
+		$scope.pagerFunctionC2 = function(){
+			if (dqInfluencers)
+			{
+				// Switch active content
+				contentData = dqInfluencers;
+				contentList = dqList;
+
+				var lastCount = contentList.length-1;
+				for(var i = 1; i <= 19; i++) {
+			      contentList.push(contentData[lastCount + i]);
+			    };
+			}
+			
+		};
+		$scope.pagerFunctionC3 = function(){
+			if (bbInfluencers)
+			{
+				// Switch active content
+				contentData = bbInfluencers;
+				contentList = bbList;
+
+				var lastCount = contentList.length-1;
+				for(var i = 1; i <= 19; i++) {
+			      contentList.push(contentData[lastCount + i]);
+			    };
+			}
+			
+		};
 	});
 	
 	
@@ -113,18 +196,33 @@ $(function() {
 	// Menu 
 	app.controller("MenuController",function(){
 		this.menuItem = 2;
-		
+		activeContent = 2;
+
+		this.contentType = 1;
 		this.activeMenu = function(menuNum){
 			if(this.menuItem !== menuNum)
 			{
-				console.log("activeMenu call");
 				this.menuItem = menuNum;
+				activeContent = menuNum;
+				window.scrollTo(0,0);
 			}
 		};
 
 		this.getActiveMenu = function(menuNum){
 			return menuNum === this.menuItem;
-		}
+		};
+
+		this.activeContent = function(contentNum)
+		{
+			if(this.contentType !== contentNum)
+			{
+				console.log("active Content : " + contentNum);
+				this.contentType = contentNum;
+			}
+		};
+		this.getActiveContent = function(contentNum){
+			return contentNum === this.contentType;
+		};
 		
 	});
 })();
