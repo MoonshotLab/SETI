@@ -45,6 +45,17 @@ body {
 }
 
 /****************************************************/
+/* Preloader */
+/****************************************************/
+
+#preloader{
+	margin-left: 50%;
+	margin-right: 50%;
+	margin-top:250px;
+	margin-bottom:50%;
+}
+
+/****************************************************/
 /* Header */
 /****************************************************/
 #top-header{
@@ -301,6 +312,8 @@ body {
 	position: relative;
 	float: left;
 	display: block;
+	width: 51px;
+	height: 51px;
 }
 #influencer-list .influencer .c1-sep{
 	position: relative;
