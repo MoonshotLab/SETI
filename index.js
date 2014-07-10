@@ -3,14 +3,19 @@ var ejs = require('ejs');
 var spark = require('./lib/spark');
 var twitter = require('./lib/twitter');
 var utils = require('./lib/utils');
-var livereload = require('express-livereload');
+var env = process.env.MODE;
+var livereload = null;
 
 var app = express();
-livereload(app, {watchDir : process.cwd() + '/public'});
 var http = require('http').Server(app);
 var routes = require('./lib/routes');
 var io = require('socket.io')(http);
 var minFollowerAlertCount = process.env.MIN_FOLLOWERS || 0;
+
+if(env != 'production'){
+  livereload = require('express-livereload');
+  livereload(app, {watchDir : process.cwd() + '/public'});
+}
 
 app.use(express.static(__dirname + '/public'));
 app.engine('.html', require('ejs').__express);
