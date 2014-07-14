@@ -1,4 +1,6 @@
 $(function() {
+	
+	
 	// Client list items
 	$("#client-menu #client-list li").hover(function(){
 		if(!$(this).hasClass("active"))
@@ -22,6 +24,35 @@ $(function() {
 		//preloader settings
 		$("#top-header").hide();
 		$("#main-content").hide();	
+
+
+	// Initialize Fancybox
+
+	$(".fancybox").fancybox();
+
+	$("#seti-info").fancybox({
+		maxWidth	: 800,
+		maxHeight	: 600,
+		fitToView	: false,
+		width		: '70%',
+		height		: '70%',
+		autoSize	: false,
+		closeClick	: false,
+		openEffect	: 'none',
+		closeEffect	: 'none', 
+		helpers : {
+	        overlay : {
+	            css : {
+	                'background' : 'rgba(00, 00, 00, 0.8)'
+	            }
+	        }
+	    }
+	});
+
+	//profile click
+
+
+
 });
 
 (function() {
@@ -63,6 +94,9 @@ var activeContent = 0;
 		var bbMentionCount = 0;
 		var bbList = Array();
 		var bbMentionList = Array();
+
+		var infURL = "";
+
 
 		// Wingstop
 		$http.get('http://localhost:3000/wingstop/influencers').success(function(data) {
@@ -307,6 +341,59 @@ var activeContent = 0;
 			    };
 			}
 		}
+
+		this.setInfLink = function(url){
+			
+			infURL = url;
+			// console.log("Click:  " + infURL);
+			$("#inf-click-content a").attr("href", "http://www.twitter.com/" + infURL);
+
+			$.fancybox({
+				href: '#inf-click-content',
+				maxWidth	: 800,
+				maxHeight	: 600,
+				fitToView	: false,
+				width		: '70%',
+				height		: 'auto',
+				autoSize	: false,
+				closeClick	: false,
+				openEffect	: 'none',
+				closeEffect	: 'none', 
+				helpers : {
+			        overlay : {
+			            css : {
+			                'background' : 'rgba(00, 00, 00, 0.8)'
+			            }
+			        }
+			    }
+			});
+			return false;
+
+
+			// $("#inf-click-content").fancybox({
+			// 	maxWidth	: 800,
+			// 	maxHeight	: 600,
+			// 	fitToView	: false,
+			// 	width		: '70%',
+			// 	height		: '70%',
+			// 	autoSize	: false,
+			// 	closeClick	: false,
+			// 	openEffect	: 'none',
+			// 	closeEffect	: 'none', 
+			// 	helpers : {
+			//         overlay : {
+			//             css : {
+			//                 'background' : 'rgba(00, 00, 00, 0.8)'
+			//             }
+			//         }
+			//     }
+			// });			
+			// $.fancybox.open(
+			// 	href: "#inf-click-content", 
+			// 	);
+		}
+
+
 	});
 	
 	

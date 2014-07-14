@@ -31,14 +31,22 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/ng-infinite-scroll.min.js"></script>
+    <!-- Fancy box -->
+    <script type="text/javascript" src="/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+    <script type="text/javascript" src="/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
+    <script type="text/javascript" src="/fancybox/source/helpers/jquery.fancybox-media.js?v=1.0.6"></script>
+    <!-- Initial JS -->
     <script src="js/init.js"></script>
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/style.css">
-    
+    <!-- Fancy box -->
+    <link rel="stylesheet" href="/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
+    <link rel="stylesheet" href="/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
 
+    <!-- Initial Styling -->
+    <link rel="stylesheet" href="/css/style.css">
    
   </head>
 
@@ -56,10 +64,28 @@
 
         </a>
       </div>
-      <a href="" id="seti-info"></a>
+      <a href="#project-descr" id="seti-info"></a>
     </div>
     <!-- Main Content -->
     <div id="main-content" ng-controller="MenuController as menuData">
+
+    <!-- Influencer Click Lightbox Content -->
+
+    <div id="inf-click-content">
+      <a href="#" target="_blank" id="profile-click" class="twitter-button">Go to twitter profile <img src="img/red-arrow.png" alt="Red Arrow"></a>
+    </div>
+
+    <!-- Project Seti Lightbox Content -->
+
+    <div id="project-descr">
+    <h2>Project SETI</h2>
+    <p>The SETI Institute is a not-for-profit organization whose mission is to “explore, understand and explain the origin, nature and prevalence of life in the universe”. SETI stands for the "search for extraterrestrial intelligence". One program is the use of both radio and optical telescopes to search for deliberate signals from extraterrestrial intelligence. Other research, pursued within the Carl Sagan Center for the Study of Life in the Universe, includes the discovery of extrasolar planets, potentials for life on Mars and other bodies within the Solar System, and the habitability of the galaxy (including the study of extremophiles). The SETI Institute’s public outreach efforts include working with teachers and students in promoting science education and the teaching of evolution, working with NASA on exploration missions such as Kepler and SOFIA, and producing a weekly science program: Big Picture Science.</p>
+    <p class="right-aligned-wiki">Made possible by Wikipedia</p>
+    <p>Pretty cool, right? </p>
+    <p>This is what Barkley does for it's clients, search for extraterrestrial intelligence by analyzing client influencers. This technology has been made possible by the Moonshot Innovation Lab</p>
+    </div>
+
+
     <!-- Client Menu -->
       <div id="client-menu"> 
         <div id="title" class="default-margin">
@@ -180,15 +206,13 @@
         <div id="influencer-list">
           <!-- Feed Header -->
           <div id="influencer-header">
-            <h2>Influencer Feed {{menuData.contentType}}</h2>
+            <h2>Influencer Feed</h2>
             <div id="filter">
-              <div class="btn-group">
-                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                  Choose data
-                  <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
+              <div class="options">
+                <ul>
+                  <li><p class="filter-title">Filter:</p></li>
                   <li ng-class="{active: menuData.getActiveContent(1)}" ng-click="menuData.activeContent(1)"><a href="#" >Follows</a></li>
+                  <li><p class="slash">/</p></li>
                   <li ng-class="{active: menuData.getActiveContent(2)}" ng-click="menuData.activeContent(2)"><a href="#" >Mentions</a></li>
                 </ul>
               </div>
@@ -201,37 +225,40 @@
           <div id="feed" ng-show="menuData.menuItem === 2">
           <div class="followings" ng-show="menuData.contentType === 1">
             <!-- Multiply Influencer -->
-            <div class="influencer" ng-repeat="influencer in data.getInfluencerData('ws')">
-              <div class="c1">
-                <img src="{{influencer.profile_image_url}}" alt="Profile Picture">
-              </div>
-              <div class="c1-sep"></div>
-              <div class="c2">
-                <div class="name">
-                  <div class="user-name">{{influencer.name}}</div>
-                  <div class="name-sep"></div>
-                  <div class="twitter-name">@{{influencer.screen_name}}</div>
+            <!-- Div around it for repeat -->
+            <div id="influencer-holder" ng-repeat="influencer in data.getInfluencerData('ws')">
+              <div class="influencer" ng-click="data.setInfLink(influencer.screen_name)">
+                <div class="c1">
+                  <img src="{{influencer.profile_image_url}}" alt="Profile Picture">
                 </div>
-                <div class="message">
-                  <img src="img/followed.png" alt="Followed Icon">
-                  <div class="text">
-                    <div class="line1"><p> <em>Followed on</em></p></div>
-                    <div class="line2"><p>a bright and sunny day</p></div>
+                <div class="c1-sep"></div>
+                <div class="c2">
+                  <div class="name">
+                    <div class="user-name">{{influencer.name}}</div>
+                    <div class="name-sep"></div>
+                    <div class="twitter-name">@{{influencer.screen_name}}</div>
+                  </div>
+                  <div class="message">
+                    <img src="img/followed.png" alt="Followed Icon">
+                    <div class="text">
+                      <div class="line1"><p> <em>Followed on</em></p></div>
+                      <div class="line2"><p>a bright and sunny day</p></div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="c3">
-                <div class="c3-sep"></div>
-                <div class="stats">
-                  <div class="tweets stat">
-                    <!-- <p>{{influencer.statuses_count}}</p> -->
-                    <p>...</p>
-                  </div>
-                  <div class="followers stat">
-                     <p>{{influencer.followers_count | number : 0}}</p>
-                  </div>
-                  <div class="following stat">
-                     <p>{{influencer.friends_count | number : 0}}</p>
+                <div class="c3">
+                  <div class="c3-sep"></div>
+                  <div class="stats">
+                    <div class="tweets stat">
+                      <!-- <p>{{influencer.statuses_count}}</p> -->
+                      <p>...</p>
+                    </div>
+                    <div class="followers stat">
+                       <p>{{influencer.followers_count | number : 0}}</p>
+                    </div>
+                    <div class="following stat">
+                       <p>{{influencer.friends_count | number : 0}}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -285,37 +312,40 @@
           <div id="feed" infinite-scroll="pagerFunctionC2()" infinite-scroll-distance="0" ng-show="menuData.menuItem === 3">
           <div class="followings" ng-show="menuData.contentType === 1">
             <!-- Multiply Influencer -->
-            <div class="influencer" ng-repeat="influencer in data.getInfluencerData('dq')">
-              <div class="c1">
-                <img src="{{influencer.profile_image_url}}" alt="Profile Picture">
-              </div>
-              <div class="c1-sep"></div>
-              <div class="c2">
-                <div class="name">
-                  <div class="user-name">{{influencer.name}}</div>
-                  <div class="name-sep"></div>
-                  <div class="twitter-name">@{{influencer.screen_name}}</div>
+            <div id="influencer-holder" ng-repeat="influencer in data.getInfluencerData('dq')">
+
+              <div class="influencer" ng-click="data.setInfLink(influencer.screen_name)">
+                <div class="c1">
+                  <img src="{{influencer.profile_image_url}}" alt="Profile Picture">
                 </div>
-                <div class="message">
-                  <img src="img/followed.png" alt="Followed Icon">
-                  <div class="text">
-                    <div class="line1"><p> <em>Followed on</em></p></div>
-                    <div class="line2"><p>a bright and sunny day</p></div>
+                <div class="c1-sep"></div>
+                <div class="c2">
+                  <div class="name">
+                    <div class="user-name">{{influencer.name}}</div>
+                    <div class="name-sep"></div>
+                    <div class="twitter-name">@{{influencer.screen_name}}</div>
+                  </div>
+                  <div class="message">
+                    <img src="img/followed.png" alt="Followed Icon">
+                    <div class="text">
+                      <div class="line1"><p> <em>Followed on</em></p></div>
+                      <div class="line2"><p>a bright and sunny day</p></div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="c3">
-                <div class="c3-sep"></div>
-                <div class="stats">
-                  <div class="tweets stat">
-                    <!-- <p>{{influencer.statuses_count}}</p> -->
-                    <p>...</p>
-                  </div>
-                  <div class="followers stat">
-                     <p>{{influencer.followers_count | number : 0}}</p>
-                  </div>
-                  <div class="following stat">
-                     <p>{{influencer.friends_count | number : 0}}</p>
+                <div class="c3">
+                  <div class="c3-sep"></div>
+                  <div class="stats">
+                    <div class="tweets stat">
+                      <!-- <p>{{influencer.statuses_count}}</p> -->
+                      <p>...</p>
+                    </div>
+                    <div class="followers stat">
+                       <p>{{influencer.followers_count | number : 0}}</p>
+                    </div>
+                    <div class="following stat">
+                       <p>{{influencer.friends_count | number : 0}}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -369,41 +399,42 @@
           <div id="feed" infinite-scroll="pagerFunctionC3()" infinite-scroll-distance="0" ng-show="menuData.menuItem === 4">
           <div class="followings" ng-show="menuData.contentType === 1">
             <!-- Multiply Influencer -->
-            <div class="influencer" ng-repeat="influencer in data.getInfluencerData('bb')">
-              <div class="c1">
-                <img src="{{influencer.profile_image_url}}" alt="Profile Picture">
-              </div>
-              <div class="c1-sep"></div>
-              <div class="c2">
-                <div class="name">
-                  <div class="user-name">{{influencer.name}}</div>
-                  <div class="name-sep"></div>
-                  <div class="twitter-name">@{{influencer.screen_name}}</div>
+             <div id="influencer-holder" ng-repeat="influencer in data.getInfluencerData('bb')">
+              <div class="influencer" ng-click="data.setInfLink(influencer.screen_name)">
+                <div class="c1">
+                  <img src="{{influencer.profile_image_url}}" alt="Profile Picture">
                 </div>
-                <div class="message">
-                  <img src="img/followed.png" alt="Followed Icon">
-                  <div class="text">
-                    <div class="line1"><p> <em>Followed on</em></p></div>
-                    <div class="line2"><p>a bright and sunny day</p></div>
+                <div class="c1-sep"></div>
+                <div class="c2">
+                  <div class="name">
+                    <div class="user-name">{{influencer.name}}</div>
+                    <div class="name-sep"></div>
+                    <div class="twitter-name">@{{influencer.screen_name}}</div>
                   </div>
-                </div>
-              </div>
-              <div class="c3">
-                <div class="c3-sep"></div>
-                <div class="stats">
-                  <div class="tweets stat">
-                    <!-- <p>{{influencer.statuses_count}}</p> -->
-                    <p>...</p>
-                  </div>
-                  <div class="followers stat">
-                     <p>{{influencer.followers_count | number : 0}}</p>
-                  </div>
-                  <div class="following stat">
-                     <p>{{influencer.friends_count | number : 0}}</p>
+                  <div class="message">
+                    <img src="img/followed.png" alt="Followed Icon">
+                    <div class="text">
+                      <div class="line1"><p> <em>Followed on</em></p></div>
+                      <div class="line2"><p>a bright and sunny day</p></div>
+                    </div>
                   </div>
                 </div>
+                <div class="c3">
+                  <div class="c3-sep"></div>
+                  <div class="stats">
+                    <div class="tweets stat">
+                      <!-- <p>{{influencer.statuses_count}}</p> -->
+                      <p>...</p>
+                    </div>
+                    <div class="followers stat">
+                       <p>{{influencer.followers_count | number : 0}}</p>
+                    </div>
+                    <div class="following stat">
+                       <p>{{influencer.friends_count | number : 0}}</p>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
             <!-- End Influencer -->
             </div>
             <div class="mentions" ng-show="menuData.contentType === 2">
