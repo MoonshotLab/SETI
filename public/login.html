@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang='en-US' ng-app="SETI">
+  <head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <title>Project SETI: Login</title>
+
+     <!-- <%- LRScript %> -->
+
+    <script src='/socket.io/socket.io.js'></script>
+    <script>
+      var socket = io();
+
+      socket.on('follow', function(data){
+        console.log(data);
+      });
+
+      socket.on('influencer-alert', function(data){
+        console.log(data);
+      });
+
+      socket.on('mention', function(data){
+        console.log(data);
+      });
+    </script>
+
+    <!-- JS -->
+    
+
+    <!-- Javascript -->
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="js/login.js"></script>
+   
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <!-- Styling -->
+    <link rel="stylesheet" href="/css/normalize.css">
+    <!-- Initial Styling -->
+    <link rel="stylesheet" href="/css/style.css">
+   
+  </head>
+
+  <body>
+  <div id="login-content">
+    <div id="login-full-width-bar"></div>
+    <div id="logo">
+      <img src="img/logo-large.png" alt="Large SETI Logo">
+    </div>
+    <div id="welcome-text">
+        <img src="img/welcome.png" id="welcome" alt="Welcome">
+        <img src="img/proj-descr.png" id="welcome-descr" alt="Project description">
+    </div>
+    <div id="login-form">
+      <h2>Sign in</h2>
+      <div id="hor-sep-line"></div>
+      <form action="">
+        <label for="user_login">
+            <div class="input-wrapper">
+              <div class="red-hl"></div>
+              <img src="img/user-icon.png" alt="User Icon">
+              <div class="vert-sep-line"></div>
+              <input type="text" id="user-input" value="Username">
+            </div>
+        </label>
+        <label for="user_pass">
+         <div class="input-wrapper">
+              <div class="red-hl"></div>
+              <img src="img/user-icon.png" alt="User Icon">
+              <div class="vert-sep-line"></div>
+              <input type="password" id="pass-input" value="Password">
+            </div>
+        </label>
+        <label for="rememberme" id="remember">
+          <input type="checkbox" value="forever"><p>Remember Me</p>
+        </label>
+        <div id="submit">
+          <input type="submit" value="Sign In">
+        </div>
+      </form>
+    </div>
+  </div>
+  </body>
+</html>

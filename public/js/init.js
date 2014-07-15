@@ -20,16 +20,12 @@ $(function() {
 		}
 	});
 
-	// Init settings
-		//preloader settings
-		$("#top-header").hide();
-		$("#main-content").hide();	
-
+	//preloader settings
+	$("#top-header").hide();
+	$("#main-content").hide();	
 
 	// Initialize Fancybox
-
 	$(".fancybox").fancybox();
-
 	$("#seti-info").fancybox({
 		maxWidth	: 800,
 		maxHeight	: 600,
@@ -48,11 +44,6 @@ $(function() {
 	        }
 	    }
 	});
-
-	//profile click
-
-
-
 });
 
 (function() {
@@ -65,8 +56,12 @@ var activeContent = 0;
 	var clientData;
 	
 	app.controller("DataController",function($scope,$http){
+		
+		// ******************************************************
+		// Variables
+		// ******************************************************
+
 		this.dataLoaded = 1;
-		// Data
 
 		var contentData;
 		var contentList;
@@ -86,7 +81,6 @@ var activeContent = 0;
 		var dqMentionCount = 0;
 		var dqList = Array();
 		var dqMentionList = Array();
-
 		// Blue Bunny
 		var bbInfluencers = null;
 		var bbInfluencerCount = 0;
@@ -97,8 +91,9 @@ var activeContent = 0;
 
 		var infURL = "";
 
-
-		// Wingstop
+		// ******************************************************
+		// Loading functions
+		// ******************************************************
 		$http.get('http://localhost:3000/wingstop/influencers').success(function(data) {
 		    wingstopInfluencers = data;
 		    wingstopInfluencerCount = data.length;
@@ -151,7 +146,6 @@ var activeContent = 0;
 		});
 
 		checkLoaded = function(){
-			// $scope.apply();
 			if(wingstopInfluencers && wingstopMentions && dqInfluencers && dqMentions && bbInfluencers && bbMentions)
 			{
 				 $("#preloader").hide();
@@ -160,6 +154,10 @@ var activeContent = 0;
 			}
 		};
 
+		// ******************************************************
+		// Public functions
+		// ******************************************************
+		
 		this.getInfluencerCount = function(client){
 			switch(client)
 			{
@@ -188,7 +186,7 @@ var activeContent = 0;
 				break;
 			};
 		};
-		// Public Functions
+		
 		this.getInfluencerData = function(client)
 		{
 			switch (client)
@@ -243,8 +241,12 @@ var activeContent = 0;
 				return;
 			}
 		};
+
+		// ******************************************************
 		// Endless scroll functions
-			// Influencers
+		// ******************************************************
+
+		// Influencers
 		$scope.pagerFunctionC1 = function(){
 			if(wingstopInfluencers)
 			{
@@ -311,7 +313,6 @@ var activeContent = 0;
 				}
 			}
 		};
-
 		$scope.mentionPagerFunction = function(client){
 			switch (client)
 			{
@@ -341,7 +342,7 @@ var activeContent = 0;
 			    };
 			}
 		}
-
+		this.dataLoaded = 1;
 		this.setInfLink = function(url){
 			
 			infURL = url;
@@ -368,32 +369,7 @@ var activeContent = 0;
 			    }
 			});
 			return false;
-
-
-			// $("#inf-click-content").fancybox({
-			// 	maxWidth	: 800,
-			// 	maxHeight	: 600,
-			// 	fitToView	: false,
-			// 	width		: '70%',
-			// 	height		: '70%',
-			// 	autoSize	: false,
-			// 	closeClick	: false,
-			// 	openEffect	: 'none',
-			// 	closeEffect	: 'none', 
-			// 	helpers : {
-			//         overlay : {
-			//             css : {
-			//                 'background' : 'rgba(00, 00, 00, 0.8)'
-			//             }
-			//         }
-			//     }
-			// });			
-			// $.fancybox.open(
-			// 	href: "#inf-click-content", 
-			// 	);
 		}
-
-
 	});
 	
 	
@@ -401,10 +377,19 @@ var activeContent = 0;
 
 	// Menu 
 	app.controller("MenuController",function(){
+
+		// ******************************************************
+		// Menu Variables
+		// ******************************************************
+
 		this.menuItem = 2;
 		activeContent = 2;
-
 		this.contentType = 1;
+
+		// ******************************************************
+		// Menu Functions
+		// ******************************************************
+
 		this.activeMenu = function(menuNum){
 			if(this.menuItem !== menuNum)
 			{
@@ -413,11 +398,9 @@ var activeContent = 0;
 				window.scrollTo(0,0);
 			}
 		};
-
 		this.getActiveMenu = function(menuNum){
 			return menuNum === this.menuItem;
 		};
-
 		this.activeContent = function(contentNum)
 		{
 			if(this.contentType !== contentNum)
@@ -428,8 +411,5 @@ var activeContent = 0;
 		this.getActiveContent = function(contentNum){
 			return contentNum === this.contentType;
 		};
-		
 	});
-
-	
 })();

@@ -89,7 +89,8 @@ body {
 	margin-right: 20px;
 	margin-top: 20px;
 	margin-top: 50px;
-	
+	-webkit-transition: background 0.3s; /* For Safari 3.1 to 6.0 */
+    transition: background 0.3s;
 }
 #project-descr{
 	display: none;
@@ -154,6 +155,8 @@ body {
 	position: relative;
 	top: -8px;
 	z-index:2;
+	-webkit-transition: opacity 0.3s; /* For Safari 3.1 to 6.0 */
+    transition: opacity 0.3s;
 }
 #client-menu #client-list li .button-holder{
 	margin-left: 20px;
@@ -346,6 +349,12 @@ body {
 	box-shadow: 0px 0px 6px #b5b5b5;
 	cursor: pointer;
 	margin-bottom: 20px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px; /* future proofing */
+	-khtml-border-radius: 2px; /* for old Konqueror browsers */
+	-webkit-transition: background-color 0.3s; /* For Safari 3.1 to 6.0 */
+    transition: background-color 0.3s;
 }
 #influencer-list .influencer:hover{
 	background-color:#fff;
@@ -499,10 +508,190 @@ body {
 	text-align:center;
 	font-weight: 400;
 	opacity: 0.9;
+	-webkit-transition: opacity 0.3s; /* For Safari 3.1 to 6.0 */
+    transition: opacity 0.3s;
 }
 #inf-click-content .twitter-button img{
 	margin-left: 4px;
 	}
 #inf-click-content .twitter-button:hover{
 	opacity: 1;
+}
+
+
+/****************************************************/
+/* Login */
+/****************************************************/
+#login-full-width-bar{
+	width: 100%;
+	height:3px;
+	background: #2e2f2f;
+}
+#login-content #logo{
+	position: relative;
+	left: -72px;
+	margin-left: 50%;
+	margin-right: 50%;
+	margin-top: 90px;
+}
+#login-content #welcome-text{
+	margin-left: 50%;
+	margin-right: 50%;
+	margin-top: 45px;
+}
+#login-content #welcome-text img{
+
+}
+#login-content #welcome-text #welcome{
+	position: relative;
+	left: -58px;
+}
+#login-content #welcome-text #welcome-descr{
+	position: relative;
+	left: -226px;
+	margin-top: 20px;
+}
+
+#login-content #login-form{
+	position: relative;
+	width: 310px;
+	height: 300px;
+	background: #fff;
+	box-shadow: 0px 0px 6px #b5b5b5;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px; /* future proofing */
+	-khtml-border-radius: 2px; /* for old Konqueror browsers */
+	margin-left: 50%;
+	margin-right: 50%;
+	left: -155px;
+	margin-top: 45px;
+	margin-bottom: 50px;
+	background: rgba(255,255,255,0.7);
+}
+#login-content #login-form h2{
+	position: relative;
+	left: -40px;
+	color: #403f3f;
+	margin-left: 50%;
+	margin-right: 50%;
+	width: 80px;
+	font-size: 18px;
+	text-transform:uppercase;
+	font-weight: 600;
+	letter-spacing: 1px;
+	padding-top: 16px;
+	padding-bottom: 3px;
+}
+#login-content #hor-sep-line{
+	width: 100%;
+	height: 1px;
+	background: #e1e1e1;
+}
+#login-content form .input-wrapper{
+	margin-left: 20px;
+	margin-right: 20px;
+	width: 268px;
+	-moz-box-shadow:    inset 0 0 5px #e1e3e3;
+   	-webkit-box-shadow: inset 0 0 5px #e1e3e3;
+   	box-shadow:         inset 0 0 5px #e1e3e3;
+   	border: 1px solid #e1e3e3;
+   	margin-top: 20px;
+   	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px; /* future proofing */
+	-khtml-border-radius: 2px; /* for old Konqueror browsers */
+	height: 40px;
+	outline: none;
+	z-index: 2;
+	-webkit-transition: border 0.3s; /* For Safari 3.1 to 6.0 */
+    transition: border 0.3s;
+}
+#login-content form .input-wrapper:hover{
+	border: 1px solid #cccccc;
+}
+
+#login-content form input{
+	position: relative;
+	float: left;
+	border: none;
+	outline: none;
+	width: 190px;
+	height: 38px;
+	z-index: 1;
+	background: none;
+	font-size: 12px;
+	font-weight: 300;
+	padding-top: 2px;
+	color: #c0c0c0;
+
+}
+#login-content form .red-hl{
+	position: relative;
+	float: left;
+	width: 4px;
+	background: #bf311b;
+	height: 100%;
+	overflow: hidden;
+	-webkit-border-radius: 1px;
+	border-radius: 1px; /* future proofing */
+	-khtml-border-radius: 1px; /* for old Konqueror browsers */
+}
+#login-content form img{
+	position: relative;
+	float: left;
+	margin-left: 12px;
+	margin-top: 12px;
+}
+
+#login-content form .vert-sep-line{
+	position: relative;
+	float: left;
+	width: 1px;
+	height: 16px;
+	margin-top: 14px;
+	background: #e3e3e3;
+}
+#login-content #remember{
+	position: relative;
+	float: left;
+	margin-left: 20px;
+	margin-top: 5px;
+}
+#login-content #remember input{
+	position: relative;
+	float: left;
+	width: 20px;
+	margin-right: 9px;
+	margin-top: 6px;
+}
+#login-content #remember p{
+	position: relative;
+	float: left;
+	font-size: 12px;
+	color: #7d7c7c;
+	margin-top: 17px;
+}
+
+#login-content #submit{
+	margin-left: 20px;
+	margin-right: 20px;
+}
+#login-content #submit input{
+	background: #bf311b;
+	width:100%;
+	height: 40px;
+	color: white;
+	-webkit-border-radius: 2px;
+	border-radius: 2px; /* future proofing */
+	-khtml-border-radius: 2px; /* for old Konqueror browsers */
+	box-shadow: 0px 0px 2px #b5b5b5;
+	text-transform:uppercase;
+	font-weight: 600;
+	font-size: 14px;
+	-webkit-transition: background 0.3s; /* For Safari 3.1 to 6.0 */
+    transition: background 0.3s;
+}
+#login-content #submit input:hover{
+	background: #b32e1a;
 }
