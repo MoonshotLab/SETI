@@ -49,6 +49,8 @@ body {
 /****************************************************/
 
 #preloader{
+	position: relative;
+	left:-31px;
 	margin-left: 50%;
 	margin-right: 50%;
 	padding-top:250px;
@@ -127,8 +129,8 @@ body {
 }
 #client-menu #title{
 	height: 50px;
-	margin-left: 20px;
-	margin-top: 30px;
+	padding-left: 20px;
+	padding-top: 30px;
 }
 #client-menu #title img{
 	float: left;
@@ -171,6 +173,15 @@ body {
 	margin-top: 5px;
 	margin-right: 20px;
 }
+
+#client-menu #list-icon{
+	float: left;
+	margin-top: 4px;
+	margin-right: 0px;
+	width: 11px;
+	height: 12px;
+	background: url("../img/list-icon.png");
+}
 #client-menu #client-list li .arrow{
 	position: relative;
 	float: left;
@@ -206,9 +217,22 @@ body {
 }
 #client-menu #client-list #active-content{
 	margin-top: 30px;
-	
 	height: 200px;
+	opacity: 1;
 }
+
+#client-menu #client-list #active-content.ng-hide-add,
+#client-menu #client-list #active-content.ng-hide-remove{
+
+  -webkit-transition:all linear 0.5s;
+  transition:all linear 0.5s;
+}
+#client-menu #client-list #active-content.ng-hide{
+  opacity:0;
+  height: 0px;
+}
+
+
 #client-menu #client-list #active-content img{
 	margin-left: 31px;
 }
@@ -550,6 +574,9 @@ body {
 	position: relative;
 	left: -226px;
 	margin-top: 20px;
+	width: 452px;
+	height: 12px;
+	background: url("../img/proj-descr.png");
 }
 
 #login-content #login-form{

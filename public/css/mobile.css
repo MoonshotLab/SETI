@@ -1,0 +1,167 @@
+
+/* Login page */
+@media only screen 
+and (max-width : 520px) {
+/* Styles */
+
+
+#login-content #logo{
+	
+	margin-top: 25px;
+	left: -44px;
+}
+
+#login-content #logo img{
+	width: 89px;
+	height: 102px;
+}
+#login-content #welcome-text{
+	margin-top: 22px;
+}
+
+#login-content #welcome-text #welcome-descr{
+	left: -144px;
+	width: 289px;
+	height: 33px;
+	background: url("../img/proj-descr-mob.png");
+}
+#login-content #login-form{
+	width: 290px;
+	left: -145px;
+}
+#login-content form .input-wrapper{
+	width: 248px;
+}
+#login-content form input{
+	width: 170px;
+}
+
+} /* End of Media query *520 */
+
+/* Landing Page */
+@media only screen 
+and (max-width : 740px) {
+
+	#client-menu{
+		width: 270px;
+		left: -220px;
+	}
+
+	#influencer-list{
+		margin-left: 50px;
+	}
+	#client-menu #client-list{
+		display: none;
+	}
+	#client-menu #menu-button{
+		background: url("../img/list-icon.png") no-repeat 20px 20px;
+		width: 11px;
+		height: 12px;
+		position: absolute;
+		margin-left: 199px;
+		margin-top: -16px;
+		/*cursor: pointer;*/
+		padding: 20px;
+		padding-bottom:35px;
+	}
+	#client-menu #list-icon{
+		background: url("../img/arrow-left.png") no-repeat;
+		width: 7px;
+		height: 16px;
+		margin-top: 3px;
+	}
+	#client-menu #title{
+		cursor: pointer;
+	}
+} /* End of Media query *740 */
+
+@media only screen 
+and (max-width : 550px) {
+	
+
+
+		/* temp */
+	#influencer-list .influencer .c2{
+		
+	}
+	#influencer-list .influencer{
+		height: 126px;
+	}
+	#influencer-list .influencer .c2 .name .name-sep{
+		display: none;
+	}
+	#influencer-list .influencer .c2 .name .twitter-name{
+		clear: both;
+	}
+	#influencer-list .influencer .c2 .message{
+		margin-top: 20px;
+		margin-left: -70px;
+	}
+	#influencer-list .influencer .c2 .message .text{
+		margin-top: 4px;
+	}
+	#influencer-list .influencer .c2 .message .line1{
+		float: left;
+		margin-left: 6px;
+	}
+	#influencer-list .influencer .c2 .message .line2{
+		float: left;
+		margin-top: -2px;
+		margin-left: 8px;
+	}
+	#influencer-list .influencer .c3 .c3-sep{
+		display: none;
+	}
+	#influencer-list .influencer .c3 .stats .stat{
+		float: left;
+		margin-top: 8px;
+		padding-right: 15px;
+		margin-left: 15px;
+		border-right: 1px solid #e5e5e5;
+	}
+	#influencer-list .influencer .c3 .stats{
+		
+	}
+
+	#influencer-list .hor-inf-sep-line{
+		position: relative;
+		float: left;
+		width: 100%;
+		margin-top: 10px;
+		background: #e5e5e5;
+		height: 1px;
+	}
+	#influencer-list .influencer .c3{
+		clear: both;
+		float: left;
+	}
+	#influencer-header #full-width-sep-line-mobile{
+
+		position: relative;
+		clear: both;
+		width: auto;
+		margin-left: 20px;
+		margin-right: 20px;
+		top:25px;
+		height: 1px;
+		background: #d8dbdf;
+	}
+	#influencer-list #influencer-header #filter{
+		clear: both;
+		float: left;
+		margin-top: 34px;
+		margin-bottom: 10px;
+	}
+
+}/* End of Media query *550 */
+
+@media only screen 
+and (max-width : 480px) {
+
+	#top-header #seti-info{
+		display:none;
+	}
+
+	
+
+} /* End of Media query *480 */

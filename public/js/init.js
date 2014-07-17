@@ -5,19 +5,31 @@ $(function() {
 	$("#client-menu #client-list li").hover(function(){
 		if(!$(this).hasClass("active"))
 		{
-			$(this).find(".arrow").animate({
+			$(this).find(".arrow").stop().animate({
 					opacity:1,
 					left:"10px"
+				},250)
+		}
+		else{
+			$(this).find(".arrow").stop().animate({
+					opacity:0,
+					left:"5px"
 				},250)
 		}
 	}, function(){
 		if(!$(this).hasClass("active"))
 		{
-			$(this).find(".arrow").animate({
+			$(this).find(".arrow").stop().animate({
 				opacity:0,
 				left:"5px"
 			},250)
 		}
+	});
+	$("#client-menu #client-list li").click(function(){
+		$(this).find(".arrow").stop().animate({
+			opacity:0,
+			left:"5px"
+		},250)
 	});
 
 	//preloader settings
@@ -44,6 +56,109 @@ $(function() {
 	        }
 	    }
 	});
+
+	$("#inf-click-content").click(function(){
+		$.fancybox.close();
+	});
+
+	
+	var menuOut = false;
+
+	
+
+	function showMenu(){
+		
+		if(!menuOut)
+		{
+
+			$("#client-menu").animate({
+				left: "0px"
+			},200);
+			$("#client-menu #menu-button").hide();
+			$("#client-menu #client-list").fadeIn();
+
+			menuOut = true;
+		}
+	};
+
+	function hideMenu(){
+		if(menuOut && $(window).width() < 740){
+			$("#client-menu").animate({
+				left: "-220px"
+			},200);
+			$("#client-menu #menu-button").show();
+			$("#client-menu #client-list").fadeOut();
+
+			menuOut = false;
+		}
+		
+	};
+	
+	
+	
+
+	// Check window size
+	$(window).resize(function(){
+		if($(window).width() > 740){
+			showMenu();
+			removeMenuClickEvents();
+		}else{
+			hideMenu();
+			addMenuClickEvents();
+		}
+	});
+
+	//Init width check
+	if($(window).width() < 740){
+		hideMenu();
+		addMenuClickEvents();
+	}
+	
+
+	// Reset events
+	var menuActive = false;
+	function removeMenuClickEvents(){
+		if(menuActive)
+		{
+			console.log("Remove menu Clicks");
+			$("#influencer-list-content-holder").unbind("click");
+			$("#top-header").unbind("click");
+			// $("#client-list li").unbind("click");
+			$("#client-menu #title").unbind("click");
+			menuActive = false
+		}
+	}
+	function addMenuClickEvents(){
+		if(!menuActive)
+		{
+			console.log("Add Menu Clicks");
+			menuActive = true;
+			// Click event when menu is out
+			$("#influencer-list-content-holder").click(function(){
+				if(menuOut){
+					hideMenu();
+				}
+			});
+			$("#top-header").click(function(){
+				if(menuOut){
+					hideMenu();
+				}
+			});
+			$("#client-list li").click(function(){
+				hideMenu();
+			})
+			// Mobile menu slide out
+			$("#client-menu #title").click(function(){
+				if(!menuOut)
+				{
+					showMenu();
+				}else{
+					hideMenu();
+				}
+			});
+			
+		}
+	}
 });
 
 (function() {
