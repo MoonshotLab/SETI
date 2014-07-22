@@ -11,6 +11,9 @@ shadow: box-shadow: 0px 0px 5px #888888;
 
 /* Multi use classes */
 
+h1,h2,h3{
+	line-height: normal;
+}
 .default-margin{
 	margin-left: 20px;
 }
@@ -39,6 +42,17 @@ shadow: box-shadow: 0px 0px 5px #888888;
 /* Body */
 body {
 	background: url("../img/bg.jpg");
+}
+
+/****************************************************/
+/* Preloader */
+/****************************************************/
+
+#preloader{
+	margin-left: 50%;
+	margin-right: 50%;
+	margin-top:250px;
+	margin-bottom:50%;
 }
 
 /****************************************************/
@@ -178,20 +192,11 @@ body {
 #client-menu #client-list li.active{
 	opacity: 1;
 }
-/*#client-menu #client-list li #active-content{
-	display: none;
-}*/
-/*#client-menu #client-list li.active #active-content{
-	display: block;
-}*/
 #client-menu #client-list #active-content{
 	margin-top: 30px;
 	
 	height: 200px;
-	
-
 }
- 
 #client-menu #client-list #active-content img{
 	margin-left: 31px;
 }
@@ -225,7 +230,7 @@ body {
 	color: white;
 	margin: 0;
 	font-size: 14px;
-
+	font-weight: 600;
 	margin-top: 2px;
 }
 #client-menu #client-list #active-content #mentions{
@@ -270,5 +275,158 @@ body {
 }
 
 #influencer-list #influencer-header #filter{
-	
+	float: right;
+	margin-right: 20px;
+	margin-top: 20px;
+	margin-bottom: 24px;
 }
+
+#influencer-list #influencer-header #full-width-sep-line{
+	position: relative;
+	clear: both;
+	width: auto;
+	margin-left: 20px;
+	margin-right: 20px;
+	height: 1px;
+	background: #d8dbdf;
+}
+#influencer-list .influencer{
+	position: relative;
+	display: block;
+	margin-left: 20px;
+	margin-right: 20px;
+	height: 50px;
+	background-color:#fafafa;
+	padding:10px;
+	margin-top: 15px;
+	box-shadow: 0px 0px 6px #b5b5b5;
+	cursor: pointer;
+	margin-bottom: 20px;
+}
+#influencer-list .influencer:hover{
+	background-color:#fff;
+	box-shadow: 0px 0px 6px #999999;
+}
+
+#influencer-list .influencer .c1{
+	position: relative;
+	float: left;
+	display: block;
+	width: 51px;
+	height: 51px;
+}
+#influencer-list .influencer .c1-sep{
+	position: relative;
+	float: left;
+	width: 1px;
+	height: 32px;
+	background-color:#e5e5e5;
+	margin-left: 10px;
+	margin-top: 9px;
+}
+/* Name and Message Content */
+#influencer-list .influencer .c2{
+	position: relative;
+	float: left;
+	margin-left: 8px;
+	margin-top: -2px;
+}
+#influencer-list .influencer .name{
+	clear: both;
+
+}
+#influencer-list .influencer .name .user-name{
+	float: left;
+	color:#393838;
+	font-size: 12px;
+	font-weight:700;
+	text-transform:uppercase;
+}
+#influencer-list .influencer .name .name-sep{
+	float: left;
+	width: 1px;
+	height: 11px;
+	background: #e5e5e5;
+	margin-top: 5px;
+	margin-left: 10px;
+	margin-right: 10px;
+}
+#influencer-list .influencer .name .twitter-name{
+	position: relative;
+	float: left;
+	font-size: 11px;
+	font-weight: 400;
+	color: #858282;
+}
+
+#influencer-list .influencer .message{
+	float: left;
+	margin-top: 4px;
+}
+#influencer-list .influencer .message img{
+	position: relative;
+	float: left;
+}
+#influencer-list .influencer .message .text{
+	position: relative;
+	float: left;
+	margin-left: 5px;
+	margin-top: -3px;
+}
+#influencer-list .influencer .message p{
+	margin: 0;
+}
+#influencer-list .influencer .message .line1{
+	font-size: 11px;
+	color: #525252;
+	font-weight: 400;
+	margin-top: -2px;
+}
+#influencer-list .influencer .message .line1 em{
+	font-weight: 700;
+	font-style: normal;
+	color: #bf311b;
+}
+#influencer-list .influencer .message .line2{
+	font-size: 10px;
+	margin-top: -6px;
+	color: #a6a6a6;
+}
+/* Social Stats */
+#influencer-list .influencer .c3{
+	float: right;
+}
+#influencer-list .influencer .c3 .stats{
+	float: left;
+}
+#influencer-list .influencer .c3 .stat{
+	position: relative;
+	margin-top: -2px;
+}
+#influencer-list .influencer .c3 .tweets{
+	background: url("../img/tweet-icon.png") no-repeat 0px 3px;
+}
+#influencer-list .influencer .c3 .followers{
+	background: url("../img/followers-icon.png") no-repeat 0px 3px;
+}
+#influencer-list .influencer .c3 .following{
+	background: url("../img/following-icon.png") no-repeat 0px 3px;
+}
+#influencer-list .influencer .c3 p{
+	margin: 0;
+	margin-left: 20px;
+	font-size: 11px;
+	font-weight: 700;
+	color: #bf311b;
+}
+#influencer-list .influencer .c3 .c3-sep{
+	position: relative;
+	float: left;
+	width: 1px;
+	height: 32px;
+	background-color:#e5e5e5;
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-top: 9px;
+}
+

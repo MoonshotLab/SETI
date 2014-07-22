@@ -3,46 +3,49 @@
   <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-<<<<<<< HEAD
     <title>Project SETI</title>
 
-    <!-- <script src='/socket.io/socket.io.js'></script> -->
-=======
-    <title>Influencer Alert</title>
     <%- LRScript %>
 
     <script src='/socket.io/socket.io.js'></script>
->>>>>>> FETCH_HEAD
     <script>
-      // var socket = io();
+      var socket = io();
 
-      // socket.on('follow', function(data){
-      //   console.log(data);
-      // });
+      socket.on('follow', function(data){
+        console.log(data);
+      });
 
-      // socket.on('influencer-alert', function(data){
-      //   console.log(data);
-      // });
+      socket.on('influencer-alert', function(data){
+        console.log(data);
+      });
 
-      // socket.on('mention', function(data){
-      //   console.log(data);
-      // });
+      socket.on('mention', function(data){
+        console.log(data);
+      });
     </script>
 
     <!-- JS -->
     
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+    
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/ng-infinite-scroll.min.js"></script>
     <script src="js/init.js"></script>
 
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/css/normalize.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/style.css">
+    
 
    
   </head>
 
   <body ng-controller="DataController as data">
+    <div id="preloader">
+      <img src="img/Preloader_1.gif" alt="Preloader Animation">
+    </div>
   <!-- Header -->
     <div id="top-header">
       <div id="full-width-bar"></div>
@@ -56,9 +59,9 @@
       <a href="" id="seti-info"></a>
     </div>
     <!-- Main Content -->
-    <div id="main-content">
+    <div id="main-content" ng-controller="MenuController as menuData">
     <!-- Client Menu -->
-      <div id="client-menu" ng-controller="MenuController as menuData"> 
+      <div id="client-menu"> 
         <div id="title" class="default-margin">
           <img src="img/list-icon.png" alt="List Icon">
           <h2>Client list</h2>
@@ -175,11 +178,278 @@
       <!-- Influencer List (right content) -->
       <div id="influencer-list-content-holder">
         <div id="influencer-list">
+          <!-- Feed Header -->
           <div id="influencer-header">
-            <h2>Influencer Feed</h2>
-            <div id="filter"></div>
+            <h2>Influencer Feed {{menuData.contentType}}</h2>
+            <div id="filter">
+              <div class="btn-group">
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                  Choose data
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li ng-class="{active: menuData.getActiveContent(1)}" ng-click="menuData.activeContent(1)"><a href="#" >Follows</a></li>
+                  <li ng-class="{active: menuData.getActiveContent(2)}" ng-click="menuData.activeContent(2)"><a href="#" >Mentions</a></li>
+                </ul>
+              </div>
+            </div>
             <div id="full-width-sep-line"></div>
           </div>
+
+
+          <!-- Feed Wingstop -->
+          <div id="feed" ng-show="menuData.menuItem === 2">
+          <div class="followings" ng-show="menuData.contentType === 1">
+            <!-- Multiply Influencer -->
+            <div class="influencer" ng-repeat="influencer in data.getInfluencerData('ws')">
+              <div class="c1">
+                <img src="{{influencer.profile_image_url}}" alt="Profile Picture">
+              </div>
+              <div class="c1-sep"></div>
+              <div class="c2">
+                <div class="name">
+                  <div class="user-name">{{influencer.name}}</div>
+                  <div class="name-sep"></div>
+                  <div class="twitter-name">@{{influencer.screen_name}}</div>
+                </div>
+                <div class="message">
+                  <img src="img/followed.png" alt="Followed Icon">
+                  <div class="text">
+                    <div class="line1"><p> <em>Followed on</em></p></div>
+                    <div class="line2"><p>a bright and sunny day</p></div>
+                  </div>
+                </div>
+              </div>
+              <div class="c3">
+                <div class="c3-sep"></div>
+                <div class="stats">
+                  <div class="tweets stat">
+                    <!-- <p>{{influencer.statuses_count}}</p> -->
+                    <p>...</p>
+                  </div>
+                  <div class="followers stat">
+                     <p>{{influencer.followers_count | number : 0}}</p>
+                  </div>
+                  <div class="following stat">
+                     <p>{{influencer.friends_count | number : 0}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Influencer -->
+          </div>
+            <div class="mentions" ng-show="menuData.contentType === 2">
+              <!-- Multiply Mentions -->
+            <div class="influencer" ng-repeat="mention in data.getMentionData('ws')">
+              <div class="c1">
+                <img src="{{mention.user.profile_image_url}}" alt="Profile Picture">
+              </div>
+              <div class="c1-sep"></div>
+              <div class="c2">
+                <div class="name">
+                  <div class="user-name">{{mention.user.screen_name}}</div>
+                  <div class="name-sep"></div>
+                  <div class="twitter-name">@{{mention.user.screen_name}}</div>
+                </div>
+                <div class="message">
+                  <img src="img/mention.png" alt="Followed Icon">
+                  <div class="text">
+                    <div class="line1"><p> <em>Followed on</em></p></div>
+                    <div class="line2"><p>a bright and sunny day</p></div>
+                  </div>
+                </div>
+              </div>
+              <div class="c3">
+                <div class="c3-sep"></div>
+                <div class="stats">
+                  <div class="tweets stat">
+                    <!-- <p>{{influencer.statuses_count}}</p> -->
+                    <p>...</p>
+                  </div>
+                  <div class="followers stat">
+                     <p>{{mention.user.followers_count | number : 0}}</p>
+                  </div>
+                  <div class="following stat">
+                     <p>{{mention.user.friends_count | number : 0}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Mentions Wingstop-->
+
+            </div>
+          </div>
+          <!-- End Feed Wingstop -->
+
+          <!-- Feed Dairy queen-->
+          <div id="feed" infinite-scroll="pagerFunctionC2()" infinite-scroll-distance="0" ng-show="menuData.menuItem === 3">
+          <div class="followings" ng-show="menuData.contentType === 1">
+            <!-- Multiply Influencer -->
+            <div class="influencer" ng-repeat="influencer in data.getInfluencerData('dq')">
+              <div class="c1">
+                <img src="{{influencer.profile_image_url}}" alt="Profile Picture">
+              </div>
+              <div class="c1-sep"></div>
+              <div class="c2">
+                <div class="name">
+                  <div class="user-name">{{influencer.name}}</div>
+                  <div class="name-sep"></div>
+                  <div class="twitter-name">@{{influencer.screen_name}}</div>
+                </div>
+                <div class="message">
+                  <img src="img/followed.png" alt="Followed Icon">
+                  <div class="text">
+                    <div class="line1"><p> <em>Followed on</em></p></div>
+                    <div class="line2"><p>a bright and sunny day</p></div>
+                  </div>
+                </div>
+              </div>
+              <div class="c3">
+                <div class="c3-sep"></div>
+                <div class="stats">
+                  <div class="tweets stat">
+                    <!-- <p>{{influencer.statuses_count}}</p> -->
+                    <p>...</p>
+                  </div>
+                  <div class="followers stat">
+                     <p>{{influencer.followers_count | number : 0}}</p>
+                  </div>
+                  <div class="following stat">
+                     <p>{{influencer.friends_count | number : 0}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Influencer -->
+            </div>
+            <div class="mentions" ng-show="menuData.contentType === 2">
+              <!-- Multiply Mentions -->
+            <div class="influencer" ng-repeat="mention in data.getMentionData('dq')">
+              <div class="c1">
+                <img src="{{mention.user.profile_image_url}}" alt="Profile Picture">
+              </div>
+              <div class="c1-sep"></div>
+              <div class="c2">
+                <div class="name">
+                  <div class="user-name">{{mention.user.screen_name}}</div>
+                  <div class="name-sep"></div>
+                  <div class="twitter-name">@{{mention.user.screen_name}}</div>
+                </div>
+                <div class="message">
+                  <img src="img/mention.png" alt="Followed Icon">
+                  <div class="text">
+                    <div class="line1"><p> <em>Followed on</em></p></div>
+                    <div class="line2"><p>a bright and sunny day</p></div>
+                  </div>
+                </div>
+              </div>
+              <div class="c3">
+                <div class="c3-sep"></div>
+                <div class="stats">
+                  <div class="tweets stat">
+                    <!-- <p>{{influencer.statuses_count}}</p> -->
+                    <p>...</p>
+                  </div>
+                  <div class="followers stat">
+                     <p>{{mention.user.followers_count | number : 0}}</p>
+                  </div>
+                  <div class="following stat">
+                     <p>{{mention.user.friends_count | number : 0}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Mentions Dairy Queen-->
+
+            </div>
+          </div>
+          <!-- End Feed Dairy Queen-->
+
+          <!-- Feed Blue Bunny -->
+          <div id="feed" infinite-scroll="pagerFunctionC3()" infinite-scroll-distance="0" ng-show="menuData.menuItem === 4">
+          <div class="followings" ng-show="menuData.contentType === 1">
+            <!-- Multiply Influencer -->
+            <div class="influencer" ng-repeat="influencer in data.getInfluencerData('bb')">
+              <div class="c1">
+                <img src="{{influencer.profile_image_url}}" alt="Profile Picture">
+              </div>
+              <div class="c1-sep"></div>
+              <div class="c2">
+                <div class="name">
+                  <div class="user-name">{{influencer.name}}</div>
+                  <div class="name-sep"></div>
+                  <div class="twitter-name">@{{influencer.screen_name}}</div>
+                </div>
+                <div class="message">
+                  <img src="img/followed.png" alt="Followed Icon">
+                  <div class="text">
+                    <div class="line1"><p> <em>Followed on</em></p></div>
+                    <div class="line2"><p>a bright and sunny day</p></div>
+                  </div>
+                </div>
+              </div>
+              <div class="c3">
+                <div class="c3-sep"></div>
+                <div class="stats">
+                  <div class="tweets stat">
+                    <!-- <p>{{influencer.statuses_count}}</p> -->
+                    <p>...</p>
+                  </div>
+                  <div class="followers stat">
+                     <p>{{influencer.followers_count | number : 0}}</p>
+                  </div>
+                  <div class="following stat">
+                     <p>{{influencer.friends_count | number : 0}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Influencer -->
+            </div>
+            <div class="mentions" ng-show="menuData.contentType === 2">
+              <!-- Multiply Mentions -->
+            <div class="influencer" ng-repeat="mention in data.getMentionData('bb')">
+              <div class="c1">
+                <img src="{{mention.user.profile_image_url}}" alt="Profile Picture">
+              </div>
+              <div class="c1-sep"></div>
+              <div class="c2">
+                <div class="name">
+                  <div class="user-name">{{mention.user.screen_name}}</div>
+                  <div class="name-sep"></div>
+                  <div class="twitter-name">@{{mention.user.screen_name}}</div>
+                </div>
+                <div class="message">
+                  <img src="img/mention.png" alt="Followed Icon">
+                  <div class="text">
+                    <div class="line1"><p> <em>Followed on</em></p></div>
+                    <div class="line2"><p>a bright and sunny day</p></div>
+                  </div>
+                </div>
+              </div>
+              <div class="c3">
+                <div class="c3-sep"></div>
+                <div class="stats">
+                  <div class="tweets stat">
+                    <!-- <p>{{influencer.statuses_count}}</p> -->
+                    <p>...</p>
+                  </div>
+                  <div class="followers stat">
+                     <p>{{mention.user.followers_count | number : 0}}</p>
+                  </div>
+                  <div class="following stat">
+                     <p>{{mention.user.friends_count | number : 0}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- End Mentions Blue Bunny-->
+
+            </div>
+          </div>
+          <!-- End Feed Blue Bunny -->
+
+
         </div>
       </div>
 
