@@ -2,6 +2,7 @@ var express = require('express');
 var ejs = require('ejs');
 var spark = require('./lib/spark');
 var twitter = require('./lib/twitter');
+var findInfluencers = require('./lib/find-influencers');
 var utils = require('./lib/utils');
 var env = process.env.MODE;
 var livereload = null;
@@ -65,3 +66,5 @@ twitter.startStream();
 var tweets = twitter.subscribe();
 tweets.on('new-follower', broadcastFollow);
 tweets.on('mention', broadcastMention);
+
+findInfluencers.poll();
