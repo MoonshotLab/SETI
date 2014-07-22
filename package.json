@@ -19,5 +19,8 @@
   },
   "devDependencies" : {
     "express-livereload": "0.0.24"
+  },
+  "engines": {
+    "node" : "0.10.x"
   }
 }
