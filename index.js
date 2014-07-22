@@ -1,6 +1,7 @@
 var express = require('express');
 var ejs = require('ejs');
 var spark = require('./lib/spark');
+var cache = require('./lib/cache');
 var twitter = require('./lib/twitter');
 var findInfluencers = require('./lib/find-influencers');
 var utils = require('./lib/utils');
@@ -33,23 +34,28 @@ http.listen(process.env.PORT || 3000);
 
 var broadcastFollow = function(data){
   var eventType = 'follow';
-  var user = data.source;
+  var follower = data.source;
+  var followee = data.target;
 
-  if(utils.userIsInfluencer(user)){
+  if(utils.userIsInfluencer(follower)){
     eventType = 'influencer-alert';
+    var abbreviated = utils.abbreviateUser(follower);
+    cache.saveInfluencer(abbreviated);
+    cache.appendInfluencerIdsToUser(followee.screen_name, abbreviated);
   }
 
   spark.notify({
     eventType: eventType,
-    userId: data.target.screen_name
+    userId: followee.screen_name.toLowerCase()
   });
 
-  console.log('EVENT:', eventType);
+  console.log('*-* EVENT:', eventType, followee.screen_name);
   io.emit(eventType, data);
 };
 
 
 var broadcastMention = function(data){
+  var mentioner = data.user;
   var eventType = 'mention';
 
   spark.notify({
@@ -57,7 +63,7 @@ var broadcastMention = function(data){
     username: data.mentionee
   });
 
-  console.log('EVENT:', eventType);
+  console.log('*-* EVENT:', eventType, data.mentionee);
   io.emit(eventType, data);
 };
 
