@@ -21,7 +21,7 @@ $(function() {
 	// Init settings
 		//preloader settings
 		$("#top-header").hide();
-		$("#main-content").hide();	
+		$("#main-content").hide();
 });
 
 (function() {
@@ -32,7 +32,7 @@ var activeContent = 0;
 	var app = angular.module("SETI",['infinite-scroll']);
 	// Vars
 	var clientData;
-	
+
 	app.controller("DataController",function($scope,$http){
 		this.dataLoaded = 1;
 		// Data
@@ -65,7 +65,7 @@ var activeContent = 0;
 		var bbMentionList = Array();
 
 		// Wingstop
-		$http.get('http://localhost:3000/wingstop/influencers').success(function(data) {
+		$http.get('/wingstop/influencers').success(function(data) {
 		    wingstopInfluencers = data;
 		    wingstopInfluencerCount = data.length;
 		    for (var i = 0; i <= 9; i++) {
@@ -73,7 +73,7 @@ var activeContent = 0;
 		    };
 		    	checkLoaded();
 		});
-		$http.get('http://localhost:3000/wingstop/mentions').success(function(data) {
+		$http.get('/wingstop/mentions').success(function(data) {
 		    wingstopMentions = data;
 		    wingstopMentionCount = data.length;
 		    for (var i = 0; i <= 9; i++) {
@@ -82,7 +82,7 @@ var activeContent = 0;
 		    checkLoaded();
 		});
 		// Dairy Queen
-		$http.get('http://localhost:3000/dairyqueen/influencers').success(function(data) {
+		$http.get('/dairyqueen/influencers').success(function(data) {
 		    dqInfluencers = data;
 		    dqInfluencerCount = data.length;
 		    for (var i = 0; i <= 9; i++) {
@@ -90,7 +90,7 @@ var activeContent = 0;
 		    };
 		    checkLoaded();
 		});
-		$http.get('http://localhost:3000/dairyqueen/mentions').success(function(data) {
+		$http.get('/dairyqueen/mentions').success(function(data) {
 		    dqMentions = data;
 		    dqMentionCount = data.length;
 		    for (var i = 0; i <= 9; i++) {
@@ -99,7 +99,7 @@ var activeContent = 0;
 		    checkLoaded();
 		});
 		// Blue Bunny
-		$http.get('http://localhost:3000/blue_bunny/influencers').success(function(data) {
+		$http.get('/blue_bunny/influencers').success(function(data) {
 		    bbInfluencers = data;
 		    bbInfluencerCount = data.length;
 		    for (var i = 0; i <= 9; i++) {
@@ -107,7 +107,7 @@ var activeContent = 0;
 		    };
 		    checkLoaded();
 		});
-		$http.get('http://localhost:3000/blue_bunny/mentions').success(function(data) {
+		$http.get('/blue_bunny/mentions').success(function(data) {
 		    bbMentions = data;
 		    bbMentionCount = data.length;
 		    for (var i = 0; i <= 9; i++) {
@@ -230,9 +230,9 @@ var activeContent = 0;
 				      contentList.push(contentData[lastCount + i]);
 				    };
 				}
-				
+
 			}
-			
+
 		};
 		$scope.pagerFunctionC2 = function(){
 			if (dqInfluencers)
@@ -254,7 +254,7 @@ var activeContent = 0;
 				    };
 				}
 			}
-			
+
 		};
 		$scope.pagerFunctionC3 = function(){
 			if (bbInfluencers)
@@ -308,11 +308,11 @@ var activeContent = 0;
 			}
 		}
 	});
-	
-	
 
 
-	// Menu 
+
+
+	// Menu
 	app.controller("MenuController",function(){
 		this.menuItem = 2;
 		activeContent = 2;
@@ -341,8 +341,8 @@ var activeContent = 0;
 		this.getActiveContent = function(contentNum){
 			return contentNum === this.contentType;
 		};
-		
+
 	});
 
-	
+
 })();
