@@ -67,4 +67,5 @@ var tweets = twitter.subscribe();
 tweets.on('new-follower', broadcastFollow);
 tweets.on('mention', broadcastMention);
 
-findInfluencers.poll();
+if(env == 'production')
+  findInfluencers.poll();
