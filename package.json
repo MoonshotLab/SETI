@@ -9,13 +9,13 @@
   "author": "Joe Longstreet",
   "license": "MIT",
   "dependencies": {
-    "needle": "^0.7.1",
-    "twit": "^1.1.15",
-    "socket.io": "^1.0.6",
-    "express": "^4.4.4",
-    "ejs": "^1.0.0",
-    "q": "^1.0.1",
-    "redis": "^0.10.3"
+    "needle": "0.7.1",
+    "twit": "1.1.15",
+    "socket.io": "1.0.6",
+    "express": "4.4.4",
+    "ejs": "1.0.0",
+    "q": "1.0.1",
+    "redis": "0.10.3"
   },
   "devDependencies" : {
     "express-livereload": "0.0.24"
