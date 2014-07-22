@@ -7,11 +7,15 @@ Pics coming soon.
 
 
 ## Setup
-The following environment variables are required
+The following environment variables are required:
 * `TWITTER_CONSUMER_KEY`
 * `TWITTER_CONSUMER_SECRET`
 * `TWITTER_ACCESS_TOKEN`
 * `TWITTER_ACCESS_TOKEN_SECRET`
+* `ALT_TWITTER_CONSUMER_KEY`
+* `ALT_TWITTER_CONSUMER_SECRET`
+* `ALT_TWITTER_ACCESS_TOKEN`
+* `ALT_TWITTER_ACCESS_TOKEN_SECRET`
 * `TRACK_USERS` - Comma separated list of users you'd like to track (eg. "joelongstreet phard joenormal")
 * `SPARK_ACCESS_TOKEN`
 * `SPARK_CORE_ID`
