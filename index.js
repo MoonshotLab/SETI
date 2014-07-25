@@ -1,16 +1,23 @@
 var express = require('express');
 var ejs = require('ejs');
 var spark = require('./lib/spark');
+var cache = require('./lib/cache');
 var twitter = require('./lib/twitter');
+var findInfluencers = require('./lib/find-influencers');
 var utils = require('./lib/utils');
-var livereload = require('express-livereload');
+var env = process.env.MODE;
+var livereload = null;
 
 var app = express();
-livereload(app, {watchDir : process.cwd() + '/public'});
 var http = require('http').Server(app);
 var routes = require('./lib/routes');
 var io = require('socket.io')(http);
 var minFollowerAlertCount = process.env.MIN_FOLLOWERS || 0;
+
+if(env != 'production'){
+  livereload = require('express-livereload');
+  livereload(app, {watchDir : process.cwd() + '/public'});
+}
 
 app.use(express.static(__dirname + '/public'));
 app.engine('.html', require('ejs').__express);
@@ -27,23 +34,28 @@ http.listen(process.env.PORT || 3000);
 
 var broadcastFollow = function(data){
   var eventType = 'follow';
-  var user = data.source;
+  var follower = data.source;
+  var followee = data.target;
 
-  if(utils.userIsInfluencer(user)){
+  if(utils.userIsInfluencer(follower)){
     eventType = 'influencer-alert';
+    var abbreviated = utils.abbreviateUser(follower);
+    cache.saveInfluencer(abbreviated);
+    cache.appendInfluencerIdsToUser(followee.screen_name, abbreviated);
   }
 
   spark.notify({
     eventType: eventType,
-    userId: data.target.screen_name
+    userId: followee.screen_name.toLowerCase()
   });
 
-  console.log('EVENT:', eventType);
+  console.log('*-* EVENT:', eventType, followee.screen_name);
   io.emit(eventType, data);
 };
 
 
 var broadcastMention = function(data){
+  var mentioner = data.user;
   var eventType = 'mention';
 
   spark.notify({
@@ -51,7 +63,7 @@ var broadcastMention = function(data){
     username: data.mentionee
   });
 
-  console.log('EVENT:', eventType);
+  console.log('*-* EVENT:', eventType, data.mentionee);
   io.emit(eventType, data);
 };
 
@@ -60,3 +72,6 @@ twitter.startStream();
 var tweets = twitter.subscribe();
 tweets.on('new-follower', broadcastFollow);
 tweets.on('mention', broadcastMention);
+
+if(env == 'production')
+  findInfluencers.poll();

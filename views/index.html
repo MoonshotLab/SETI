@@ -5,7 +5,10 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>Project SETI</title>
 
-    <%- LRScript %>
+    <% try{ %>
+      <%- LRScript %>
+    <% } catch(e){} %>
+
 
     <script src='/socket.io/socket.io.js'></script>
     <script>
@@ -25,8 +28,8 @@
     </script>
 
     <!-- JS -->
-    
-    
+
+
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -41,6 +44,7 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/css/normalize.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+<<<<<<< HEAD
     <!-- Fancy box -->
     <link rel="stylesheet" href="/fancybox/source/jquery.fancybox.css?v=2.1.5" type="text/css" media="screen" />
     <link rel="stylesheet" href="/fancybox/source/helpers/jquery.fancybox-buttons.css?v=1.0.5" type="text/css" media="screen" />
@@ -50,6 +54,12 @@
     <!-- Mobile styling addition -->
     <link rel="stylesheet" href="/css/mobile.css" />
    
+=======
+    <link rel="stylesheet" href="/css/style.css">
+
+
+
+>>>>>>> FETCH_HEAD
   </head>
 
   <body ng-controller="DataController as data">
@@ -89,11 +99,18 @@
 
 
     <!-- Client Menu -->
+<<<<<<< HEAD
       <div id="client-menu"> 
         <div id="title">
           <div id="menu-button"></div>
           <div id="list-icon"></div>
             <h2>Client list</h2>
+=======
+      <div id="client-menu">
+        <div id="title" class="default-margin">
+          <img src="img/list-icon.png" alt="List Icon">
+          <h2>Client list</h2>
+>>>>>>> FETCH_HEAD
 
         </div>
         <div class="hor-sep-line"></div>
@@ -202,7 +219,7 @@
           </li>
           <div class="hor-sep-line"></div>
         </ul>
-        
+
       </div>
       <!-- Influencer List (right content) -->
       <div id="influencer-list-content-holder">
@@ -498,6 +515,6 @@
       </div>
 
     </div>
-  
+
   </body>
 </html>
