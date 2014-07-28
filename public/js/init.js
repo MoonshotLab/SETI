@@ -57,25 +57,8 @@ $(function() {
 	    }
 	});
 
-	$("#inf-click-content").fancybox({
-		maxWidth	: 800,
-		maxHeight	: 600,
-		fitToView	: false,
-		width		: '70%',
-		height		: 'auto',
-		autoSize	: false,
-		closeClick	: false,
-		helpers : {
-	        overlay : {
-	            css : {
-	                'background' : 'rgba(00, 00, 00, 0.8)'
-	            }
-	        }
-	    }
-	});
 
-
-	$("#inf-click-content").click(function(){
+	$("#inf-click-content a").click(function(){
 		$.fancybox.close();
 	});
 
@@ -477,35 +460,42 @@ var activeContent = 0;
 			}
 		}
 		this.dataLoaded = 1;
-		this.setInfLink = function(url){
-			
-			console.log("click!!!");
+		this.setInfLink = function(url,message){
 
 			infURL = url;
 			$("#inf-click-content a").attr("href", "http://www.twitter.com/" + infURL);
+			// Mention Message
+			if(message)
+			{
+				$("#inf-click-content #message").show();
+				$("#inf-click-content #message p").text(message);
+			}else{
+				$("#inf-click-content #message").hide();
+			}
+			
+
 			 // ToDo: Setup this fancy box by default and then show/hide
 			 // 2. If its a mention, and content in function variable and show data else no message
-			// $.fancybox({
-			// 	href: '#inf-click-content',
-			// 	maxWidth	: 800,
-			// 	maxHeight	: 600,
-			// 	fitToView	: false,
-			// 	width		: '70%',
-			// 	height		: 'auto',
-			// 	autoSize	: false,
-			// 	closeClick	: false,
-			// 	helpers : {
-			//         overlay : {
-			//             css : {
-			//                 'background' : 'rgba(00, 00, 00, 0.8)'
-			//             }
-			//         }
-			//     }
-			// });
-			console.log("it should open now!");
-			$("#inf-click-content").trigger( "click" );
+			$.fancybox({
+				href: '#inf-click-content',
+				maxWidth	: 800,
+				maxHeight	: 600,
+				fitToView	: false,
+				width		: '70%',
+				height		: 'auto',
+				autoSize	: false,
+				closeClick	: false,
+				helpers : {
+			        overlay : {
+			            css : {
+			                'background' : 'rgba(00, 00, 00, 0.8)'
+			            }
+			        }
+			    }
+			});
+			
 
-			// return false;
+			return false;
 		}
 	});
 

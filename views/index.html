@@ -52,11 +52,6 @@
     <!-- Initial JS -->
     <script src="js/init.js"></script>
 
-    
-
-
-
-
   </head>
 
   <body ng-controller="DataController as data">
@@ -70,7 +65,6 @@
         <a href="">
         <img id="rocket" src="img/logo.png" alt="Project SETI Logo">
         <img id="text-logo" src="img/text-logo.png" alt="Project SETI Text logo">
-
         </a>
       </div>
       <a href="#project-descr" id="seti-info"></a>
@@ -81,6 +75,10 @@
     <!-- Influencer Click Lightbox Content -->
 
     <div id="inf-click-content">
+      <div id="message">
+        <h2>Mention:</h2>
+        <p id="content"></p>
+      </div>
       <a href="#" target="_blank" id="profile-click" class="twitter-button">Go to twitter profile <img src="img/red-arrow.png" alt="Red Arrow"></a>
     </div>
 
@@ -283,7 +281,7 @@
             <div class="mentions" ng-show="menuData.contentType === 2">
               <!-- Multiply Mentions -->
             <div id="influencer-holder" ng-repeat="mention in data.getMentionData('ws')">
-              <div class="influencer" ng-click="data.setInfLink(mention.user.screen_name)">
+              <div class="influencer" ng-click="data.setInfLink(mention.user.screen_name,mention.text)">
                 <div class="c1">
                   <img src="{{mention.user.profile_image_url}}" alt="Profile Picture">
                 </div>

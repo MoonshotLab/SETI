@@ -518,6 +518,18 @@ body {
 #inf-click-content{
 	display: none;
 }
+#inf-click-content #message{
+	display: none;
+}
+#inf-click-content #message h2{
+	font-size: 18px;
+}
+#inf-click-content #message p{
+	margin-bottom: 10px;
+}
+.fancybox-inner{
+	padding-bottom: 10px;
+}
 #inf-click-content .twitter-button{
 	position: relative;
 	display: block;
