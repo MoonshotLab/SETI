@@ -58,6 +58,8 @@ $(function() {
 	});
 
 
+
+
 	$("#inf-click-content a").click(function(){
 		$.fancybox.close();
 	});
@@ -462,8 +464,11 @@ var activeContent = 0;
 		this.dataLoaded = 1;
 		this.setInfLink = function(url,message){
 
-			infURL = url;
+			infURL = url; 
+			console.log("1");
 			$("#inf-click-content a").attr("href", "http://www.twitter.com/" + infURL);
+			console.log("2");
+
 			// Mention Message
 			if(message)
 			{
@@ -472,28 +477,29 @@ var activeContent = 0;
 			}else{
 				$("#inf-click-content #message").hide();
 			}
-			
-
+			console.log("3");
 			 // ToDo: Setup this fancy box by default and then show/hide
 			 // 2. If its a mention, and content in function variable and show data else no message
-			$.fancybox({
-				href: '#inf-click-content',
-				maxWidth	: 800,
-				maxHeight	: 600,
-				fitToView	: false,
-				width		: '70%',
-				height		: 'auto',
-				autoSize	: false,
-				closeClick	: false,
-				helpers : {
-			        overlay : {
-			            css : {
-			                'background' : 'rgba(00, 00, 00, 0.8)'
-			            }
-			        }
-			    }
-			});
+
+				$.fancybox({
+					href: '#inf-click-content',
+					maxWidth	: 800,
+					maxHeight	: 600,
+					fitToView	: false,
+					width		: '70%',
+					height		: 'auto',
+					autoSize	: false,
+					closeClick	: false,
+					helpers : {
+				        overlay : {
+				            css : {
+				                'background' : 'rgba(00, 00, 00, 0.8)'
+				            }
+				        }
+				    }
+				});
 			
+			console.log("4");
 
 			return false;
 		}
