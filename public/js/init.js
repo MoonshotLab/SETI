@@ -57,11 +57,30 @@ $(function() {
 	    }
 	});
 
+	$("#inf-click-content").fancybox({
+		maxWidth	: 800,
+		maxHeight	: 600,
+		fitToView	: false,
+		width		: '70%',
+		height		: 'auto',
+		autoSize	: false,
+		closeClick	: false,
+		helpers : {
+	        overlay : {
+	            css : {
+	                'background' : 'rgba(00, 00, 00, 0.8)'
+	            }
+	        }
+	    }
+	});
+
+
 	$("#inf-click-content").click(function(){
 		$.fancybox.close();
 	});
 
 	
+
 	var menuOut = false;
 
 	
@@ -70,8 +89,6 @@ $(function() {
 		
 		if(!menuOut)
 		{
-
-<<<<<<< HEAD
 			$("#client-menu").animate({
 				left: "0px"
 			},200);
@@ -160,12 +177,11 @@ $(function() {
 			
 		}
 	}
-=======
+
 	// Init settings
 		//preloader settings
 		$("#top-header").hide();
 		$("#main-content").hide();
->>>>>>> FETCH_HEAD
 });
 
 (function() {
@@ -173,7 +189,7 @@ $(function() {
 var activeContent = 0;
 
 	// Angular setup
-	var app = angular.module("SETI",['infinite-scroll']);
+	var app = angular.module("SETI",[]);
 	// Vars
 	var clientData;
 
@@ -211,17 +227,8 @@ var activeContent = 0;
 		var bbList = Array();
 		var bbMentionList = Array();
 
-<<<<<<< HEAD
-		var infURL = "";
-
-		// ******************************************************
-		// Loading functions
-		// ******************************************************
-		$http.get('http://localhost:3000/wingstop/influencers').success(function(data) {
-=======
 		// Wingstop
 		$http.get('/wingstop/influencers').success(function(data) {
->>>>>>> FETCH_HEAD
 		    wingstopInfluencers = data;
 		    wingstopInfluencerCount = data.length;
 		    for (var i = 0; i <= 9; i++) {
@@ -472,30 +479,33 @@ var activeContent = 0;
 		this.dataLoaded = 1;
 		this.setInfLink = function(url){
 			
-			infURL = url;
-			// console.log("Click:  " + infURL);
-			$("#inf-click-content a").attr("href", "http://www.twitter.com/" + infURL);
+			console.log("click!!!");
 
-			$.fancybox({
-				href: '#inf-click-content',
-				maxWidth	: 800,
-				maxHeight	: 600,
-				fitToView	: false,
-				width		: '70%',
-				height		: 'auto',
-				autoSize	: false,
-				closeClick	: false,
-				openEffect	: 'none',
-				closeEffect	: 'none', 
-				helpers : {
-			        overlay : {
-			            css : {
-			                'background' : 'rgba(00, 00, 00, 0.8)'
-			            }
-			        }
-			    }
-			});
-			return false;
+			infURL = url;
+			$("#inf-click-content a").attr("href", "http://www.twitter.com/" + infURL);
+			 // ToDo: Setup this fancy box by default and then show/hide
+			 // 2. If its a mention, and content in function variable and show data else no message
+			// $.fancybox({
+			// 	href: '#inf-click-content',
+			// 	maxWidth	: 800,
+			// 	maxHeight	: 600,
+			// 	fitToView	: false,
+			// 	width		: '70%',
+			// 	height		: 'auto',
+			// 	autoSize	: false,
+			// 	closeClick	: false,
+			// 	helpers : {
+			//         overlay : {
+			//             css : {
+			//                 'background' : 'rgba(00, 00, 00, 0.8)'
+			//             }
+			//         }
+			//     }
+			// });
+			console.log("it should open now!");
+			$("#inf-click-content").trigger( "click" );
+
+			// return false;
 		}
 	});
 
@@ -538,13 +548,9 @@ var activeContent = 0;
 		this.getActiveContent = function(contentNum){
 			return contentNum === this.contentType;
 		};
-<<<<<<< HEAD
-	});
-})();
-=======
 
 	});
-
-
 })();
->>>>>>> FETCH_HEAD
+
+
+
