@@ -42,9 +42,29 @@ and (max-width : 520px) {
 @media only screen 
 and (max-width : 740px) {
 
+
+	
 	#client-menu{
 		width: 270px;
 		left: -220px;
+	}
+	html{
+		height: 100%;
+	}
+	body{
+		height: 100%;
+	}
+	#top-header{
+		position: relative;
+		
+	}
+	#client-menu{
+		position: absolute;
+		margin-top: 0;
+		height: 100%;
+	}
+	#influencer-list-content-holder{
+		margin-top: 0;
 	}
 
 	#influencer-list{
@@ -82,7 +102,6 @@ and (max-width : 550px) {
 
 		/* temp */
 	#influencer-list .influencer .c2{
-		
 	}
 	#influencer-list .influencer{
 		height: 126px;
@@ -165,3 +184,14 @@ and (max-width : 480px) {
 	
 
 } /* End of Media query *480 */
+
+@media only screen 
+and (max-width : 380px) {
+
+	#influencer-list .influencer{
+		height: 150px;
+	}
+
+	
+
+} /* End of Media query *400 */

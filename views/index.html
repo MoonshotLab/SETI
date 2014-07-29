@@ -221,7 +221,7 @@
               <div class="options">
                 <ul>
                   <li><p class="filter-title">Filter:</p></li>
-                  <li ng-class="{active: menuData.getActiveContent(1)}" ng-click="menuData.activeContent(1)"><a href="#" >Follows</a></li>
+                  <li ng-class="{active: menuData.getActiveContent(1)}" ng-click="menuData.activeContent(1)"><a href="#" >Influencers</a></li>
                   <li><p class="slash">/</p></li>
                   <li ng-class="{active: menuData.getActiveContent(2)}" ng-click="menuData.activeContent(2)"><a href="#" >Mentions</a></li>
                 </ul>
@@ -251,8 +251,8 @@
                   <div class="message">
                     <img src="img/followed.png" alt="Followed Icon">
                     <div class="text">
-                      <div class="line1"><p> <em>Followed on</em></p></div>
-                      <div class="line2"><p>a bright and sunny day</p></div>
+                      <div class="line1"><p> <em>Followed:</em></p></div>
+                      <div class="line2"><p>1/1/2099</p></div>
                     </div>
                   </div>
                 </div>
@@ -295,8 +295,8 @@
                   <div class="message">
                     <img src="img/mention.png" alt="Followed Icon">
                     <div class="text">
-                      <div class="line1"><p> <em>Followed on</em></p></div>
-                      <div class="line2"><p>a bright and sunny day</p></div>
+                      <div class="line1"><p> <em>Followed:</em></p></div>
+                      <div class="line2"><p>1/1/2099</p></div>
                     </div>
                   </div>
                 </div>
@@ -344,8 +344,8 @@
                   <div class="message">
                     <img src="img/followed.png" alt="Followed Icon">
                     <div class="text">
-                      <div class="line1"><p> <em>Followed on</em></p></div>
-                      <div class="line2"><p>a bright and sunny day</p></div>
+                      <div class="line1"><p> <em>Followed:</em></p></div>
+                      <div class="line2"><p>1/1/2099</p></div>
                     </div>
                   </div>
                 </div>
@@ -372,7 +372,7 @@
             <div class="mentions" ng-show="menuData.contentType === 2">
               <!-- Multiply Mentions -->
             <div id="influencer-holder" ng-repeat="mention in data.getMentionData('dq')">
-              <div class="influencer" ng-click="data.setInfLink(mention.user.screen_name)">
+              <div class="influencer" ng-click="data.setInfLink(mention.user.screen_name,mention.text)">
                 <div class="c1">
                   <img src="{{mention.user.profile_image_url}}" alt="Profile Picture">
                 </div>
@@ -386,8 +386,8 @@
                   <div class="message">
                     <img src="img/mention.png" alt="Followed Icon">
                     <div class="text">
-                      <div class="line1"><p> <em>Followed on</em></p></div>
-                      <div class="line2"><p>a bright and sunny day</p></div>
+                      <div class="line1"><p> <em>Followed:</em></p></div>
+                      <div class="line2"><p>1/1/2099</p></div>
                     </div>
                   </div>
                 </div>
@@ -434,8 +434,8 @@
                   <div class="message">
                     <img src="img/followed.png" alt="Followed Icon">
                     <div class="text">
-                      <div class="line1"><p> <em>Followed on</em></p></div>
-                      <div class="line2"><p>a bright and sunny day</p></div>
+                      <div class="line1"><p> <em>Followed:</em></p></div>
+                      <div class="line2"><p>1/1/2099</p></div>
                     </div>
                   </div>
                 </div>
@@ -463,7 +463,7 @@
               <!-- Multiply Mentions -->
 
               <div id="influencer-holder" ng-repeat="mention in data.getMentionData('bb')">
-                <div class="influencer" ng-click="data.setInfLink(mention.user.screen_name)">
+                <div class="influencer" ng-click="data.setInfLink(mention.user.screen_name,mention.text)">
                   <div class="c1">
                     <img src="{{mention.user.profile_image_url}}" alt="Profile Picture">
                   </div>
@@ -477,8 +477,8 @@
                     <div class="message">
                       <img src="img/mention.png" alt="Followed Icon">
                       <div class="text">
-                        <div class="line1"><p> <em>Followed on</em></p></div>
-                        <div class="line2"><p>a bright and sunny day</p></div>
+                        <div class="line1"><p> <em>Followed:</em></p></div>
+                        <div class="line2"><p>1/1/2099</p></div>
                       </div>
                     </div>
                   </div>

@@ -64,17 +64,12 @@ $(function() {
 		$.fancybox.close();
 	});
 
-	
-
 	var menuOut = false;
 
-	
-
 	function showMenu(){
-		
 		if(!menuOut)
 		{
-			$("#client-menu").animate({
+			$("#client-menu").stop().animate({
 				left: "0px"
 			},200);
 			$("#client-menu #menu-button").hide();
@@ -86,7 +81,7 @@ $(function() {
 
 	function hideMenu(){
 		if(menuOut && $(window).width() < 740){
-			$("#client-menu").animate({
+			$("#client-menu").stop().animate({
 				left: "-220px"
 			},200);
 			$("#client-menu #menu-button").show();
@@ -108,8 +103,29 @@ $(function() {
 		}else{
 			hideMenu();
 			addMenuClickEvents();
+			$("#client-menu").css("height",$(document).height());
 		}
 	});
+
+	// Scroll
+	$(window).scroll(function(){
+		if($(window).width() < 740)
+		{
+			console.log("scroll heigth" + $(document).scrollTop());
+			if($(document).scrollTop() > 180)
+			{
+				$("#menu-button").css("top",$(document).scrollTop()-90);
+			}
+			else
+			{
+				$("#menu-button").css("top","20");
+			}
+			
+		}
+		
+	});
+
+	
 
 	//Init width check
 	if($(window).width() < 740){
@@ -134,7 +150,6 @@ $(function() {
 	function addMenuClickEvents(){
 		if(!menuActive)
 		{
-			console.log("Add Menu Clicks");
 			menuActive = true;
 			// Click event when menu is out
 			$("#influencer-list-content-holder").click(function(){
@@ -155,6 +170,7 @@ $(function() {
 				if(!menuOut)
 				{
 					showMenu();
+					window.scrollTo(0,0);
 				}else{
 					hideMenu();
 				}
@@ -270,6 +286,8 @@ var activeContent = 0;
 				 $("#preloader").hide();
 				 $("#top-header").fadeIn();
 				 $("#main-content").fadeIn();
+
+				 $("#client-menu").css("height",$(document).height());
 			}
 		};
 
@@ -313,21 +331,18 @@ var activeContent = 0;
 				case "ws":
 					if(wingstopInfluencers)
 					{
-						// return wingstopList;
 						return wingstopInfluencers;
 					}
 				return;
 				case "dq":
 					if(dqInfluencers)
 					{
-						// return dqList;
 						return dqInfluencers;
 					}
 				return;
 				case "bb":
 					if(bbInfluencers)
 					{
-						// return bbList;
 						return bbInfluencers;
 					}
 				return;
@@ -465,9 +480,9 @@ var activeContent = 0;
 		this.setInfLink = function(url,message){
 
 			infURL = url; 
-			console.log("1");
+
 			$("#inf-click-content a").attr("href", "http://www.twitter.com/" + infURL);
-			console.log("2");
+
 
 			// Mention Message
 			if(message)
@@ -477,7 +492,6 @@ var activeContent = 0;
 			}else{
 				$("#inf-click-content #message").hide();
 			}
-			console.log("3");
 			 // ToDo: Setup this fancy box by default and then show/hide
 			 // 2. If its a mention, and content in function variable and show data else no message
 
@@ -499,7 +513,7 @@ var activeContent = 0;
 				    }
 				});
 			
-			console.log("4");
+
 
 			return false;
 		}
