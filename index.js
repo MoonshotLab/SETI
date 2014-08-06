@@ -5,6 +5,7 @@ var cache = require('./lib/cache');
 var twitter = require('./lib/twitter');
 var findInfluencers = require('./lib/find-influencers');
 var utils = require('./lib/utils');
+var basicAuth = require('basic-auth');
 var env = process.env.MODE;
 var livereload = null;
 
@@ -13,17 +14,38 @@ var http = require('http').Server(app);
 var routes = require('./lib/routes');
 var io = require('socket.io')(http);
 var minFollowerAlertCount = process.env.MIN_FOLLOWERS || 0;
+var auth = function(){
+  next();
+};
 
 if(env != 'production'){
   livereload = require('express-livereload');
   livereload(app, {watchDir : process.cwd() + '/public'});
+} else{
+  findInfluencers.poll();
+
+  auth = function(req, res, next){
+    function unauthorized(res) {
+      res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
+      return res.send(401);
+    }
+
+    var user = basicAuth(req);
+    if (!user || !user.name || !user.pass)
+      return unauthorized(res);
+
+    if (user.name === 'admin' && user.pass === 'password')
+      return next();
+    else
+      return unauthorized(res);
+  };
 }
 
 app.use(express.static(__dirname + '/public'));
 app.engine('.html', require('ejs').__express);
 app.set('views', __dirname + '/views');
 
-app.get('/', routes.home);
+app.get('/', auth, routes.home);
 app.get('/:username', routes.getUser);
 app.get('/:username/followers', routes.getFollowers);
 app.get('/:username/influencers', routes.getInfluencers);
@@ -77,6 +99,3 @@ twitter.startStream();
 var tweets = twitter.subscribe();
 tweets.on('new-follower', broadcastFollow);
 tweets.on('mention', broadcastMention);
-
-if(env == 'production')
-  findInfluencers.poll();
