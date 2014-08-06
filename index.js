@@ -39,7 +39,10 @@ var broadcastFollow = function(data){
 
   if(utils.userIsInfluencer(follower)){
     eventType = 'influencer-alert';
+
     var abbreviated = utils.abbreviateUser(follower);
+    abbreviated.followed_date = new Date().getTime();
+
     cache.saveInfluencer(abbreviated);
     cache.appendInfluencerIdsToUser(followee.screen_name, abbreviated);
   }
