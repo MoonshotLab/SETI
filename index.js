@@ -46,7 +46,8 @@ var broadcastFollow = function(data){
 
   spark.notify({
     eventType: eventType,
-    userId: followee.screen_name.toLowerCase()
+    influencer: followee.screen_name,
+    client: folowee.screen_name
   });
 
   console.log('*-* EVENT:', eventType, followee.screen_name);
@@ -60,7 +61,8 @@ var broadcastMention = function(data){
 
   spark.notify({
     eventType: eventType,
-    username: data.mentionee
+    influencer: data.mentioner.screen_name,
+    client: data.mentionee.screen_name
   });
 
   console.log('*-* EVENT:', eventType, data.mentionee);
