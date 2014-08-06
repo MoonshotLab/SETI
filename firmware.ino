@@ -19,6 +19,11 @@ int getClientPinFromParams(String params){
 
 
 int newFollower(String command){
+  return 1;
+}
+
+
+int newInfluencer(String command){
   String influencer = getInfluencerFromParams(command);
   int clientPin = getClientPinFromParams(command);
 
@@ -52,7 +57,8 @@ void setup(){
   // Pass in paramaters in the form of '0,influencer-name', where 0
   // is the pin number associated with the client and influencer-name
   // is the name of the influencer s
-  Spark.function("influencer-alert", newFollower);
+  Spark.function("follow", newFollower);
+  Spark.function("influencer-alert", newInfluencer);
   Spark.function("mention", newMention);
 
   reset();
