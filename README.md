@@ -39,6 +39,10 @@ The following events are broadcasted to a spark core and are available via a web
 * `mention` - A *tracked user* is mentioned
 
 
+## Communicating to the firmware
+The hardware portion of the app is a [Spark Core](https://www.spark.io/) (a wifi enabled Arduino). To communicate with the device, you post urls with params in the following form - `0,joelongstreet` where 0 is the pin number and the following string is the influencer username. Each pin number is mapped to a specific client.
+
+
 ## What's an Influencer?
 An influencer is defined as a follower of a given user which has at least 50,000 followers of their own and follows no more than half of the number of which follow them.
 
