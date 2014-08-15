@@ -34,7 +34,7 @@ A few rest routes are available for the client side application to consume:
 ## Socket and Broadcasted Events
 The following events are broadcasted to a spark core and are available via a websocket subscription. A *tracked* user is defined as any user listed within the *TRACK_USERS* environmnent variable.
 
-* `influencer-alert` - A *tracked user* has a new follower which matches the influencer criteria
+* `influencer` - A *tracked user* has a new follower which matches the influencer criteria
 * `follow` - A *tracked user* has a new follower
 * `mention` - A *tracked user* is mentioned
 
@@ -49,3 +49,11 @@ An influencer is defined as a follower of a given user which has at least 50,000
 
 ## Scripts
 * `node scripts/cache-followers.js joelongstreeet` - Cache all followers in an abbreviated set for user joelongstreet
+
+## Todo
+* Need to add a date for when influencer started following  - So we can order by date
+* Make login better
+* Make mentions for influencers only
+
+## Done
+* Use new event name, only stuff arrays into db, make auth work locally,
