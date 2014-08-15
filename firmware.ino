@@ -58,7 +58,7 @@ void setup(){
   // is the pin number associated with the client and influencer-name
   // is the name of the influencer s
   Spark.function("follow", newFollower);
-  Spark.function("influencer-alert", newInfluencer);
+  Spark.function("influencer", newInfluencer);
   Spark.function("mention", newMention);
 
   reset();

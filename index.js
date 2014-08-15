@@ -14,7 +14,7 @@ var http = require('http').Server(app);
 var routes = require('./lib/routes');
 var io = require('socket.io')(http);
 var minFollowerAlertCount = process.env.MIN_FOLLOWERS || 0;
-var auth = function(){
+var auth = function(req, res, next){
   next();
 };
 
@@ -60,18 +60,18 @@ var broadcastFollow = function(data){
   var followee = data.target;
 
   if(utils.userIsInfluencer(follower)){
-    eventType = 'influencer-alert';
+    eventType = 'influencer';
 
     var abbreviated = utils.abbreviateUser(follower);
     abbreviated.followed_date = new Date().getTime();
 
     cache.saveInfluencer(abbreviated);
-    cache.appendInfluencerIdsToUser(followee.screen_name, abbreviated);
+    cache.appendInfluencerIdsToUser(followee.screen_name, [abbreviated]);
   }
 
   spark.notify({
     eventType: eventType,
-    influencer: followee.screen_name,
+    influencer: follower.screen_name,
     client: followee.screen_name
   });
 
