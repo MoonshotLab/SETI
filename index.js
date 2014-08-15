@@ -72,7 +72,7 @@ var broadcastFollow = function(data){
   spark.notify({
     eventType: eventType,
     influencer: followee.screen_name,
-    client: folowee.screen_name
+    client: followee.screen_name
   });
 
   console.log('*-* EVENT:', eventType, followee.screen_name);
