@@ -239,7 +239,7 @@
             <div id="influencer-holder" ng-repeat="influencer in data.getInfluencerData('ws')">
               <div class="influencer" ng-click="data.setInfLink(influencer.screen_name)">
                 <div class="c1">
-                  <img src="{{influencer.profile_image_url}}" alt="Profile Picture">
+                  <img ng-src="{{influencer.profile_image_url}}" err-src="img/default.jpg" alt="Profile Picture">
                 </div>
                 <div class="c1-sep"></div>
                 <div class="c2">
@@ -270,11 +270,9 @@
                     <div class="following stat">
                        <p>{{influencer.friends_count | number : 0}}</p>
                     </div>
-
                   </div>
                 </div>
               </div>
-
             </div>
             <!-- End Influencer -->
           </div>
@@ -283,7 +281,7 @@
             <div id="influencer-holder" ng-repeat="mention in data.getMentionData('ws')">
               <div class="influencer" ng-click="data.setInfLink(mention.user.screen_name,mention.text)">
                 <div class="c1">
-                  <img src="{{mention.user.profile_image_url}}" alt="Profile Picture">
+                  <img ng-src="{{mention.user.profile_image_url}}" err-src="img/default.jpg" alt="Profile Picture">
                 </div>
                 <div class="c1-sep"></div>
                 <div class="c2">
@@ -332,7 +330,7 @@
 
               <div class="influencer" ng-click="data.setInfLink(influencer.screen_name)">
                 <div class="c1">
-                  <img src="{{influencer.profile_image_url}}" alt="Profile Picture">
+                  <img ng-src="{{influencer.profile_image_url}}" err-src="img/default.jpg" alt="Profile Picture">
                 </div>
                 <div class="c1-sep"></div>
                 <div class="c2">
@@ -374,7 +372,7 @@
             <div id="influencer-holder" ng-repeat="mention in data.getMentionData('dq')">
               <div class="influencer" ng-click="data.setInfLink(mention.user.screen_name,mention.text)">
                 <div class="c1">
-                  <img src="{{mention.user.profile_image_url}}" alt="Profile Picture">
+                  <img ng-src="{{mention.user.profile_image_url}}" err-src="img/default.jpg" alt="Profile Picture">
                 </div>
                 <div class="c1-sep"></div>
                 <div class="c2">
@@ -422,7 +420,7 @@
              <div id="influencer-holder" ng-repeat="influencer in data.getInfluencerData('bb')">
               <div class="influencer" ng-click="data.setInfLink(influencer.screen_name)">
                 <div class="c1">
-                  <img src="{{influencer.profile_image_url}}" alt="Profile Picture">
+                  <img ng-src="{{influencer.profile_image_url}}" err-src="img/default.jpg" alt="Profile Picture">
                 </div>
                 <div class="c1-sep"></div>
                 <div class="c2">
@@ -465,7 +463,7 @@
               <div id="influencer-holder" ng-repeat="mention in data.getMentionData('bb')">
                 <div class="influencer" ng-click="data.setInfLink(mention.user.screen_name,mention.text)">
                   <div class="c1">
-                    <img src="{{mention.user.profile_image_url}}" alt="Profile Picture">
+                    <img ng-src="{{mention.user.profile_image_url}}" err-src="img/default.jpg" alt="Profile Picture">
                   </div>
                   <div class="c1-sep"></div>
                   <div class="c2">

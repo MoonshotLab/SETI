@@ -111,7 +111,6 @@ $(function() {
 	$(window).scroll(function(){
 		if($(window).width() < 740)
 		{
-			console.log("scroll heigth" + $(document).scrollTop());
 			if($(document).scrollTop() > 180)
 			{
 				$("#menu-button").css("top",$(document).scrollTop()-90);
@@ -125,7 +124,17 @@ $(function() {
 		
 	});
 
-	
+	//Image error handling
+	// $("#influencer-list .influencer .c1 img").error(function(){
+		
+	// });
+
+	$("#influencer-list .influencer .c1 img").onerror = function (evt){
+		console.log("error!");
+	}
+	$("#influencer-list .influencer .c1 img").onload = function (evt){
+		console.log("loaded");
+	}
 
 	//Init width check
 	if($(window).width() < 740){
