@@ -84,14 +84,16 @@ var broadcastMention = function(data){
   var mentioner = data.user;
   var eventType = 'mention';
 
-  spark.notify({
-    eventType: eventType,
-    influencer: data.mentioner.screen_name,
-    client: data.mentionee.screen_name
-  });
+  if(utils.userIsInfluencer(mentioner)){
+    spark.notify({
+      eventType: eventType,
+      influencer: mentioner,
+      client: data.mentionee
+    });
 
-  console.log('*-* EVENT:', eventType, data.mentionee);
-  io.emit(eventType, data);
+    console.log('*-* EVENT:', eventType, data.mentionee);
+    io.emit(eventType, data);
+  }
 };
 
 
