@@ -558,6 +558,19 @@ body {
 	opacity: 1;
 }
 
+#reloading-animation{
+	display: none;
+}
+#reloading-animation img{
+	display: block;
+	width: 64px;
+	height: 64px;
+	margin-left: auto;
+	margin-right: auto;
+}
+#reloading-animation p{
+	text-align: center;
+}
 
 /****************************************************/
 /* Login */

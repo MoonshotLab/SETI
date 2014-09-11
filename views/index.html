@@ -22,21 +22,7 @@
     <link rel="stylesheet" href="/css/mobile.css" />
 
     <script src='/socket.io/socket.io.js'></script>
-    <script>
-      var socket = io();
-
-      socket.on('follow', function(data){
-        console.log(data);
-      });
-
-      socket.on('influencer', function(data){
-        console.log(data);
-      });
-
-      socket.on('mention', function(data){
-        console.log(data);
-      });
-    </script>
+    
 
     <!-- JS -->
 
@@ -44,7 +30,6 @@
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-
     <!-- Fancy box -->
     <script type="text/javascript" src="/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
     <script type="text/javascript" src="/fancybox/source/helpers/jquery.fancybox-buttons.js?v=1.0.5"></script>
@@ -52,11 +37,15 @@
     <!-- Initial JS -->
     <script src="js/init.js"></script>
 
+    <script>
+      
+    </script>
+
   </head>
 
   <body ng-controller="DataController as data">
     <div id="preloader">
-      <img src="img/Preloader_1.gif" alt="Preloader Animation">
+      <img src="img/loading.gif" alt="Preloader Animation">
     </div>
   <!-- Header -->
     <div id="top-header">
@@ -81,6 +70,17 @@
       </div>
       <a href="#" target="_blank" id="profile-click" class="twitter-button">Go to twitter profile <img src="img/red-arrow.png" alt="Red Arrow"></a>
     </div>
+
+    <!-- Loading animation -->
+    <div id="reloading-animation">
+      <div id="loading-content">
+      <p>You have a new Influencer/mention! Let me reload your page!</p>
+        <img src="img/loading.gif" alt="Loading Animation">        
+      </div>
+    </div>
+
+    <!-- Sound -->
+    <div id="sound"></div>
 
     <!-- Project Seti Lightbox Content -->
 

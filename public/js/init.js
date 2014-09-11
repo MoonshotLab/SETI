@@ -1,6 +1,5 @@
 $(function() {
 	
-	
 	// Client list items
 	$("#client-menu #client-list li").hover(function(){
 		if(!$(this).hasClass("active"))
@@ -57,9 +56,6 @@ $(function() {
 	    }
 	});
 
-
-
-
 	$("#inf-click-content a").click(function(){
 		$.fancybox.close();
 	});
@@ -91,10 +87,6 @@ $(function() {
 		}
 		
 	};
-	
-	
-	
-
 	// Check window size
 	$(window).resize(function(){
 		if($(window).width() > 740){
@@ -124,10 +116,6 @@ $(function() {
 		
 	});
 
-	//Image error handling
-	// $("#influencer-list .influencer .c1 img").error(function(){
-		
-	// });
 
 	$("#influencer-list .influencer .c1 img").onerror = function (evt){
 		console.log("error!");
@@ -136,12 +124,153 @@ $(function() {
 		console.log("loaded");
 	}
 
+
+	// Reload function
+
+	var socket = io();
+
+      socket.on('follow', function(data){
+      	reloadData("follower");
+        // console.log(data);
+      });
+
+      socket.on('influencer', function(data){
+        // console.log("influencer" + data);
+        reloadData("influencer");
+      });
+
+      socket.on('mention', function(data){
+        // console.log("mention" + data);
+        reloadData("mention");
+      });
+
+	function reloadData(dataType){
+		console.log("Reload data");
+		// Setup Loading Screen
+		// $.fancybox({
+		// 	href: '#reloading-animation',
+		// 	maxWidth	: 300,
+		// 	maxHeight	: 200,
+		// 	fitToView	: false,
+		// 	width		: '70%',
+		// 	height		: 'auto',
+		// 	autoSize	: false,
+		// 	closeClick	: false,
+		// 	hideOnOverlayClick : false,
+		// 	showCloseButton : false,
+		// 	helpers : {
+		//         overlay : {
+		//             css : {
+		//                 'background' : 'rgba(255, 255, 255, 0.5)'
+		//             }
+		//         }
+		//     }
+		// });
+		// playAudio(dataType);
+		
+
+		// Set Reload Time out
+		// setTimeout(function() {
+		//       location.reload();
+		// }, 5000);
+
+
+		/*
+		switch(dataType)
+			{
+				case "influencer":
+				// Reset
+				wingstopInfluencers = null;
+				wingstopInfluencerCount = 0;
+				dqInfluencers = null;
+				dqInfluencerCount = 0;
+				bbInfluencers = null;
+				bbInfluencerCount = 0;
+				//WS
+				$http.get('/wingstop/influencers').success(function(data) {
+				    wingstopInfluencers = data;
+				    wingstopInfluencerCount = data.length;
+				    for (var i = 0; i <= 9; i++) {
+				    	wingstopList[i] = wingstopInfluencers[i];
+				    };
+				    	checkReLoaded();
+				});
+				//DQ
+				$http.get('/dairyqueen/influencers').success(function(data) {
+						    dqInfluencers = data;
+						    dqInfluencerCount = data.length;
+						    for (var i = 0; i <= 9; i++) {
+						    	dqList[i] = dqInfluencers[i];
+						    };
+						    checkReLoaded();
+						});
+				//BB
+				$http.get('/blue_bunny/influencers').success(function(data) {
+						    bbInfluencers = data;
+						    bbInfluencerCount = data.length;
+						    for (var i = 0; i <= 9; i++) {
+						    	bbList[i] = bbInfluencers[i];
+						    };
+						    checkReLoaded();
+						});
+				break;
+				case "mention":
+
+				//WS
+				$http.get('/wingstop/mentions').success(function(data) {
+					    wingstopMentions = data;
+					    wingstopMentionCount = data.length;
+					    for (var i = 0; i <= 9; i++) {
+					    	wingstopMentionList[i] = wingstopMentions[i];
+					    };
+					    checkLoaded();
+					});
+				//DQ
+				$http.get('/dairyqueen/mentions').success(function(data) {
+					    dqMentions = data;
+					    dqMentionCount = data.length;
+					    for (var i = 0; i <= 9; i++) {
+					    	dqMentionList[i] = dqMentions[i];
+					    };
+					    checkLoaded();
+					});
+				//BB
+				$http.get('/blue_bunny/mentions').success(function(data) {
+					    bbMentions = data;
+					    bbMentionCount = data.length;
+					    for (var i = 0; i <= 9; i++) {
+					    	bbMentionList[i] = bbMentions[i];
+					    };
+					    checkLoaded();
+					});
+				break;
+			}
+			*/
+	}
+
 	//Init width check
 	if($(window).width() < 740){
 		hideMenu();
 		addMenuClickEvents();
 	}
-	
+	function playAudio(dataType){
+
+		switch(dataType){
+			case "ws":
+				filename = "../audio/ws";
+				document.getElementById("sound").innerHTML='<audio autoplay="autoplay"><source src="' + filename + '.mp3" type="audio/mpeg" /><source src="' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="' + filename +'.mp3" /></audio>';
+			break;
+			case "dq":
+				filename = "../audio/dq";
+				document.getElementById("sound").innerHTML='<audio autoplay="autoplay"><source src="' + filename + '.mp3" type="audio/mpeg" /><source src="' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="' + filename +'.mp3" /></audio>';
+			break;
+			case "bb":
+				filename = "../audio/bb";
+				document.getElementById("sound").innerHTML='<audio autoplay="autoplay"><source src="' + filename + '.mp3" type="audio/mpeg" /><source src="' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="' + filename +'.mp3" /></audio>';
+			break;
+			
+		}
+	}
 
 	// Reset events
 	var menuActive = false;
@@ -297,6 +426,15 @@ var activeContent = 0;
 				 $("#main-content").fadeIn();
 
 				 $("#client-menu").css("height",$(document).height());
+			}
+		};
+
+		checkReLoaded = function(){
+			if(wingstopInfluencers && wingstopMentions && dqInfluencers && dqMentions && bbInfluencers && bbMentions)
+			{
+				 // Here
+				 $.fancybox.close();
+				 // #reloading-animation
 			}
 		};
 
