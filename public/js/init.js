@@ -130,49 +130,62 @@ $(function() {
 	var socket = io();
 
       socket.on('follow', function(data){
-      	reloadData("follower");
+      	reloadData(data.target.screen_name);
+      	// console.log(data.target);
         // console.log(data);
       });
 
       socket.on('influencer', function(data){
-        // console.log("influencer" + data);
-        reloadData("influencer");
+        
+        reloadData(data.target.screen_name);
       });
 
       socket.on('mention', function(data){
         // console.log("mention" + data);
-        reloadData("mention");
+        reloadData(data.mentionee);
       });
 
-	function reloadData(dataType){
-		console.log("Reload data");
+	function reloadData(client){
+
+		switch(client)
+		{
+			case "wingstop":
+				playAudio("ws")
+			break;
+			case "DairyQueen":
+				playAudio("dq")
+			break;
+			case "Blue_Bunny":
+				playAudio("bb")
+			break;
+		}
 		// Setup Loading Screen
-		// $.fancybox({
-		// 	href: '#reloading-animation',
-		// 	maxWidth	: 300,
-		// 	maxHeight	: 200,
-		// 	fitToView	: false,
-		// 	width		: '70%',
-		// 	height		: 'auto',
-		// 	autoSize	: false,
-		// 	closeClick	: false,
-		// 	hideOnOverlayClick : false,
-		// 	showCloseButton : false,
-		// 	helpers : {
-		//         overlay : {
-		//             css : {
-		//                 'background' : 'rgba(255, 255, 255, 0.5)'
-		//             }
-		//         }
-		//     }
-		// });
-		// playAudio(dataType);
+		$.fancybox({
+			href: '#reloading-animation',
+			maxWidth	: 300,
+			maxHeight	: 200,
+			fitToView	: false,
+			width		: '70%',
+			height		: 'auto',
+			autoSize	: false,
+			closeClick	: false,
+			hideOnOverlayClick : false,
+			showCloseButton : false,
+			helpers : {
+		        overlay : {
+		            css : {
+		                'background' : 'rgba(255, 255, 255, 0.5)'
+		            }
+		        }
+		    }
+		});
+
 		
 
 		// Set Reload Time out
-		// setTimeout(function() {
-		//       location.reload();
-		// }, 5000);
+		setTimeout(function() {
+		      location.reload();
+		}, 5000);
 
 
 		/*
