@@ -13,7 +13,7 @@ var app = express();
 var http = require('http').Server(app);
 var routes = require('./lib/routes');
 var io = require('socket.io')(http);
-var minFollowerAlertCount = process.env.MIN_FOLLOWERS || 0;
+
 var auth = function(req, res, next){
   next();
 };
