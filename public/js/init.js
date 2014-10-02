@@ -150,13 +150,17 @@ $(function() {
 		switch(client)
 		{
 			case "wingstop":
-				playAudio("ws")
+				playAudio("ws");
+				// Set Reload Time out
+				setRefresh(1.5);
 			break;
 			case "DairyQueen":
-				playAudio("dq")
+				playAudio("dq");
+				setRefresh(7);
 			break;
 			case "Blue_Bunny":
-				playAudio("bb")
+				playAudio("bb");
+				setRefresh(6);
 			break;
 		}
 		// Setup Loading Screen
@@ -182,10 +186,7 @@ $(function() {
 
 		
 
-		// Set Reload Time out
-		setTimeout(function() {
-		      location.reload();
-		}, 5000);
+		
 
 
 		/*
@@ -259,6 +260,11 @@ $(function() {
 				break;
 			}
 			*/
+	}
+	function setRefresh(time){
+		setTimeout(function() {
+		      location.reload();
+		}, time*1000);
 	}
 
 	//Init width check
