@@ -59,7 +59,7 @@ void setup(){
   // is the name of the influencer s
   Spark.function("follow", newFollower);
   Spark.function("influencer", newInfluencer);
-  Spark.function("mention", newMention);
+  Spark.function("influencer-mention", newMention);
 
   reset();
 }

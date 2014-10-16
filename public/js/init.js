@@ -140,7 +140,7 @@ $(function() {
         reloadData(data.target.screen_name);
       });
 
-      socket.on('mention', function(data){
+      socket.on('influencer-mention', function(data){
         // console.log("mention" + data);
         reloadData(data.mentionee);
       });
