@@ -132,7 +132,7 @@
            <li ng-click="menuData.activeMenu(2)" ng-class="{ active: menuData.getActiveMenu(2)}">
             <img class="highlight" src="img/client-list-highlight.png" alt="Highlight for menu">
            <div class="button-holder">
-              <img src="img/list-dot-icon.png" alt="List Dot Icon">
+              <img src="img/list-dot-icon.png" id="ws-dot" alt="List Dot Icon">
               <h2>Wingstop</h2>
               <div class="arrow"><img src="img/arrow.png" alt=""></div>
               <div id="active-content" ng-show="menuData.menuItem === 2">
@@ -158,7 +158,7 @@
            <li ng-click="menuData.activeMenu(3)" ng-class="{ active: menuData.getActiveMenu(3)}">
            <img class="highlight" src="img/client-list-highlight.png" alt="Highlight for menu">
              <div class="button-holder">
-              <img src="img/list-dot-icon.png" alt="List Dot Icon">
+              <img src="img/list-dot-icon.png" id="dq-dot" alt="List Dot Icon">
               <h2>Dairy Queen</h2>
               <div class="arrow"><img src="img/arrow.png" alt=""></div>
               <div id="active-content" ng-show="menuData.menuItem === 3">
@@ -184,12 +184,12 @@
            <li ng-click="menuData.activeMenu(4)" ng-class="{ active: menuData.getActiveMenu(4)}">
            <img class="highlight" src="img/client-list-highlight.png" alt="Highlight for menu">
              <div class="button-holder">
-              <img src="img/list-dot-icon.png" alt="List Dot Icon">
+              <img src="img/list-dot-icon.png" id="bb-dot" alt="List Dot Icon">
               <h2>Blue Bunny</h2>
               <div class="arrow"><img src="img/arrow.png" alt=""></div>
               <div id="active-content" ng-show="menuData.menuItem === 4">
                 <img class="overlay" src="img/client-active-overlay.png" alt="Client Logo Overlay">
-                <img class="client-logo" src="img/clients/bb-logo.png" alt="Dairy Queen"> <!-- Add Dynamic Content -->
+                <img class="client-logo" src="img/clients/bb-logo.png" alt="Blue Bunny"> <!-- Add Dynamic Content -->
                 <div id="stats">
                   <div id="influencers">
                     <img src="img/influencer-icon.png" alt="People icon">

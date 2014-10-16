@@ -146,22 +146,28 @@ $(function() {
       });
 
 	function reloadData(client){
-
+		console.log("client: " + client);
 		switch(client)
 		{
 			case "wingstop":
 				playAudio("ws");
 				// Set Reload Time out
-				setRefresh(1.5);
+				setRefresh(1.5,"ws");
 			break;
 			case "DairyQueen":
 				playAudio("dq");
-				setRefresh(7);
+				setRefresh(10,"dq");
 			break;
 			case "Blue_Bunny":
 				playAudio("bb");
-				setRefresh(6);
+				setRefresh(8,"bb");
 			break;
+			case "JoeLongstreet":
+				playAudio("bb");
+				// Set Reload Time out
+				setRefresh(8,"bb");
+			break;
+			
 		}
 		// Setup Loading Screen
 		$.fancybox({
@@ -183,87 +189,22 @@ $(function() {
 		        }
 		    }
 		});
-
-		
-
-		
-
-
-		/*
-		switch(dataType)
-			{
-				case "influencer":
-				// Reset
-				wingstopInfluencers = null;
-				wingstopInfluencerCount = 0;
-				dqInfluencers = null;
-				dqInfluencerCount = 0;
-				bbInfluencers = null;
-				bbInfluencerCount = 0;
-				//WS
-				$http.get('/wingstop/influencers').success(function(data) {
-				    wingstopInfluencers = data;
-				    wingstopInfluencerCount = data.length;
-				    for (var i = 0; i <= 9; i++) {
-				    	wingstopList[i] = wingstopInfluencers[i];
-				    };
-				    	checkReLoaded();
-				});
-				//DQ
-				$http.get('/dairyqueen/influencers').success(function(data) {
-						    dqInfluencers = data;
-						    dqInfluencerCount = data.length;
-						    for (var i = 0; i <= 9; i++) {
-						    	dqList[i] = dqInfluencers[i];
-						    };
-						    checkReLoaded();
-						});
-				//BB
-				$http.get('/blue_bunny/influencers').success(function(data) {
-						    bbInfluencers = data;
-						    bbInfluencerCount = data.length;
-						    for (var i = 0; i <= 9; i++) {
-						    	bbList[i] = bbInfluencers[i];
-						    };
-						    checkReLoaded();
-						});
-				break;
-				case "mention":
-
-				//WS
-				$http.get('/wingstop/mentions').success(function(data) {
-					    wingstopMentions = data;
-					    wingstopMentionCount = data.length;
-					    for (var i = 0; i <= 9; i++) {
-					    	wingstopMentionList[i] = wingstopMentions[i];
-					    };
-					    checkLoaded();
-					});
-				//DQ
-				$http.get('/dairyqueen/mentions').success(function(data) {
-					    dqMentions = data;
-					    dqMentionCount = data.length;
-					    for (var i = 0; i <= 9; i++) {
-					    	dqMentionList[i] = dqMentions[i];
-					    };
-					    checkLoaded();
-					});
-				//BB
-				$http.get('/blue_bunny/mentions').success(function(data) {
-					    bbMentions = data;
-					    bbMentionCount = data.length;
-					    for (var i = 0; i <= 9; i++) {
-					    	bbMentionList[i] = bbMentions[i];
-					    };
-					    checkLoaded();
-					});
-				break;
-			}
-			*/
 	}
-	function setRefresh(time){
+	function setRefresh(time,client){
 		setTimeout(function() {
-		      location.reload();
+			switch(client){
+		      	case "ws":
+		      		window.location.href = window.location.href.split("?")[0]+ "?client=ws";
+		      		console.log(window.location.href.split("?")[0])
+		      	break;
+		      	case "dq":
+		      		window.location.href = window.location.href.split("?")[0]+ "?client=dq";
+		      	break;
+		      	case "bb":
+		      		window.location.href = window.location.href.split("?")[0] + "?client=bb";
+		      	break;
+	      	}
+		  	// location.reload();
 		}, time*1000);
 	}
 
@@ -271,6 +212,32 @@ $(function() {
 	if($(window).width() < 740){
 		hideMenu();
 		addMenuClickEvents();
+	}
+	//Init var check
+	switch (getUrlVars().client){
+		case "ws":
+			console.log("active client: wingstop ");
+			$("#ws-dot").attr("src","img/list-dot-icon-red.png");
+		break;
+		case "dq":
+			$("#dq-dot").attr("src","img/list-dot-icon-red.png");
+		break;
+		case "bb":
+			$("#bb-dot").attr("src","img/list-dot-icon-red.png");
+		break;
+	}
+
+	function getUrlVars()
+	{
+	    var vars = [], hash;
+	    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+	    for(var i = 0; i < hashes.length; i++)
+	    {
+	        hash = hashes[i].split('=');
+	        vars.push(hash[0]);
+	        vars[hash[0]] = hash[1];
+	    }
+	    return vars;
 	}
 	function playAudio(dataType){
 
