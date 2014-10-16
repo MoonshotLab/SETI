@@ -49,6 +49,7 @@ An influencer is defined as a follower of a given user which has at least 50,000
 
 ## Scripts
 * `node scripts/cache-followers.js joelongstreeet` - Cache all followers in an abbreviated set for user joelongstreet
+* `node scripts/rate-limit-status` - Determine the rate limit status of your API key
 
 ## Todo
 * Need to add a date for when influencer started following  - So we can order by date
