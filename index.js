@@ -6,7 +6,7 @@ var twitter = require('./lib/twitter');
 var findInfluencers = require('./lib/find-influencers');
 var utils = require('./lib/utils');
 var basicAuth = require('basic-auth');
-var env = process.env.MODE;
+var config = require('./config')();
 var livereload = null;
 
 var app = express();
@@ -18,7 +18,7 @@ var auth = function(req, res, next){
   next();
 };
 
-if(env != 'production'){
+if(config.MODE != 'production'){
   livereload = require('express-livereload');
   livereload(app, {watchDir : process.cwd() + '/public'});
 } else{
@@ -51,7 +51,7 @@ app.get('/:username/followers', routes.getFollowers);
 app.get('/:username/influencers', routes.getInfluencers);
 app.get('/:username/mentions', routes.getMentions);
 
-http.listen(process.env.PORT || 3000);
+http.listen(config.PORT || 3000);
 
 
 var broadcastFollow = function(data){
