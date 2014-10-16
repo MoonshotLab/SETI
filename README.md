@@ -20,6 +20,7 @@ The following environment variables are required:
 * `SPARK_ACCESS_TOKEN`
 * `SPARK_CORE_ID`
 * `INFLUENCER_KEY` - The minimum number of followers to trigger an influencer alert to the Spark.
+* `MODE` - Set to production to kill live reload and cache new influencers
 
 
 ## REST Routes

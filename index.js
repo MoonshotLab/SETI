@@ -62,9 +62,12 @@ var broadcastFollow = function(data){
   if(utils.userIsInfluencer(follower)){
     eventType = 'influencer';
 
-    var abbreviated = utils.abbreviateUser(follower);
-    cache.saveInfluencer(abbreviated);
-    cache.appendInfluencerIdsToUser(followee.screen_name, [abbreviated]);
+    // only save in the cache if running in production mode
+    if(config.MODE == 'production'){
+      var abbreviated = utils.abbreviateUser(follower);
+      cache.saveInfluencer(abbreviated);
+      cache.appendInfluencerIdsToUser(followee.screen_name, [abbreviated]);
+    }
   }
 
   spark.notify({
