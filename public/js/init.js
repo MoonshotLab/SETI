@@ -152,7 +152,7 @@ $(function() {
 			case "wingstop":
 				playAudio("ws");
 				// Set Reload Time out
-				setRefresh(1.5,"ws");
+				setRefresh(4,"ws");
 			break;
 			case "DairyQueen":
 				playAudio("dq");
@@ -195,7 +195,6 @@ $(function() {
 			switch(client){
 		      	case "ws":
 		      		window.location.href = window.location.href.split("?")[0]+ "?client=ws";
-		      		console.log(window.location.href.split("?")[0])
 		      	break;
 		      	case "dq":
 		      		window.location.href = window.location.href.split("?")[0]+ "?client=dq";
@@ -243,6 +242,7 @@ $(function() {
 
 		switch(dataType){
 			case "ws":
+				console.log("play sound ws");
 				filename = "../audio/ws";
 				document.getElementById("sound").innerHTML='<audio autoplay="autoplay"><source src="' + filename + '.mp3" type="audio/mpeg" /><source src="' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="' + filename +'.mp3" /></audio>';
 			break;
