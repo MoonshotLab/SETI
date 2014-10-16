@@ -293,7 +293,7 @@
                     <img src="img/mention.png" alt="Followed Icon">
                     <div class="text">
                       <div class="line1"><p> <em>Mentioned:</em></p></div>
-                      <div class="line2"><p>{{mention.created_at | date : format}}</p></div>
+                      <div class="line2"><p>{{mention.created_at | date : format : timezone}}</p></div>
                     </div>
                   </div>
                 </div>
@@ -384,7 +384,7 @@
                     <img src="img/mention.png" alt="Followed Icon">
                     <div class="text">
                       <div class="line1"><p> <em>Mentioned:</em></p></div>
-                      <div class="line2"><p>{{mention.created_at | date : format}}</p></div>
+                      <div class="line2"><p>{{mention.created_at | date : format : timezone}}</p></div>
                     </div>
                   </div>
                 </div>
@@ -475,7 +475,7 @@
                       <img src="img/mention.png" alt="Followed Icon">
                       <div class="text">
                         <div class="line1"><p> <em>Mentioned:</em></p></div>
-                        <div class="line2"><p>{{mention.created_at | date : format}}</p></div>
+                        <div class="line2"><p>{{mention.created_at | date : format : timezone}}</p></div>
                       </div>
                     </div>
                   </div>
