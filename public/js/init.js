@@ -1,5 +1,5 @@
 $(function() {
-	
+
 	// Client list items
 	$("#client-menu #client-list li").hover(function(){
 		if(!$(this).hasClass("active"))
@@ -33,7 +33,7 @@ $(function() {
 
 	//preloader settings
 	$("#top-header").hide();
-	$("#main-content").hide();	
+	$("#main-content").hide();
 
 	// Initialize Fancybox
 	$(".fancybox").fancybox();
@@ -46,7 +46,7 @@ $(function() {
 		autoSize	: false,
 		closeClick	: false,
 		openEffect	: 'none',
-		closeEffect	: 'none', 
+		closeEffect	: 'none',
 		helpers : {
 	        overlay : {
 	            css : {
@@ -85,7 +85,7 @@ $(function() {
 
 			menuOut = false;
 		}
-		
+
 	};
 	// Check window size
 	$(window).resize(function(){
@@ -111,9 +111,9 @@ $(function() {
 			{
 				$("#menu-button").css("top","20");
 			}
-			
+
 		}
-		
+
 	});
 
 
@@ -136,7 +136,7 @@ $(function() {
       });
 
       socket.on('influencer', function(data){
-        
+
         reloadData(data.target.screen_name);
       });
 
@@ -167,7 +167,7 @@ $(function() {
 				// Set Reload Time out
 				setRefresh(8,"bb");
 			break;
-			
+
 		}
 		// Setup Loading Screen
 		$.fancybox({
@@ -254,7 +254,7 @@ $(function() {
 				filename = "../audio/bb";
 				document.getElementById("sound").innerHTML='<audio autoplay="autoplay"><source src="' + filename + '.mp3" type="audio/mpeg" /><source src="' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="' + filename +'.mp3" /></audio>';
 			break;
-			
+
 		}
 	}
 
@@ -299,7 +299,7 @@ $(function() {
 					hideMenu();
 				}
 			});
-			
+
 		}
 	}
 
@@ -308,6 +308,7 @@ $(function() {
 		$("#top-header").hide();
 		$("#main-content").hide();
 });
+
 
 (function() {
 
@@ -319,7 +320,7 @@ var activeContent = 0;
 	var clientData;
 
 	app.controller("DataController",function($scope,$http){
-		
+
 		// ******************************************************
 		// Variables
 		// ******************************************************
@@ -364,6 +365,10 @@ var activeContent = 0;
 		$http.get('/wingstop/mentions').success(function(data) {
 		    wingstopMentions = data;
 		    wingstopMentionCount = data.length;
+
+				wingstopMentions.forEach(function(mention){
+					mention.formattedDate = formatRFC339asHumanReadable(mention.created_at);
+				});
 		    for (var i = 0; i <= 9; i++) {
 		    	wingstopMentionList[i] = wingstopMentions[i];
 		    };
@@ -384,6 +389,10 @@ var activeContent = 0;
 		    for (var i = 0; i <= 9; i++) {
 		    	dqMentionList[i] = dqMentions[i];
 		    };
+
+				dqMentions.forEach(function(mention){
+					mention.formattedDate = formatRFC339asHumanReadable(mention.created_at);
+				});
 		    checkLoaded();
 		});
 		// Blue Bunny
@@ -398,6 +407,10 @@ var activeContent = 0;
 		$http.get('/blue_bunny/mentions').success(function(data) {
 		    bbMentions = data;
 		    bbMentionCount = data.length;
+
+				bbMentions.forEach(function(mention){
+					mention.formattedDate = formatRFC339asHumanReadable(mention.created_at);
+				});
 		    for (var i = 0; i <= 9; i++) {
 		    	bbMentionList[i] = bbMentions[i];
 		    };
@@ -427,7 +440,7 @@ var activeContent = 0;
 		// ******************************************************
 		// Public functions
 		// ******************************************************
-		
+
 		this.getInfluencerCount = function(client){
 			switch(client)
 			{
@@ -456,7 +469,7 @@ var activeContent = 0;
 				break;
 			};
 		};
-		
+
 		this.getInfluencerData = function(client)
 		{
 			switch (client)
@@ -612,7 +625,7 @@ var activeContent = 0;
 		this.dataLoaded = 1;
 		this.setInfLink = function(url,message){
 
-			infURL = url; 
+			infURL = url;
 
 			$("#inf-click-content a").attr("href", "http://www.twitter.com/" + infURL);
 
@@ -645,7 +658,7 @@ var activeContent = 0;
 				        }
 				    }
 				});
-			
+
 
 
 			return false;
@@ -696,4 +709,15 @@ var activeContent = 0;
 })();
 
 
+var monthList = ['Jan', 'Feb', 'March', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+var formatRFC339asHumanReadable = function(rfc){
+	var dateObject = new Date(rfc);
 
+	return [
+		monthList[dateObject.getMonth()],
+		' ',
+		dateObject.getDate(),
+		', ',
+		dateObject.getFullYear()
+	].join('');
+};

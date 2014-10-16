@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="/css/mobile.css" />
 
     <script src='/socket.io/socket.io.js'></script>
-    
+
 
     <!-- JS -->
 
@@ -38,7 +38,7 @@
     <script src="js/init.js"></script>
 
     <script>
-      
+
     </script>
 
   </head>
@@ -75,7 +75,7 @@
     <div id="reloading-animation">
       <div id="loading-content">
       <p>You have a new Influencer/mention! Let me reload your page!</p>
-        <img src="img/loading.gif" alt="Loading Animation">        
+        <img src="img/loading.gif" alt="Loading Animation">
       </div>
     </div>
 
@@ -88,7 +88,7 @@
     <h2>Project SETI</h2>
     <p>The SETI Institute is a not-for-profit organization whose mission is to “explore, understand and explain the origin, nature and prevalence of life in the universe”. SETI stands for the "search for extraterrestrial intelligence". One program is the use of both radio and optical telescopes to search for deliberate signals from extraterrestrial intelligence. Other research, pursued within the Carl Sagan Center for the Study of Life in the Universe, includes the discovery of extrasolar planets, potentials for life on Mars and other bodies within the Solar System, and the habitability of the galaxy (including the study of extremophiles). The SETI Institute’s public outreach efforts include working with teachers and students in promoting science education and the teaching of evolution, working with NASA on exploration missions such as Kepler and SOFIA, and producing a weekly science program: Big Picture Science.</p>
     <p class="right-aligned-wiki">Made possible by Wikipedia</p>
-    
+
     </div>
 
 
@@ -293,7 +293,7 @@
                     <img src="img/mention.png" alt="Followed Icon">
                     <div class="text">
                       <div class="line1"><p> <em>Mentioned:</em></p></div>
-                      <div class="line2"><p>{{mention.created_at | date : format : timezone}}</p></div>
+                      <div class="line2"><p>{{mention.formattedDate}}</p></div>
                     </div>
                   </div>
                 </div>
@@ -384,7 +384,7 @@
                     <img src="img/mention.png" alt="Followed Icon">
                     <div class="text">
                       <div class="line1"><p> <em>Mentioned:</em></p></div>
-                      <div class="line2"><p>{{mention.created_at | date : format : timezone}}</p></div>
+                      <div class="line2"><p>{{mention.formattedDate}}</p></div>
                     </div>
                   </div>
                 </div>
@@ -475,7 +475,7 @@
                       <img src="img/mention.png" alt="Followed Icon">
                       <div class="text">
                         <div class="line1"><p> <em>Mentioned:</em></p></div>
-                        <div class="line2"><p>{{mention.created_at | date : format : timezone}}</p></div>
+                        <div class="line2"><p>{{mention.formattedDate}}</p></div>
                       </div>
                     </div>
                   </div>
