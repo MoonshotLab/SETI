@@ -38,6 +38,7 @@ The following events are broadcasted to a spark core and are available via a web
 * `influencer` - A *tracked user* has a new follower which matches the influencer criteria
 * `follow` - A *tracked user* has a new follower
 * `mention` - A *tracked user* is mentioned
+* `influencer-mention` - A *tracked user* is mentioned by user which meets the influencer criteria
 
 
 ## Communicating to the firmware
