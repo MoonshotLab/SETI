@@ -41,6 +41,22 @@ if(config.MODE != 'production'){
   };
 }
 
+var sparkclient = require('sparknode');
+var core = new sparkclient.Core({
+  accessToken : config.SPARK_ACCESS_TOKEN,
+  id          : config.SPARK_CORE_ID
+});
+
+core.on('button-press', function(e){
+  spark.notify({
+    eventType: 'influencer',
+    influencer: 'someone',
+    client: 'someone'
+  });
+
+  io.emit('influencer', { target : { screen_name : e.data }});
+});
+
 app.use(express.static(__dirname + '/public'));
 app.engine('.html', require('ejs').__express);
 app.set('views', __dirname + '/views');

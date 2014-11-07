@@ -17,7 +17,8 @@
     "q": "1.0.1",
     "redis": "0.10.3",
     "basic-auth": "1.0.0",
-    "underscore": "1.7.0"
+    "underscore": "1.7.0",
+    "sparknode": "^0.4.9"
   },
   "devDependencies": {
     "express-livereload": "0.0.24"
