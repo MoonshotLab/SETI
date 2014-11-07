@@ -1,5 +1,8 @@
-int clientPins[] = {D0, D1, D2, D3};
+int DQ_BUTTON = {D2};
+int WS_BUTTON = {D0};
+int BB_BUTTON = {D5};
 int discoBall = {D4};
+int buttonDelay = 3000;
 
 
 String getInfluencerFromParams(String params){
@@ -10,14 +13,6 @@ String getInfluencerFromParams(String params){
 }
 
 
-int getClientPinFromParams(String params){
-  int index = params.charAt(0) - '0';
-  int pin = clientPins[index];
-
-  return pin;
-}
-
-
 int newFollower(String command){
   return 1;
 }
@@ -25,12 +20,10 @@ int newFollower(String command){
 
 int newInfluencer(String command){
   String influencer = getInfluencerFromParams(command);
-  int clientPin = getClientPinFromParams(command);
 
   digitalWrite(discoBall, 1);
-  digitalWrite(clientPin, 1);
   delay(5000);
-  reset();
+  digitalWrite(discoBall, 0);
 
   return 1;
 }
@@ -38,21 +31,16 @@ int newInfluencer(String command){
 
 int newMention(String command){
   String influencer = getInfluencerFromParams(command);
-  int clientPin = getClientPinFromParams(command);
-
-  digitalWrite(clientPin, 1);
-  delay(5000);
-  reset();
-
   return 1;
 }
 
 
 void setup(){
   pinMode(discoBall, OUTPUT);
-  for(int i=0; i<sizeof(clientPins)/sizeof(int); i++){
-    pinMode(clientPins[i], OUTPUT);
-  }
+
+  pinMode(DQ_BUTTON, INPUT);
+  pinMode(WS_BUTTON, INPUT);
+  pinMode(BB_BUTTON, INPUT);
 
   // Pass in paramaters in the form of '0,influencer-name', where 0
   // is the pin number associated with the client and influencer-name
@@ -61,20 +49,21 @@ void setup(){
   Spark.function("influencer", newInfluencer);
   Spark.function("influencer-mention", newMention);
 
-  reset();
-}
-
-
-void reset(){
-  for(int i=0; i<sizeof(clientPins)/sizeof(int); i++){
-    digitalWrite(clientPins[i], 1);
-  }
-
   digitalWrite(discoBall, 1);
   delay(1000);
   digitalWrite(discoBall, 0);
+}
 
-  for(int i=0; i<sizeof(clientPins)/sizeof(int); i++){
-    digitalWrite(clientPins[i], 0);
+
+void loop(){
+  if(digitalRead(DQ_BUTTON)){
+    Spark.publish("button-press", "DairyQueen");
+    delay(buttonDelay);
+  } else if(digitalRead(WS_BUTTON)){
+    Spark.publish("button-press", "wingstop");
+    delay(buttonDelay);
+  } else if(digitalRead(BB_BUTTON)){
+    Spark.publish("button-press", "Blue_Bunny");
+    delay(buttonDelay);
   }
 }
