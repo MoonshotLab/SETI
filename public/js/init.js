@@ -221,6 +221,7 @@ $(function() {
       socket.on('influencer', function(data){
       	if(data.isTest == true)
       	{
+
       		reloadData(data.target.screen_name,data,"test");
       	}
       	else{
@@ -257,7 +258,7 @@ $(function() {
 				addInfl("dq",data,type);
 			break;
 			case "Blue_Bunny":
-				addInfl("ws",data,type);
+				addInfl("bb",data,type);
 			break;
 			case "JoeLongstreet":
 				addInfl("ws",data,type);
