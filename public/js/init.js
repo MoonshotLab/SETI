@@ -214,13 +214,18 @@ $(function() {
 	// IO reload function
 	var socket = io();
 
-      socket.on('follow', function(data,isTest){
-      	reloadData(data.target.screen_name,data,"influencer");
+      socket.on('follow', function(data){      
+  		reloadData(data.target.screen_name,data,"influencer");
       });
 
-      socket.on('influencer', function(data,isTest){
-
-        reloadData(data.target.screen_name,data,"influencer");
+      socket.on('influencer', function(data){
+      	if(data.isTest == true)
+      	{
+      		reloadData(data.target.screen_name,data,"test");
+      	}
+      	else{
+        	reloadData(data.target.screen_name,data,"influencer");
+        }
       });
 
       socket.on('influencer-mention', function(data){
@@ -280,10 +285,11 @@ $(function() {
 		{
 			return min;
 		}else{
-			return "0" + min;
+			var newMin = "0" + min
+			return newMin;
 		}
 	}
-	function getCurrentHours(hours){
+	function getCorrectHours(hours){
 		if (hours > 12) {
 		    hours -= 12;
 		} else if (hours === 0) {
@@ -298,9 +304,10 @@ $(function() {
 		var dd = today.getDate();
 		var mm = today.getMonth()+1; //January is 0!
 		var yyyy = today.getFullYear();
-		var time = new Date();
-		var currentTime = getCorrectHours(time.getHours())  + ":" + getCorrectMinutes(time.getMinutes());
 
+		var time = new Date();
+
+		var currentTime = getCorrectHours(time.getHours())  + ":" + getCorrectMinutes(time.getMinutes());
 		if(type == "test")
 		{
 			data.source = new Object();
@@ -313,9 +320,9 @@ $(function() {
 			data.source.followers_count = Math.floor((Math.random() * 1000000) + 50000);
 			data.source.friends_count = Math.floor((Math.random() * 25000) + 1);
 		}
-
 		if(type == "test" || type == "influencer")
 		{
+
 			switch(client)
 			{
 				case "ws":
@@ -1005,7 +1012,6 @@ var activeContent = 0;
 		
 		this.dataLoaded = 1;
 		this.setInfLink = function(url,message){
-			console.log("set inf link - " + this);
 			infURL = url;
 
 			$("#inf-click-content a").attr("href", "http://www.twitter.com/" + infURL);
