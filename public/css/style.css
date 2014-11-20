@@ -59,6 +59,106 @@ body {
 	height: 64px;
 }
 
+#loading-bar{
+	position: absolute;
+	background: #bf311b;
+	width:0%;
+	height: 3px;
+	z-index: 200;
+	display: none;
+}
+
+
+/****************************************************/
+/* Click to enter */
+/****************************************************/
+
+#click-to-enter{
+	display: none;
+	width:400px;
+	height: 375px;
+	margin-left:auto;
+	margin-right:auto;
+	background: white;
+	position: relative;
+	top:50px;
+	box-shadow: 0px 0px 6px #b5b5b5;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px; /* future proofing */
+	-khtml-border-radius: 2px; /* for old Konqueror browsers */
+}
+#click-to-enter #bar{
+	background-color:#bf311b;
+	background: -webkit-linear-gradient(#bf311b, #9f2816); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#bf311b, #9f2816); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#bf311b, #9f2816); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(#bf311b, #9f2816); /* Standard syntax */
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px; /* future proofing */
+	-khtml-border-radius: 2px; /* for old Konqueror browsers */
+	height: 7px;
+	width: 100%
+}
+
+#click-to-enter #enter-rocket{
+	width: 60px;
+	height: 69px;
+	margin-top: 30px;
+	margin-left:170px;
+	margin-right:170px;
+}
+#click-to-enter #enter-logo{
+	clear: both;
+	margin-top: 20px;
+	margin-left: 133px;
+}
+#click-to-enter h1{
+	font-size: 18px;
+	font-weight: 200;
+	margin-top: 50px;
+	text-align: center;
+	margin-bottom: 50px;
+}
+#click-to-enter a{
+	width: 200px;
+	height:35px;
+	background-color:#bf311b;
+	background: -webkit-linear-gradient(#bf311b, #9f2816); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#bf311b, #9f2816); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#bf311b, #9f2816); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(#bf311b, #9f2816); /* Standard syntax */
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	border-radius: 2px; /* future proofing */
+	-khtml-border-radius: 2px; /* for old Konqueror browsers */
+	display: block;
+	font-size: 16px;
+	font-weight: 300;
+	margin-left: 100px;
+	text-align: center;	
+	padding-top: 10px;
+	color: #f2f2f2;
+	text-decoration: none;
+}
+#click-to-enter a:hover{
+	color: white;
+	background: -webkit-linear-gradient(#d13c25, #ad2f1b); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#d13c25, #ad2f1b); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#d13c25, #ad2f1b); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(#d13c25, #ad2f1b); /* Standard syntax */
+}
+#click-to-enter a:active{
+	-moz-box-shadow:    inset 0 0 10px #393939;
+    -webkit-box-shadow: inset 0 0 10px #393939;
+    box-shadow:         inset 0 0 10px #393939;
+    background: -webkit-linear-gradient(#bf311b, #9f2816); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#bf311b, #9f2816); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#bf311b, #9f2816); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(#bf311b, #9f2816); /* Standard syntax */
+}
+
 /****************************************************/
 /* Header */
 /****************************************************/
@@ -112,6 +212,7 @@ body {
 	width: 100%;
 	height:3px;
 	background: #2e2f2f;
+	display: none;
 }
 
 /****************************************************/
@@ -454,6 +555,14 @@ body {
 	margin-left: 5px;
 	margin-top: -3px;
 }
+
+#influencer-list .influencer .message .followed-icon{
+	width: 24px;
+	height:24px;
+	background: url("../img/followed.png");
+	position: relative;
+	float: left;
+}
 #influencer-list .influencer .message p{
 	margin: 0;
 }
@@ -511,6 +620,52 @@ body {
 	margin-top: 9px;
 
 }
+/****************************************************/
+/* New Influencer styling */
+/****************************************************/
+
+#influencer-list .new-fluencer .influencer{
+	background-color:#bf311b;
+	background: -webkit-linear-gradient(#bf311b, #9f2816); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#bf311b, #9f2816); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#bf311b, #9f2816); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(#bf311b, #9f2816); /* Standard syntax */
+	-webkit-transition: background-color 0.3s; /* For Safari 3.1 to 6.0 */
+    transition: background-color 0.3s;
+    -webkit-transition: background 0.3s;
+    transition: background 0.3s;
+}
+#influencer-list .new-fluencer .influencer:hover{ 
+	box-shadow: 0px 0px 6px #999999;
+	background: -webkit-linear-gradient(#d13c25, #ad2f1b); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient(#d13c25, #ad2f1b); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient(#d13c25, #ad2f1b); /* For Firefox 3.6 to 15 */
+	background: linear-gradient(#d13c25, #ad2f1b); /* Standard syntax */
+}
+
+#influencer-list .new-fluencer .influencer .name .user-name,
+#influencer-list .new-fluencer .influencer .name .twitter-name,
+#influencer-list .new-fluencer .influencer .message,
+#influencer-list .new-fluencer .influencer .message .line1,
+#influencer-list .new-fluencer .influencer .message .line1 em,
+#influencer-list .new-fluencer .influencer .message .line2,
+#influencer-list .new-fluencer .influencer .c3 p
+{
+	color:#ffffff;
+}
+#influencer-list .new-fluencer .influencer .message .followed-icon{
+	background: url("../img/followed-white.png");
+}
+#influencer-list .new-fluencer .influencer .c3 .tweets{
+	background: url("../img/tweet-icon-white.png") no-repeat 0px 3px;
+}
+#influencer-list .new-fluencer .influencer .c3 .followers{
+	background: url("../img/followers-icon-white.png") no-repeat 0px 3px;
+}
+#influencer-list .new-fluencer .influencer .c3 .following{
+	background: url("../img/following-icon-white.png") no-repeat 0px 3px;
+}
+
 /****************************************************/
 /* Fancybox content */
 /****************************************************/

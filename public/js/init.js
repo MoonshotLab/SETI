@@ -1,5 +1,43 @@
 $(function() {
 
+	// Variables
+
+
+	var globalAudio = undefined;
+	var wsCounter = 0;
+	var dqCounter = 0;
+	var bbCounter = 0;
+
+
+	// ******************************************************************
+	// Design Functions
+	// ******************************************************************
+
+	// Init settings
+	//preloader settings
+	$("#top-header").hide();
+	$("#main-content").hide();
+
+	//Init width check
+	if($(window).width() < 740){
+		hideMenu();
+		addMenuClickEvents();
+	}
+
+	// Click To Enter
+	$("#preloader").hide();
+	$("#click-to-enter").fadeIn();
+	$("#click-to-enter").click(function(){
+	 	// Play silent audio
+		// globalAudio = document.getElementById("sound").innerHTML='';
+	 	// Hide click To Enter
+	 	$("#click-to-enter").hide();
+	 	// show content
+	 	$("#top-header").fadeIn();
+	 	$("#main-content").fadeIn();
+	 	$("#client-menu").css("height",$(document).height());
+	 });
+
 	// Client list items
 	$("#client-menu #client-list li").hover(function(){
 		if(!$(this).hasClass("active"))
@@ -113,10 +151,7 @@ $(function() {
 			}
 
 		}
-
 	});
-
-
 	$("#influencer-list .influencer .c1 img").onerror = function (evt){
 		console.log("error!");
 	}
@@ -124,146 +159,11 @@ $(function() {
 		console.log("loaded");
 	}
 
-
-	// Reload function
-
-	var socket = io();
-
-      socket.on('follow', function(data){
-      	reloadData(data.target.screen_name);
-      	// console.log(data.target);
-        // console.log(data);
-      });
-
-      socket.on('influencer', function(data){
-
-        reloadData(data.target.screen_name);
-      });
-
-      socket.on('influencer-mention', function(data){
-        // console.log("mention" + data);
-        reloadData(data.mentionee);
-      });
-
-	function reloadData(client){
-		console.log("client: " + client);
-		switch(client)
-		{
-			case "wingstop":
-				playAudio("ws");
-				// Set Reload Time out
-				setRefresh(4,"ws");
-			break;
-			case "DairyQueen":
-				playAudio("dq");
-				setRefresh(10,"dq");
-			break;
-			case "Blue_Bunny":
-				playAudio("bb");
-				setRefresh(8,"bb");
-			break;
-			case "JoeLongstreet":
-				playAudio("bb");
-				// Set Reload Time out
-				setRefresh(8,"bb");
-			break;
-
-		}
-		// Setup Loading Screen
-		$.fancybox({
-			href: '#reloading-animation',
-			maxWidth	: 300,
-			maxHeight	: 200,
-			fitToView	: false,
-			width		: '70%',
-			height		: 'auto',
-			autoSize	: false,
-			closeClick	: false,
-			hideOnOverlayClick : false,
-			showCloseButton : false,
-			helpers : {
-		        overlay : {
-		            css : {
-		                'background' : 'rgba(255, 255, 255, 0.5)'
-		            }
-		        }
-		    }
-		});
-	}
-	function setRefresh(time,client){
-		setTimeout(function() {
-			switch(client){
-		      	case "ws":
-		      		window.location.href = window.location.href.split("?")[0]+ "?client=ws";
-		      	break;
-		      	case "dq":
-		      		window.location.href = window.location.href.split("?")[0]+ "?client=dq";
-		      	break;
-		      	case "bb":
-		      		window.location.href = window.location.href.split("?")[0] + "?client=bb";
-		      	break;
-	      	}
-		  	// location.reload();
-		}, time*1000);
-	}
-
-	//Init width check
-	if($(window).width() < 740){
-		hideMenu();
-		addMenuClickEvents();
-	}
-	//Init var check
-	switch (getUrlVars().client){
-		case "ws":
-			console.log("active client: wingstop ");
-			$("#ws-dot").attr("src","img/list-dot-icon-red.png");
-		break;
-		case "dq":
-			$("#dq-dot").attr("src","img/list-dot-icon-red.png");
-		break;
-		case "bb":
-			$("#bb-dot").attr("src","img/list-dot-icon-red.png");
-		break;
-	}
-
-	function getUrlVars()
-	{
-	    var vars = [], hash;
-	    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-	    for(var i = 0; i < hashes.length; i++)
-	    {
-	        hash = hashes[i].split('=');
-	        vars.push(hash[0]);
-	        vars[hash[0]] = hash[1];
-	    }
-	    return vars;
-	}
-	function playAudio(dataType){
-
-		switch(dataType){
-			case "ws":
-				console.log("play sound ws");
-				filename = "../audio/ws";
-				document.getElementById("sound").innerHTML='<audio autoplay="autoplay"><source src="' + filename + '.mp3" type="audio/mpeg" /><source src="' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="' + filename +'.mp3" /></audio>';
-			break;
-			case "dq":
-				filename = "../audio/dq";
-				document.getElementById("sound").innerHTML='<audio autoplay="autoplay"><source src="' + filename + '.mp3" type="audio/mpeg" /><source src="' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="' + filename +'.mp3" /></audio>';
-			break;
-			case "bb":
-				filename = "../audio/bb";
-				document.getElementById("sound").innerHTML='<audio autoplay="autoplay"><source src="' + filename + '.mp3" type="audio/mpeg" /><source src="' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="' + filename +'.mp3" /></audio>';
-			break;
-
-		}
-	}
-
 	// Reset events
 	var menuActive = false;
 	function removeMenuClickEvents(){
 		if(menuActive)
 		{
-			console.log("Remove menu Clicks");
 			$("#influencer-list-content-holder").unbind("click");
 			$("#top-header").unbind("click");
 			// $("#client-list li").unbind("click");
@@ -303,19 +203,576 @@ $(function() {
 		}
 	}
 
-	// Init settings
-		//preloader settings
-		$("#top-header").hide();
-		$("#main-content").hide();
+	// ******************************************************************
+	// END Design Functions
+	// ******************************************************************
+
+	// ******************************************************************
+	// Data Function
+	// ******************************************************************
+
+	// IO reload function
+	var socket = io();
+
+      socket.on('follow', function(data,isTest){
+      	reloadData(data.target.screen_name,data,"influencer");
+      });
+
+      socket.on('influencer', function(data,isTest){
+
+        reloadData(data.target.screen_name,data,"influencer");
+      });
+
+      socket.on('influencer-mention', function(data){
+        reloadData(data.mentionee,data,"mention");       
+    });
+
+	// Temp Test buttons
+	$(document).keypress(function(e){
+		switch(e.which){
+			case 87:
+				addNewContent("ws");
+			break;
+			case 68:
+				addNewContent("dq");
+			break;
+			case 66:
+				addNewContent("bb");
+			break;
+		}
+	});
+
+	function reloadData(client,data,type){
+		switch(client)
+		{
+			case "wingstop":
+				addInfl("ws",data,type);
+			break;
+			case "DairyQueen":
+				addInfl("dq",data,type);
+			break;
+			case "Blue_Bunny":
+				addInfl("ws",data,type);
+			break;
+			case "JoeLongstreet":
+				addInfl("ws",data,type);
+			break;
+		}
+	}
+
+	function addNewContent(client,inf){
+		var infObj = new Object();
+		switch (client){
+			case "ws":
+				addInfl("ws",infObj,"test");
+			break;
+			case "dq":
+				addInfl("dq",infObj,"test");
+			break;
+			case "bb":
+				addInfl("bb",infObj,"test");
+			break;
+		}
+	}
+	
+	function getCorrectMinutes(min){
+		if(min > 10)
+		{
+			return min;
+		}else{
+			return "0" + min;
+		}
+	}
+	function getCurrentHours(hours){
+		if (hours > 12) {
+		    hours -= 12;
+		} else if (hours === 0) {
+		   hours = 12;
+		}
+		return hours;
+	}
+
+	function addInfl(client,data,type){
+		// Date
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0!
+		var yyyy = today.getFullYear();
+		var time = new Date();
+		var currentTime = getCorrectHours(time.getHours())  + ":" + getCorrectMinutes(time.getMinutes());
+
+		if(type == "test")
+		{
+			data.source = new Object();
+			data.source.profile_image_url = "../img/default.jpg";
+			var first = chance.first();
+			var last = chance.last();
+			data.source.name = first + " " + last;
+			data.source.screen_name = first+last+Math.floor((Math.random() * 100) + 1);
+			data.source.statuses_count = Math.floor((Math.random() * 4000) + 400);
+			data.source.followers_count = Math.floor((Math.random() * 1000000) + 50000);
+			data.source.friends_count = Math.floor((Math.random() * 25000) + 1);
+		}
+
+		if(type == "test" || type == "influencer")
+		{
+			switch(client)
+			{
+				case "ws":
+					$( ".influencer-holder-ws" ).first().before("<div id='influencer-holder' class='influencer-holder-ws'>\
+						<div class='influencer'>\
+			                <div class='c1'>\
+			                  <img src='" + data.source.profile_image_url +"' alt='Profile Picture'>\
+			                </div>\
+			                <div class='c1-sep'></div>\
+			                <div class='c2'>\
+			                  <div class='name'>\
+			                    <div class='user-name'>" + data.source.name + "</div>\
+			                    <div class='name-sep'></div>\
+			                    <div class='twitter-name'>" + data.source.screen_name + "</div>\
+			                  </div>\
+			                  <div class='message'>\
+			                   <div class='followed-icon'></div>\
+			                    <div class='text'>\
+			                      <div class='line1'><p> <em>Followed:</em></p></div>\
+			                      <div class='line2'><p>" + getMonth(mm) + " " + dd + ", " + yyyy +  "<b> @ " + currentTime +  "</b></p></div>\
+			                    </div>\
+			                  </div>\
+			                </div>\
+			                <div class='hor-inf-sep-line'></div>\
+			                <div class='c3'>\
+			                  <div class='c3-sep'></div>\
+			                  <div class='stats'>\
+			                    <div class='tweets stat'>\
+			                      <p>"+data.source.statuses_count+"</p>\
+			                    </div>\
+			                    <div class='followers stat'>\
+			                       <p>"+data.source.followers_count+"</p>\
+			                    </div>\
+			                    <div class='following stat'>\
+			                       <p>"+data.source.friends_count+"</p>\
+			                    </div>\
+			                  </div>\
+			                </div>\
+			              </div>\
+			            </div>\
+					");
+					// fade in
+					wsCounter += 1;
+					$( ".influencer-holder-ws" ).first().hide();
+					$( ".influencer-holder-ws" ).first().fadeIn();
+					$( ".influencer-holder-ws" ).first().addTemporaryClass("new-fluencer", 10000);
+					$( ".influencer-holder-ws" ).first().click(function(){
+						setInfLinkNewInf(data.source.screen_name);
+					});
+					// Play Audio
+					playAudio("ws");
+					$("#ws-menu-click").trigger("click");
+				break;
+				case "dq":
+					$( ".influencer-holder-dq" ).first().before("<div id='influencer-holder' class='influencer-holder-dq'>\
+						<div class='influencer'>\
+			                <div class='c1'>\
+			                  <img src='" + data.source.profile_image_url +"' alt='Profile Picture'>\
+			                </div>\
+			                <div class='c1-sep'></div>\
+			                <div class='c2'>\
+			                  <div class='name'>\
+			                    <div class='user-name'>" + data.source.name +"</div>\
+			                    <div class='name-sep'></div>\
+			                    <div class='twitter-name'>"+ data.source.screen_name + "</div>\
+			                  </div>\
+			                  <div class='message'>\
+			                    <div class='followed-icon'></div>\
+			                    <div class='text'>\
+			                      <div class='line1'><p> <em>Followed:</em></p></div>\
+			                       <div class='line2'><p>" + getMonth(mm) + " " + dd + ", " + yyyy +  "<b> @ " + currentTime + "</p></div>\
+			                    </div>\
+			                  </div>\
+			                </div>\
+			                <div class='hor-inf-sep-line'></div>\
+			                <div class='c3'>\
+			                  <div class='c3-sep'></div>\
+			                  <div class='stats'>\
+			                    <div class='tweets stat'>\
+			                      <p>"+data.source.statuses_count+"</p>\
+			                    </div>\
+			                    <div class='followers stat'>\
+			                       <p>"+data.source.followers_count+"</p>\
+			                    </div>\
+			                    <div class='following stat'>\
+			                       <p>"+data.source.friends_count+"</p>\
+			                    </div>\
+			                  </div>\
+			                </div>\
+			              </div>\
+			            </div>\
+					");
+					// fade in
+					dqCounter += 1;
+					$( ".influencer-holder-dq" ).first().hide();
+					$( ".influencer-holder-dq" ).first().fadeIn();
+					$( ".influencer-holder-dq" ).first().addTemporaryClass("new-fluencer", 10000);
+					$( ".influencer-holder-dq" ).first().click(function(){
+						setInfLinkNewInf(data.source.screen_name);
+					});
+					// Play Audio
+					playAudio("dq");
+					$("#dq-menu-click").trigger("click");
+				break;
+				case "bb":
+					$( ".influencer-holder-bb" ).first().before("<div id='influencer-holder' class='influencer-holder-bb'>\
+						<div class='influencer'>\
+			                <div class='c1'>\
+			                  <img src='" + data.source.profile_image_url +"' alt='Profile Picture'>\
+			                </div>\
+			                <div class='c1-sep'></div>\
+			                <div class='c2'>\
+			                  <div class='name'>\
+			                    <div class='user-name'>"+ data.source.name +"</div>\
+			                    <div class='name-sep'></div>\
+			                    <div class='twitter-name'>"+ data.source.screen_name + "</div>\
+			                  </div>\
+			                  <div class='message'>\
+			                    <div class='followed-icon'></div>\
+			                    <div class='text'>\
+			                      <div class='line1'><p> <em>Followed:</em></p></div>\
+			                       <div class='line2'><p>" + getMonth(mm) + " " + dd + ", " + yyyy +  "<b> @ " + currentTime + "</p></div>\
+			                    </div>\
+			                  </div>\
+			                </div>\
+			                <div class='hor-inf-sep-line'></div>\
+			                <div class='c3'>\
+			                  <div class='c3-sep'></div>\
+			                  <div class='stats'>\
+			                     <div class='tweets stat'>\
+			                      <p>"+data.source.statuses_count+"</p>\
+			                    </div>\
+			                    <div class='followers stat'>\
+			                       <p>"+data.source.followers_count+"</p>\
+			                    </div>\
+			                    <div class='following stat'>\
+			                       <p>"+data.source.friends_count+"</p>\
+			                    </div>\
+			                  </div>\
+			                </div>\
+			              </div>\
+			            </div>\
+					");
+					// fade in
+					bbCounter += 1;
+					$( ".influencer-holder-bb" ).first().hide();
+					$( ".influencer-holder-bb" ).first().fadeIn();
+					$( ".influencer-holder-bb" ).first().addTemporaryClass("new-fluencer", 10000);
+					$( ".influencer-holder-bb" ).first().click(function(){
+						setInfLinkNewInf(data.source.screen_name);
+					});
+					// Play Audio
+					playAudio("bb");
+					$("#bb-menu-click").trigger("click");
+				break;
+			}
+		}
+		else{
+			switch(client)
+			{
+				case "ws":
+					$( ".mention-holder-ws").first().before("<div id='influencer-holder' class='mention-holder-ws'>\
+						<div class='influencer'>\
+			                <div class='c1'>\
+			                  <img src='" + data.user.profile_image_url +"' alt='Profile Picture'>\
+			                </div>\
+			                <div class='c1-sep'></div>\
+			                <div class='c2'>\
+			                  <div class='name'>\
+			                    <div class='user-name'>" + data.user.name + "</div>\
+			                    <div class='name-sep'></div>\
+			                    <div class='twitter-name'>" + data.user.screen_name + "</div>\
+			                  </div>\
+			                  <div class='message'>\
+			                   <div class='followed-icon'></div>\
+			                    <div class='text'>\
+			                      <div class='line1'><p> <em>Followed:</em></p></div>\
+			                      <div class='line2'><p>" + getMonth(mm) + " " + dd + ", " + yyyy +  "<b> @ " + currentTime +  "</b></p></div>\
+			                    </div>\
+			                  </div>\
+			                </div>\
+			                <div class='hor-inf-sep-line'></div>\
+			                <div class='c3'>\
+			                  <div class='c3-sep'></div>\
+			                  <div class='stats'>\
+			                    <div class='tweets stat'>\
+			                      <p>"+data.user.statuses_count+"</p>\
+			                    </div>\
+			                    <div class='followers stat'>\
+			                       <p>"+data.user.followers_count+"</p>\
+			                    </div>\
+			                    <div class='following stat'>\
+			                       <p>"+data.user.friends_count+"</p>\
+			                    </div>\
+			                  </div>\
+			                </div>\
+			              </div>\
+			            </div>\
+					");
+					// fade in
+					wsCounter += 1;
+					$( ".mention-holder-ws" ).first().hide();
+					$( ".mention-holder-ws" ).first().fadeIn();
+					$( ".mention-holder-ws" ).first().addTemporaryClass("new-fluencer", 10000);
+					// Set Click
+					$( ".mention-holder-ws" ).first().click(function(){
+						setInfLinkNewInf(data.user.screen_name,data.text);
+					});
+				break;
+				case "dq":
+					$( ".mention-holder-dq" ).first().before("<div id='influencer-holder' class='mention-holder-dq'>\
+						<div class='influencer'>\
+			                <div class='c1'>\
+			                  <img src='" + data.user.profile_image_url +"' alt='Profile Picture'>\
+			                </div>\
+			                <div class='c1-sep'></div>\
+			                <div class='c2'>\
+			                  <div class='name'>\
+			                    <div class='user-name'>" + data.user.name +"</div>\
+			                    <div class='name-sep'></div>\
+			                    <div class='twitter-name'>"+ data.user.screen_name + "</div>\
+			                  </div>\
+			                  <div class='message'>\
+			                    <div class='followed-icon'></div>\
+			                    <div class='text'>\
+			                      <div class='line1'><p> <em>Followed:</em></p></div>\
+			                       <div class='line2'><p>" + getMonth(mm) + " " + dd + ", " + yyyy +  "<b> @ " + currentTime + "</p></div>\
+			                    </div>\
+			                  </div>\
+			                </div>\
+			                <div class='hor-inf-sep-line'></div>\
+			                <div class='c3'>\
+			                  <div class='c3-sep'></div>\
+			                  <div class='stats'>\
+			                    <div class='tweets stat'>\
+			                      <p>"+data.user.statuses_count+"</p>\
+			                    </div>\
+			                    <div class='followers stat'>\
+			                       <p>"+data.user.followers_count+"</p>\
+			                    </div>\
+			                    <div class='following stat'>\
+			                       <p>"+data.user.friends_count+"</p>\
+			                    </div>\
+			                  </div>\
+			                </div>\
+			              </div>\
+			            </div>\
+					");
+					// fade in
+					dqCounter += 1;
+					$( ".mention-holder-dq" ).first().hide();
+					$( ".mention-holder-dq" ).first().fadeIn();
+					$( ".mention-holder-dq" ).first().addTemporaryClass("new-fluencer", 10000);
+					// Set Click
+					$( ".mention-holder-dq" ).first().click(function(){
+						setInfLinkNewInf(data.user.screen_name,data.text);
+					});
+				break;
+				case "bb":
+					$( ".mention-holder-bb" ).first().before("<div id='influencer-holder' class='mention-holder-bb'>\
+						<div class='influencer'>\
+			                <div class='c1'>\
+			                  <img src='" + data.user.profile_image_url +"' alt='Profile Picture'>\
+			                </div>\
+			                <div class='c1-sep'></div>\
+			                <div class='c2'>\
+			                  <div class='name'>\
+			                    <div class='user-name'>"+ data.user.name +"</div>\
+			                    <div class='name-sep'></div>\
+			                    <div class='twitter-name'>"+ data.user.screen_name + "</div>\
+			                  </div>\
+			                  <div class='message'>\
+			                    <div class='followed-icon'></div>\
+			                    <div class='text'>\
+			                      <div class='line1'><p> <em>Followed:</em></p></div>\
+			                       <div class='line2'><p>" + getMonth(mm) + " " + dd + ", " + yyyy +  "<b> @ " + currentTime + "</p></div>\
+			                    </div>\
+			                  </div>\
+			                </div>\
+			                <div class='hor-inf-sep-line'></div>\
+			                <div class='c3'>\
+			                  <div class='c3-sep'></div>\
+			                  <div class='stats'>\
+			                     <div class='tweets stat'>\
+			                      <p>"+data.user.statuses_count+"</p>\
+			                    </div>\
+			                    <div class='followers stat'>\
+			                       <p>"+data.user.followers_count+"</p>\
+			                    </div>\
+			                    <div class='following stat'>\
+			                       <p>"+data.user.friends_count+"</p>\
+			                    </div>\
+			                  </div>\
+			                </div>\
+			              </div>\
+			            </div>\
+					");
+					// fade in
+					bbCounter += 1;
+					$( ".mention-holder-bb" ).first().hide();
+					$( ".mention-holder-bb" ).first().fadeIn();
+					$( ".mention-holder-bb" ).first().addTemporaryClass("new-fluencer", 10000);
+					// Set Click
+					$( ".mention-holder-bb" ).first().click(function(){
+						setInfLinkNewInf(data.user.screen_name,data.text);
+					});
+				break;
+			}
+		}
+	}
+	function getMonth(m){
+		switch (m){
+			case 1:
+				return "Jan";
+			break;
+			case 2:
+				return "Feb";
+			break;
+			case 3:
+				return "Mar";
+			break;
+			case 4:
+				return "Apr";
+			break;
+			case 5:
+				return "May";
+			break;
+			case 6:
+				return "Jun";
+			break;
+			case 7:
+				return "Jul";
+			break;
+			case 8:
+				return "Aug";
+			break;
+			case 9:
+				return "Sep";
+			break;
+			case 10:
+				return "Oct";
+			break;
+			case 11:
+				return "Nov";
+			break;
+			case 12:
+				return "Dec";
+			break;
+		}
+	}
+	
+	setInfLinkNewInf = function(url,message){
+
+			$("#inf-click-content a").attr("href", "http://www.twitter.com/" + url);
+			// Mention Message
+			if(message)
+			{
+				$("#inf-click-content #message").show();
+				$("#inf-click-content #message p").text(message);
+			}else{
+				$("#inf-click-content #message").hide();
+			}
+			 // ToDo: Setup this fancy box by default and then show/hide
+			 // 2. If its a mention, and content in function variable and show data else no message
+
+				$.fancybox({
+					href: '#inf-click-content',
+					maxWidth	: 800,
+					maxHeight	: 600,
+					fitToView	: false,
+					width		: '70%',
+					height		: 'auto',
+					autoSize	: false,
+					closeClick	: false,
+					helpers : {
+				        overlay : {
+				            css : {
+				                'background' : 'rgba(00, 00, 00, 0.8)'
+				            }
+				        }
+				    }
+				});
+			return false;
+		}
+
+
+	// ******************************************************************
+	// END Data Function
+	// ******************************************************************
+
+	// ******************************************************************
+	// Audio Function
+	// ******************************************************************
+	
+	function playAudio(dataType){
+		switch(dataType){
+			case "ws":
+				// filename = "../audio/ws";
+				// document.getElementById("sound").innerHTML='<audio autoplay="autoplay"><source src="' + filename + '.mp3" type="audio/mpeg" /><source src="' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="' + filename +'.mp3" /></audio>';
+				// $("#globalAudio").trigger('play');
+
+				var audio = $("#globalAudio");      
+			    $("#mp3_src").attr("src", "../../audio/ws.mp3");
+			    $("#ogg_src").attr("src", "../../audio/ws.ogg");
+			    /****************/
+			    audio[0].pause();
+			    audio[0].load();//suspends and restores all audio element
+			    audio[0].play();
+			    /****************/
+				
+			break;
+			case "dq":
+				// filename = "../audio/dq";
+				var audio = $("#globalAudio");      
+			    $("#mp3_src").attr("src", "../../audio/dq.mp3");
+			    $("#ogg_src").attr("src", "../../audio/dq.ogg");
+			    /****************/
+			    audio[0].pause();
+			    audio[0].load();//suspends and restores all audio element
+			    audio[0].play();
+			    /****************/
+
+				// $("#globalAudio").trigger('play');
+			break;
+			case "bb":
+				// filename = "../audio/bb";
+				// document.getElementById("sound").innerHTML='<audio autoplay="autoplay"><source src="' + filename + '.mp3" type="audio/mpeg" /><source src="' + filename + '.ogg" type="audio/ogg" /><embed hidden="true" autostart="true" loop="false" src="' + filename +'.mp3" /></audio>';
+				// $("#globalAudio").trigger('play');
+				var audio = $("#globalAudio");      
+			    $("#mp3_src").attr("src", "../../audio/bb.mp3");
+			    $("#ogg_src").attr("src", "../../audio/bb.ogg");
+			    /****************/
+			    audio[0].pause();
+			    audio[0].load();//suspends and restores all audio element
+			    audio[0].play();
+			    /****************/
+			break;
+		}
+	}
+
+	// ******************************************************************
+	// END Audio Function
+	// ******************************************************************
+	
 });
 
+
+// ******************************************************************
+// Angular Functions
+// ******************************************************************
 
 (function() {
 
 var activeContent = 0;
 
 	// Angular setup
-	var app = angular.module("SETI",[]);
+	var app = angular.module("SETI", []);
 	// Vars
 	var clientData;
 
@@ -352,6 +809,10 @@ var activeContent = 0;
 		var bbMentionCount = 0;
 		var bbList = Array();
 		var bbMentionList = Array();
+
+		// ******************************************************
+		// Loading Data
+		// ******************************************************
 
 		// Wingstop
 		$http.get('/wingstop/influencers').success(function(data) {
@@ -416,16 +877,30 @@ var activeContent = 0;
 		    };
 		    checkLoaded();
 		});
+		var loadCount = 0;
+
+		// ******************************************************
+		// Loaded functions
+		// ******************************************************
 
 		checkLoaded = function(){
+			// show loading bar
+			if(!wingstopInfluencers || !wingstopMentions || !dqInfluencers || !dqMentions || !bbInfluencers || !bbMentions)
+			{
+				$("#loading-bar").fadeIn();
+			}
 			if(wingstopInfluencers && wingstopMentions && dqInfluencers && dqMentions && bbInfluencers && bbMentions)
 			{
-				 $("#preloader").hide();
-				 $("#top-header").fadeIn();
-				 $("#main-content").fadeIn();
-
-				 $("#client-menu").css("height",$(document).height());
+				// Loading Done: delete loading bar
+				$("#loading-bar").fadeOut();
+				$("#full-width-bar").fadeIn();
 			}
+
+			// loading bar
+			loadCount+=1;
+			$("#loading-bar").animate({
+				width: loadCount * (100/6) + "%"
+			},1000);
 		};
 
 		checkReLoaded = function(){
@@ -527,104 +1002,10 @@ var activeContent = 0;
 		// ******************************************************
 
 		// Influencers
-		$scope.pagerFunctionC1 = function(){
-			if(wingstopInfluencers)
-			{
-				// Switch active content
-				contentData = wingstopInfluencers;
-				contentList = wingstopList;
-
-				var lastCount = contentList.length-1;
-				if((lastCount) + 20 < contentData.length)
-				{
-					for(var i = 1; i <= 19; i++) {
-				      contentList.push(contentData[lastCount + i]);
-				    };
-				}else{
-					var lastContent = contentData.length-lastCount;
-					for(var i = 1; i <= lastContent-1; i++) {
-				      contentList.push(contentData[lastCount + i]);
-				    };
-				}
-
-			}
-
-		};
-		$scope.pagerFunctionC2 = function(){
-			if (dqInfluencers)
-			{
-				// Switch active content
-				contentData = dqInfluencers;
-				contentList = dqList;
-
-				var lastCount = contentList.length-1;
-				if((lastCount + 20) < contentData.length)
-				{
-					for(var i = 1; i <= 19; i++) {
-				      contentList.push(contentData[lastCount + i]);
-				    };
-				}else{
-					var lastContent = contentData.length-lastCount;
-					for(var i = 1; i <= lastContent-1; i++) {
-				      contentList.push(contentData[lastCount + i]);
-				    };
-				}
-			}
-
-		};
-		$scope.pagerFunctionC3 = function(){
-			if (bbInfluencers)
-			{
-				// Switch active content
-				contentData = bbInfluencers;
-				contentList = bbList;
-
-				var lastCount = contentList.length-1;
-				if((lastCount) + 20 < contentData.length)
-				{
-					for(var i = 1; i <= 19; i++) {
-				      contentList.push(contentData[lastCount + i]);
-				    };
-				}else{
-					var lastContent = contentData.length-lastCount;
-					for(var i = 1; i <= lastContent-1; i++) {
-				      contentList.push(contentData[lastCount + i]);
-				    };
-				}
-			}
-		};
-		$scope.mentionPagerFunction = function(client){
-			switch (client)
-			{
-				case "ws" :
-					// Switch active content
-					contentDataMentions = wingstopMentions;
-					contentListMentions = wingstopMentionList;
-				break;
-				case "dq":
-
-				break;
-				case "bb":
-
-				break;
-			}
-			var lastCountMention = contentListMentions.length-1;
-			console.log("last count: " + lastCountMention + " - " + contentListMentions.length);
-			if((lastCountMention) + 20 < contentDataMentions.length)
-			{
-				for(var i = 1; i <= 19; i++) {
-			      contentListMentions.push(contentDataMentions[lastCountMention + i]);
-			    };
-			}else{
-				var lastContentMention = contentDataMentions.length-lastCountMention;
-				for(var i = 1; i <= lastContentMention-1; i++) {
-			      contentListMentions.push(contentDataMentions[lastCountMention + i]);
-			    };
-			}
-		}
+		
 		this.dataLoaded = 1;
 		this.setInfLink = function(url,message){
-
+			console.log("set inf link - " + this);
 			infURL = url;
 
 			$("#inf-click-content a").attr("href", "http://www.twitter.com/" + infURL);
@@ -638,9 +1019,6 @@ var activeContent = 0;
 			}else{
 				$("#inf-click-content #message").hide();
 			}
-			 // ToDo: Setup this fancy box by default and then show/hide
-			 // 2. If its a mention, and content in function variable and show data else no message
-
 				$.fancybox({
 					href: '#inf-click-content',
 					maxWidth	: 800,
@@ -658,9 +1036,6 @@ var activeContent = 0;
 				        }
 				    }
 				});
-
-
-
 			return false;
 		}
 	});
@@ -678,7 +1053,9 @@ var activeContent = 0;
 	});
 
 
-	// Menu
+	// ******************************************************
+	// Menu Functions
+	// ******************************************************
 	app.controller("MenuController",function(){
 
 		// ******************************************************
@@ -731,3 +1108,22 @@ var formatRFC339asHumanReadable = function(rfc){
 		dateObject.getFullYear()
 	].join('');
 };
+
+// Reusable Jquery times function for temporary class
+(function($){
+
+    $.fn.extend({ 
+
+        addTemporaryClass: function(className, duration) {
+            var elements = this;
+            setTimeout(function() {
+                elements.removeClass(className);
+            }, duration);
+
+            return this.each(function() {
+                $(this).addClass(className);
+            });
+        }
+    });
+
+})(jQuery);

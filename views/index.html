@@ -3,7 +3,7 @@
   <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <title>Project SETI</title>
+    <title>Barkley | Project SETI</title>
 
     <% try{ %>
       <%- LRScript %>
@@ -22,9 +22,11 @@
     <link rel="stylesheet" href="/css/mobile.css" />
 
     <script src='/socket.io/socket.io.js'></script>
+
     <!-- JS -->
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js"></script>
+    <script type="text/javascript" src="js/chance.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <!-- Fancy box -->
     <script type="text/javascript" src="/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
@@ -40,8 +42,19 @@
   </head>
 
   <body ng-controller="DataController as data">
+  <!-- Loading bar -->
+  <div id="loading-bar"></div>
     <div id="preloader">
       <img src="img/loading.gif" alt="Preloader Animation">
+    </div>
+
+    <!-- Click to enter -->
+    <div id="click-to-enter">
+      <div id="bar"></div>
+      <img id="enter-rocket" src="img/logo.png" alt="Project SETI Logo">
+      <img id="enter-logo" src="img/text-logo.png">
+      <h1> Project SETI is ready for launch</h1>
+      <a href="#" id="enter-button" onclick='document.getElementById("globalAudio").play();'><span>Launch</span></a>
     </div>
   <!-- Header -->
     <div id="top-header">
@@ -76,7 +89,13 @@
     </div>
 
     <!-- Sound -->
-    <div id="sound"></div>
+    <div id="sound">
+      <audio id="globalAudio">
+        <source id="mp3_src" src="../audio/launch.mp3" type="audio/mpeg" />
+        <source id="ogg_src" src="../audio/launch.ogg" type="audio/ogg" />
+        <embed hidden="true" autostart="true" loop="false" src="../audio/ws.mp3" />
+      </audio>
+      </div>
 
     <!-- Project Seti Lightbox Content -->
 
@@ -125,7 +144,7 @@
           </li>
           <!-- <div class="hor-sep-line"></div> -->
 
-           <li ng-click="menuData.activeMenu(2)" ng-class="{ active: menuData.getActiveMenu(2)}">
+           <li id="ws-menu-click" ng-click="menuData.activeMenu(2)" ng-class="{ active: menuData.getActiveMenu(2)}">
             <img class="highlight" src="img/client-list-highlight.png" alt="Highlight for menu">
            <div class="button-holder">
               <img src="img/list-dot-icon.png" id="ws-dot" alt="List Dot Icon">
@@ -151,7 +170,7 @@
           </li>
           <div class="hor-sep-line"></div>
 
-           <li ng-click="menuData.activeMenu(3)" ng-class="{ active: menuData.getActiveMenu(3)}">
+           <li id="dq-menu-click" ng-click="menuData.activeMenu(3)" ng-class="{ active: menuData.getActiveMenu(3)}">
            <img class="highlight" src="img/client-list-highlight.png" alt="Highlight for menu">
              <div class="button-holder">
               <img src="img/list-dot-icon.png" id="dq-dot" alt="List Dot Icon">
@@ -177,7 +196,7 @@
           </li>
 
           <div class="hor-sep-line"></div>
-           <li ng-click="menuData.activeMenu(4)" ng-class="{ active: menuData.getActiveMenu(4)}">
+           <li id="bb-menu-click" ng-click="menuData.activeMenu(4)" ng-class="{ active: menuData.getActiveMenu(4)}">
            <img class="highlight" src="img/client-list-highlight.png" alt="Highlight for menu">
              <div class="button-holder">
               <img src="img/list-dot-icon.png" id="bb-dot" alt="List Dot Icon">
@@ -231,7 +250,7 @@
           <div class="followings" ng-show="menuData.contentType === 1">
             <!-- Multiply Influencer -->
             <!-- Div around it for repeat -->
-            <div id="influencer-holder" ng-repeat="influencer in data.getInfluencerData('ws')">
+            <div id="influencer-holder" class="influencer-holder-ws" ng-repeat="influencer in data.getInfluencerData('ws')">
               <div class="influencer" ng-click="data.setInfLink(influencer.screen_name)">
                 <div class="c1">
                   <img ng-src="{{influencer.profile_image_url}}" err-src="img/default.jpg" alt="Profile Picture">
@@ -244,7 +263,8 @@
                     <div class="twitter-name">@{{influencer.screen_name}}</div>
                   </div>
                   <div class="message">
-                    <img src="img/followed.png" alt="Followed Icon">
+                    <!-- <img src="img/followed.png" alt="Followed Icon"> -->
+                    <div class="followed-icon"></div>
                     <div class="text">
                       <div class="line1"><p> <em>Followed:</em></p></div>
                       <div class="line2"><p>{{influencer.followed_date | date : format : timezone}}</p></div>
@@ -273,7 +293,7 @@
           </div>
             <div class="mentions" ng-show="menuData.contentType === 2">
               <!-- Multiply Mentions -->
-            <div id="influencer-holder" ng-repeat="mention in data.getMentionData('ws')">
+            <div id="influencer-holder" class="mention-holder-ws" ng-repeat="mention in data.getMentionData('ws')">
               <div class="influencer" ng-click="data.setInfLink(mention.user.screen_name,mention.text)">
                 <div class="c1">
                   <img ng-src="{{mention.user.profile_image_url}}" err-src="img/default.jpg" alt="Profile Picture">
@@ -281,12 +301,13 @@
                 <div class="c1-sep"></div>
                 <div class="c2">
                   <div class="name">
-                    <div class="user-name">{{mention.user.screen_name}}</div>
+                    <div class="user-name">{{mention.user.name}}</div>
                     <div class="name-sep"></div>
                     <div class="twitter-name">@{{mention.user.screen_name}}</div>
                   </div>
                   <div class="message">
-                    <img src="img/mention.png" alt="Followed Icon">
+                    <!-- <img src="img/mention.png" alt="Followed Icon"> -->
+                    <div class="followed-icon"></div>
                     <div class="text">
                       <div class="line1"><p> <em>Mentioned:</em></p></div>
                       <div class="line2"><p>{{mention.formattedDate}}</p></div>
@@ -321,7 +342,7 @@
           <div id="feed" ng-show="menuData.menuItem === 3">
           <div class="followings" ng-show="menuData.contentType === 1">
             <!-- Multiply Influencer -->
-            <div id="influencer-holder" ng-repeat="influencer in data.getInfluencerData('dq')">
+            <div id="influencer-holder" class="influencer-holder-dq" ng-repeat="influencer in data.getInfluencerData('dq')">
 
               <div class="influencer" ng-click="data.setInfLink(influencer.screen_name)">
                 <div class="c1">
@@ -335,7 +356,8 @@
                     <div class="twitter-name">@{{influencer.screen_name}}</div>
                   </div>
                   <div class="message">
-                    <img src="img/followed.png" alt="Followed Icon">
+                    <!-- <img src="img/followed.png" alt="Followed Icon"> -->
+                    <div class="followed-icon"></div>
                     <div class="text">
                       <div class="line1"><p> <em>Followed:</em></p></div>
                       <div class="line2"><p>{{influencer.followed_date | date : format : timezone}}</p></div>
@@ -364,7 +386,7 @@
             </div>
             <div class="mentions" ng-show="menuData.contentType === 2">
               <!-- Multiply Mentions -->
-            <div id="influencer-holder" ng-repeat="mention in data.getMentionData('dq')">
+            <div id="influencer-holder" class="mention-holder-dq" ng-repeat="mention in data.getMentionData('dq')">
               <div class="influencer" ng-click="data.setInfLink(mention.user.screen_name,mention.text)">
                 <div class="c1">
                   <img ng-src="{{mention.user.profile_image_url}}" err-src="img/default.jpg" alt="Profile Picture">
@@ -372,12 +394,13 @@
                 <div class="c1-sep"></div>
                 <div class="c2">
                   <div class="name">
-                    <div class="user-name">{{mention.user.screen_name}}</div>
+                    <div class="user-name">{{mention.user.name}}</div>
                     <div class="name-sep"></div>
                     <div class="twitter-name">@{{mention.user.screen_name}}</div>
                   </div>
                   <div class="message">
-                    <img src="img/mention.png" alt="Followed Icon">
+                    <!-- <img src="img/mention.png" alt="Followed Icon"> -->
+                    <div class="followed-icon"></div>
                     <div class="text">
                       <div class="line1"><p> <em>Mentioned:</em></p></div>
                       <div class="line2"><p>{{mention.formattedDate}}</p></div>
@@ -412,7 +435,7 @@
           <div id="feed" ng-show="menuData.menuItem === 4">
           <div class="followings" ng-show="menuData.contentType === 1">
             <!-- Multiply Influencer -->
-             <div id="influencer-holder" ng-repeat="influencer in data.getInfluencerData('bb')">
+             <div id="influencer-holder" class="influencer-holder-bb" ng-repeat="influencer in data.getInfluencerData('bb')">
               <div class="influencer" ng-click="data.setInfLink(influencer.screen_name)">
                 <div class="c1">
                   <img ng-src="{{influencer.profile_image_url}}" err-src="img/default.jpg" alt="Profile Picture">
@@ -425,7 +448,8 @@
                     <div class="twitter-name">@{{influencer.screen_name}}</div>
                   </div>
                   <div class="message">
-                    <img src="img/followed.png" alt="Followed Icon">
+                    <!-- <img src="img/followed.png" alt="Followed Icon"> -->
+                    <div class="followed-icon"></div>
                     <div class="text">
                       <div class="line1"><p> <em>Followed:</em></p></div>
                       <div class="line2"><p>{{influencer.followed_date | date : format : timezone}}</p></div>
@@ -455,7 +479,7 @@
             <div class="mentions" ng-show="menuData.contentType === 2">
               <!-- Multiply Mentions -->
 
-              <div id="influencer-holder" ng-repeat="mention in data.getMentionData('bb')">
+              <div id="influencer-holder" class="mention-holder-bb" ng-repeat="mention in data.getMentionData('bb')">
                 <div class="influencer" ng-click="data.setInfLink(mention.user.screen_name,mention.text)">
                   <div class="c1">
                     <img ng-src="{{mention.user.profile_image_url}}" err-src="img/default.jpg" alt="Profile Picture">
@@ -463,12 +487,13 @@
                   <div class="c1-sep"></div>
                   <div class="c2">
                     <div class="name">
-                      <div class="user-name">{{mention.user.screen_name}}</div>
+                      <div class="user-name">{{mention.user.name}}</div>
                       <div class="name-sep"></div>
                       <div class="twitter-name">@{{mention.user.screen_name}}</div>
                     </div>
                     <div class="message">
-                      <img src="img/mention.png" alt="Followed Icon">
+                      <!-- <img src="img/mention.png" alt="Followed Icon"> -->
+                      <div class="followed-icon"></div>
                       <div class="text">
                         <div class="line1"><p> <em>Mentioned:</em></p></div>
                         <div class="line2"><p>{{mention.formattedDate}}</p></div>
