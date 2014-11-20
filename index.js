@@ -48,6 +48,8 @@ var core = new sparkclient.Core({
 });
 
 core.on('button-press', function(e){
+  console.log('detected button press', e.data);
+
   spark.notify({
     eventType: 'influencer',
     influencer: 'someone',
