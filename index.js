@@ -56,7 +56,7 @@ core.on('button-press', function(e){
     client: 'someone'
   });
 
-  io.emit('influencer', { target : { screen_name : e.data }});
+  io.emit('influencer', { isTest : true });
 });
 
 app.use(express.static(__dirname + '/public'));
