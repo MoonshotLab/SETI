@@ -47,6 +47,10 @@ var core = new sparkclient.Core({
   id          : config.SPARK_CORE_ID
 });
 
+core.on('error', function(err){
+  console.log(err);
+});
+
 core.on('button-press', function(e){
   console.log('detected button press', e.data);
 
